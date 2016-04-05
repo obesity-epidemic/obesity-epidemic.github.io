@@ -1,0 +1,2 @@
+bmi-data-us.csv		http://apps.who.int/bmi/index.jsp
+calories-burned		http://www.nutristrategy.com/caloriesburned.htm
