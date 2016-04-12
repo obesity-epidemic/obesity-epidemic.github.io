@@ -211,8 +211,11 @@
 				<div class="placeholder" style="height:600px;">
 					Calculator
 
-					<div id="heightSlider"></div>
-					<div class="calculator-weight-label"><span id="weight-label">0</span>lbs</div>
+					<div id="heightSlider" style='position:absolute; top:10px; left:20px;'></div>
+
+					<div id="weightSlider" style='position:absolute; bottom:10px; left:80px;'></div>
+					<div class="calculator-weight-label" style='position:absolute; bottom:45px; left:580px;'><span id="weight-label">0</span>lbs</div>
+					<div class="calculator-height-label"><span id="height-label-feet">0</span>' <span id="height-label-inches">0</span>"</div>
 				</div>
 			</div>
 		</div>
@@ -307,5 +310,6 @@
 
 	<!-- Visualizations -->
 	<script src="js/main.js"></script>
+	<script src="js/calculator.js"></script>
 </body>
 </html>
