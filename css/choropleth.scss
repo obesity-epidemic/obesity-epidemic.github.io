@@ -1,0 +1,188 @@
+.choropleth-chart {
+  .water {
+    fill: #eef;
+  }
+
+  .state {
+    stroke: $white;
+
+    &.no-data {
+      fill: black;
+    }
+  }
+}
+
+.timeline-chart {
+  .play,
+  .pause {
+    cursor: pointer;
+  }
+
+  .play {
+    fill: #3a6;
+  }
+
+  .pause {
+    fill: #08c;
+  }
+
+  .indicator {
+    fill: #000;
+    fill-opacity: 0.5;
+    cursor: ew-resize;
+  }
+
+  .marker {
+    cursor: pointer;
+    shape-rendering: crispEdges;
+    fill: #666;
+    stroke: #000;
+
+    &.dim {
+      //fill: transparent;
+      fill-opacity: 0.5;
+      stroke: #666;
+      stroke-dasharray: 1 3;
+    }
+
+    &:hover {
+      //fill: #666;
+      opacity: 0.5 !important;
+    }
+  }
+
+  .extent {
+    fill: #000;
+    fill-opacity: 0.05;
+    //stroke: #000;
+    //stroke-opacity: 0.8;
+    shape-rendering: crispEdges;
+  }
+
+  .handle {
+    fill: #000;
+    fill-opacity: 0.5;
+    shape-rendering: crispEdges;
+  }
+}
+
+.seq {
+  // Five
+  .q0-5 {
+    fill: rgb(241, 238, 246)
+  }
+  .q1-5 {
+    fill: rgb(215, 181, 216)
+  }
+  .q2-5 {
+    fill: rgb(223, 101, 176)
+  }
+  .q3-5 {
+    fill: rgb(221, 28, 119)
+  }
+  .q4-5 {
+    fill: rgb(152, 0, 67)
+  }
+
+  .q0-7 {
+    fill: rgb(254, 240, 217)
+  }
+  .q1-7 {
+    fill: rgb(253, 212, 158)
+  }
+  .q2-7 {
+    fill: rgb(253, 187, 132)
+  }
+  .q3-7 {
+    fill: rgb(252, 141, 89)
+  }
+  .q4-7 {
+    fill: rgb(239, 101, 72)
+  }
+  .q5-7 {
+    fill: rgb(215, 48, 31)
+  }
+  .q6-7 {
+    fill: rgb(153, 0, 0)
+  }
+}
+
+.diverge {
+  //.q6-7 {
+  //  fill: rgb(178, 24, 43)
+  //}
+  //.q5-7 {
+  //  fill: rgb(239, 138, 98)
+  //}
+  //.q4-7 {
+  //  fill: rgb(253, 219, 199)
+  //}
+  //.q3-7 {
+  //  fill: rgb(247, 247, 247)
+  //}
+  //.q2-7 {
+  //  fill: rgb(209, 229, 240)
+  //}
+  //.q1-7 {
+  //  fill: rgb(103, 169, 207)
+  //}
+  //.q0-7 {
+  //  fill: rgb(33, 102, 172)
+  //}
+
+  //.q6-7 {
+  //  fill: rgb(215, 48, 39)
+  //}
+  //.q5-7 {
+  //  fill: rgb(252, 141, 89)
+  //}
+  //.q4-7 {
+  //  fill: rgb(254, 224, 144)
+  //}
+  //.q3-7 {
+  //  fill: rgb(255, 255, 191)
+  //}
+  //.q2-7 {
+  //  fill: rgb(224, 243, 248)
+  //}
+  //.q1-7 {
+  //  fill: rgb(145, 191, 219)
+  //}
+  //.q0-7 {
+  //  fill: rgb(69, 117, 180)
+  //}
+
+  .q0-11 {
+    fill: rgb(84, 48, 5)
+  }
+  .q1-11 {
+    fill: rgb(140, 81, 10)
+  }
+  .q2-11 {
+    fill: rgb(191, 129, 45)
+  }
+  .q3-11 {
+    fill: rgb(223, 194, 125)
+  }
+  .q4-11 {
+    fill: rgb(246, 232, 195)
+  }
+  .q5-11 {
+    fill: rgb(245, 245, 245)
+  }
+  .q6-11 {
+    fill: rgb(199, 234, 229)
+  }
+  .q7-11 {
+    fill: rgb(128, 205, 193)
+  }
+  .q8-11 {
+    fill: rgb(53, 151, 143)
+  }
+  .q9-11 {
+    fill: rgb(1, 102, 94)
+  }
+  .q10-11 {
+    fill: rgb(0, 60, 48)
+  }
+}

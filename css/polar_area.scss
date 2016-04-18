@@ -1,0 +1,42 @@
+.polar-area {
+  $active: #09c;
+
+  .arc {
+    cursor: pointer;
+
+    path {
+      stroke: #fff;
+    }
+
+    text {
+      fill: #666;
+      font-size: 10px;
+    }
+
+    &:hover,
+    &.active {
+      path {
+        fill: $active;
+      }
+
+      text {
+        fill: #000;
+      }
+    }
+  }
+
+  .circle-active {
+    stroke: $active;
+    stroke-width: 4px;
+    stroke-opacity: 0.5;
+    fill: none;
+  }
+
+  .circle-ticks {
+    .circle {
+      stroke: #000;
+      opacity: 0.15;
+      fill: none;
+    }
+  }
+}

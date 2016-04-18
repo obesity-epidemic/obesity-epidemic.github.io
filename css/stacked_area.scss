@@ -1,0 +1,57 @@
+.stacked-area-chart {
+  &.timeline {
+    .area {
+      &.extreme-obese {
+        fill: darken($grey_dark, 5%);
+      }
+
+      &.obese {
+        fill: darken($grey_dark, 3%);
+      }
+
+      &.overweight {
+        fill: $grey_dark;
+      }
+    }
+  }
+
+  .area {
+    &.extreme-obese {
+      fill: $extremeObese;
+    }
+
+    &.obese {
+      fill: $obese;
+    }
+
+    &.overweight {
+      fill: $overweight;
+    }
+  }
+
+  .point {
+    fill: none;
+    stroke: #000;
+    stroke-width: 3px;
+  }
+}
+
+.line-chart {
+  .line {
+    fill: none;
+    stroke-width: 5px;
+
+    &.extreme-obese {
+      stroke: $extremeObese;
+    }
+
+    &.obese {
+      stroke: $obese;
+    }
+
+    &.overweight {
+      stroke: $overweight;
+    }
+  }
+}
+

@@ -10,6 +10,7 @@
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/font-awesome.min.css">
 	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/bundle.css">
 </head>
 <body>
 
@@ -48,6 +49,7 @@
 			</div>
 		</div>
 
+		<br />
 
 		<!-- Top 4 Visualizations -->
 		<div class="row">
@@ -58,16 +60,45 @@
 				</div>
 			</div>
 			<div class="col-xs-6">
-				<div id="people-icon-viz" class="placeholder">#people-icon-viz</div>
+				<h3>Weight Distribution of Americans</h3>
+				<div class="clearfix">
+					<div class="icon-array-nums pull-left">
+						<div class="extreme-obese">
+							<span class="icon-value">6.6%</span>
+							<span class="icon-label">Extremely Obese (BMI>=40)</span>
+						</div>
+
+						<div class="obese">
+							<span class="icon-value">35.3%</span>
+							<span class="icon-label">Obese (BMI >= 30)</span>
+						</div>
+
+						<div class="overweight">
+							<span class="icon-value">33.3%</span>
+							<span class="icon-label">Overweight (25 <= BMI < 30)</span>
+						</div>
+
+						<div class="others">
+							<span class="icon-value">24.8%</span>
+							<span class="icon-label">Others (BMI < 25)</span>
+						</div>
+					</div>
+
+					<div id="people-icon-viz"></div>
+				</div>
 			</div>
 		</div>
 
+		<br />
+
 		<div class="row">
 			<div class="col-xs-6">
-				<div id="overweight-percentage-viz" class="placeholder">#overweight-percentage-viz</div>
+				<h3>Overweight and Obesity Over Time</h3>
+				<div id="overweight-percentage-viz"></div>
 			</div>
 			<div class="col-xs-6">
-				<div id="health-spending-viz" class="placeholder">#health-spending-viz</div>
+				<h3>Health Spending Over Time</h3>
+				<div id="health-spending-viz"></div>
 			</div>
 		</div>
 
@@ -108,10 +139,14 @@
 
 
 		<div class="row">
-			<div class="col-xs-12">
-				<div class="placeholder" style="height:800px;">
-					choropleth
-				</div>
+			<div class="col-xs-2" style="padding-top: 150px">
+				<h4>Mode</h4>
+				<label><input name="choroplethMode" value="by-year" type="radio" checked /> Obesity Rates</label>
+				<label><input name="choroplethMode" value="over-time" type="radio" /> Change Over Time</label>
+			</div>
+			<div class="col-xs-10">
+				<div id="timeline"></div>
+				<div id="choropleth"></div>
 			</div>
 		</div>
 
@@ -126,8 +161,173 @@
 
 		<div class="row">
 			<div class="col-xs-12">
-				<div class="placeholder" style="height:600px;">
-					Sunburst
+				<div id="polarArea" class="col-xs-6"></div>
+				<div id="polarAreaStateDetail" class="col-xs-6">
+					<div class="row">
+						<div class="col-xs-3">
+							<h4>Sort</h4>
+							<label><input name="polarAreaMode" value="alpha" type="radio" checked /> Alphabetical</label>
+							<label><input name="polarAreaMode" value="rate" type="radio" /> Rate</label>
+						</div>
+						<div class="col-xs-2">
+							<h4>Year</h4>
+							<select id="polarAreaYear" class="form-control">
+								<option value="yr1990">1990</option>
+								<option value="yr1995">1995</option>
+								<option value="yr2000">2000</option>
+								<option value="yr2003">2003</option>
+								<option value="yr2004">2004</option>
+								<option value="yr2005">2005</option>
+								<option value="yr2006">2006</option>
+								<option value="yr2007">2007</option>
+								<option value="yr2008">2008</option>
+								<option value="yr2009">2009</option>
+								<option value="yr2010">2010</option>
+								<option value="yr2011">2011</option>
+								<option value="yr2012">2012</option>
+								<option value="yr2013">2013</option>
+								<option value="yr2014" selected>2014</option>
+							</select>
+						</div>
+						<div class="col-xs-7">
+							<h4>Location</h4>
+							<button id="btn-polar-states" class="btn btn-default">Select Regions / States</button>
+						</div>
+					</div>
+
+					<h2 class="state-name"></h2>
+					<div>
+						Selected Year Value: <span class="state-value"></span>
+					</div>
+
+					<hr>
+					<b>Over Time</b>
+					<div id="stateTrendLineChart"></div>
+					<div class="state-all-values"></div>
+				</div>
+				<div class="state-filter-dialog">
+					<ul class="state-filter">
+						<li><label><input type="checkbox" checked value="all"> USA</label></li>
+
+						<ul class="region">
+							<li class="region-title">&nbsp;<label><input type="checkbox" checked value="region-ne"> Northeast</label></li>
+							<ul class="division">
+								<li>&nbsp;<label><input type="checkbox" checked value="division-new-england"> New England</label></li>
+								<ul class="states">
+									<li><label><input type="checkbox" checked value="CT"> Connecticut</label></li>
+									<li><label><input type="checkbox" checked value="ME"> Maine</label></li>
+									<li><label><input type="checkbox" checked value="MA"> Massachusetts</label></li>
+									<li><label><input type="checkbox" checked value="NH"> New Hampshire</label></li>
+									<li><label><input type="checkbox" checked value="RI"> Rhode Island</label></li>
+									<li><label><input type="checkbox" checked value="VT"> Vermont</label></li>
+								</ul>
+							</ul>
+
+							<ul class="division">
+								<li>&nbsp;<label><input type="checkbox" checked value="division-mid-atlantic">Mid-Atlantic</label></li>
+								<ul class="states">
+									<li><label><input type="checkbox" checked value="NJ"> New Jersey</label></li>
+									<li><label><input type="checkbox" checked value="NY"> New York</label></li>
+									<li><label><input type="checkbox" checked value="PA"> Pennsylvania</label></li>
+								</ul>
+							</ul>
+						</ul>
+
+						<ul class="region">
+							<li class="region-title">&nbsp;<label><input type="checkbox" checked value="region-mw"> Midwest</label></li>
+							<ul class="division">
+								<li>&nbsp;<label><input type="checkbox" checked value="division-east-north-central"> East North Central</label></li>
+								<ul class="states">
+									<li><label><input type="checkbox" checked value="IL"> Illinois</label></li>
+									<li><label><input type="checkbox" checked value="IN"> Indiana</label></li>
+									<li><label><input type="checkbox" checked value="MI"> Michigan</label></li>
+									<li><label><input type="checkbox" checked value="OH"> Ohio</label></li>
+									<li><label><input type="checkbox" checked value="WI"> Wisconsin</label></li>
+								</ul>
+							</ul>
+
+							<ul class="division">
+								<li>&nbsp;<label><input type="checkbox" checked value="division-west-north-central"> West North Central</label></li>
+								<ul class="states">
+									<li><label><input type="checkbox" checked value="IA"> Iowa</label></li>
+									<li><label><input type="checkbox" checked value="KS"> Kansas</label></li>
+									<li><label><input type="checkbox" checked value="MN"> Minnesota</label></li>
+									<li><label><input type="checkbox" checked value="MO"> Missouri</label></li>
+									<li><label><input type="checkbox" checked value="NE"> Nebraska</label></li>
+									<li><label><input type="checkbox" checked value="ND"> North Dakota</label></li>
+									<li><label><input type="checkbox" checked value="SD"> South Dakota</label></li>
+								</ul>
+							</ul>
+						</ul>
+
+						<ul class="region">
+							<li class="region-title">&nbsp;<label><input type="checkbox" checked value="region-w"> West</label></li>
+							<ul class="division">
+								<li>&nbsp;<label><input type="checkbox" checked value="division-mountain"> Mountain</label></li>
+								<ul class="states">
+									<li><label><input type="checkbox" checked value="AZ"> Arizona</label></li>
+									<li><label><input type="checkbox" checked value="CO"> Colorado</label></li>
+									<li><label><input type="checkbox" checked value="ID"> Idaho</label></li>
+									<li><label><input type="checkbox" checked value="MT"> Montana</label></li>
+									<li><label><input type="checkbox" checked value="NV"> Nevada</label></li>
+									<li><label><input type="checkbox" checked value="NM"> New Mexico</label></li>
+									<li><label><input type="checkbox" checked value="UT"> Utah</label></li>
+									<li><label><input type="checkbox" checked value="WY"> Wyoming</label></li>
+								</ul>
+							</ul>
+
+							<ul class="division">
+								<li>&nbsp;<label><input type="checkbox" checked value="division-pacific"> Pacific</label></li>
+								<ul class="states">
+									<li><label><input type="checkbox" checked value="AK"> Alaska</label></li>
+									<li><label><input type="checkbox" checked value="CA"> California</label></li>
+									<li><label><input type="checkbox" checked value="HI"> Hawaii</label></li>
+									<li><label><input type="checkbox" checked value="OR"> Oregon</label></li>
+									<li><label><input type="checkbox" checked value="WA"> Washington</label></li>
+								</ul>
+							</ul>
+						</ul>
+
+						<ul class="region">
+							<li class="region-title">&nbsp;<label><input type="checkbox" checked value="region-s"> South</label></li>
+							<ul class="division">
+								<li>&nbsp;<label><input type="checkbox" checked value="division-south-atlantic"> South Atlantic</label></li>
+								<ul class="states">
+									<li><label><input type="checkbox" checked value="DE"> Delaware</label></li>
+									<li><label><input type="checkbox" checked value="FL"> Florida</label></li>
+									<li><label><input type="checkbox" checked value="GA"> Georgia</label></li>
+									<li><label><input type="checkbox" checked value="MD"> Maryland</label></li>
+									<li><label><input type="checkbox" checked value="NC"> North Carolina</label></li>
+									<li><label><input type="checkbox" checked value="SC"> South Carolina</label></li>
+									<li><label><input type="checkbox" checked value="VA"> Virginia</label></li>
+									<li><label><input type="checkbox" checked value="DC"> Washington D.C.</label></li>
+									<li><label><input type="checkbox" checked value="WV"> West Virginia</label></li>
+								</ul>
+							</ul>
+
+							<ul class="division">
+								<li><label>&nbsp;<input type="checkbox" checked value="division-east-south-central"> East South Central</label></li>
+								<ul class="states">
+									<li><label><input type="checkbox" checked value="AL"> Alabama</label></li>
+									<li><label><input type="checkbox" checked value="KY"> Kentucky</label></li>
+									<li><label><input type="checkbox" checked value="MS"> Mississippi</label></li>
+									<li><label><input type="checkbox" checked value="TN"> Tennessee</label></li>
+								</ul>
+							</ul>
+
+							<ul class="division">
+								<li><label>&nbsp;<input type="checkbox" checked value="division-west-south-central"> West South Central</label></li>
+								<ul class="states">
+									<li><label><input type="checkbox" checked value="AR"> Arkansas</label></li>
+									<li><label><input type="checkbox" checked value="LA"> Louisiana</label></li>
+									<li><label><input type="checkbox" checked value="OK"> Oklahoma</label></li>
+									<li><label><input type="checkbox" checked value="TX"> Texas</label></li>
+								</ul>
+							</ul>
+						</ul>
+					</ul>
+
+					<button id="btn-polar-states-close" class="btn btn-primary pull-right">Close</button>
 				</div>
 			</div>
 		</div>
@@ -533,6 +733,7 @@
 	<script src="js/queue.min.js"></script>
 	<script src="js/d3.min.js"></script>
 	<script src="js/d3.tip.js"></script>
+	<script src="js/topojson.js"></script>
 	<script src="js/colorbrewer.js"></script>
 	<script src="js/lodash.min.js"></script>
 	<script src="js/utils.js"></script>
@@ -541,5 +742,14 @@
 	<script src="js/main.js"></script>
 	<script src="js/calculator.js"></script>
 	<script src="js/snacks.js"></script>
+
+	<!-- Custom -->
+	<script src="js/stackedAreaChart.js"></script>
+	<script src="js/lineChart.js"></script>
+	<script src="js/timelineChart.js"></script>
+	<script src="js/choropleth.js"></script>
+	<script src="js/iconArray.js"></script>
+	<script src="js/polarAreaChart.js"></script>
+	<script src="js/charts.js"></script>
 </body>
 </html>

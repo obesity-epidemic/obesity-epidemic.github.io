@@ -1,0 +1,53 @@
+.axis {
+  font-size: 10px;
+  font-family: "Helvetica Neue Light", "HelveticaNeue-Light", "Helvetica Neue", Calibri, Helvetica, Arial, sans-serif;
+
+  path,
+  line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+  }
+
+  .domain {
+    //fill: none;
+    //stroke: black;
+  }
+}
+
+
+.state-filter {
+  list-style: none;
+  padding: 10px;
+  background-color: #eee;
+
+  .region,
+  .division,
+  .states {
+    list-style: none;
+    display: inline-block;
+    vertical-align: top;
+  }
+
+  .region {
+    padding-left: 0;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+  }
+
+  .division {
+    margin: 10px;
+    padding-left: 10px;
+  }
+
+  .states {
+    border-left: 2px solid #ccc;
+    padding-left: 3px !important;
+    margin-left: 8px;
+  }
+
+  .region-title {
+    background-color: #999;
+  }
+}
+
