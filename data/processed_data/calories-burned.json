@@ -1,0 +1,998 @@
+[
+  {
+    "label": "Cycling, mountain bike, bmx",
+    "mets": 8.5
+  },
+  {
+    "label": "Cycling, <10 mph, leisure bicycling",
+    "mets": 4
+  },
+  {
+    "label": "Cycling, >20 mph, racing",
+    "mets": 16
+  },
+  {
+    "label": "Cycling, 10-11.9 mph, light",
+    "mets": 6
+  },
+  {
+    "label": "Cycling, 12-13.9 mph, moderate",
+    "mets": 8
+  },
+  {
+    "label": "Cycling, 14-15.9 mph, vigorous",
+    "mets": 10
+  },
+  {
+    "label": "Cycling, 16-19 mph, very fast, racing",
+    "mets": 12
+  },
+  {
+    "label": "Unicycling",
+    "mets": 5
+  },
+  {
+    "label": "Stationary cycling, very light",
+    "mets": 3
+  },
+  {
+    "label": "Stationary cycling, light",
+    "mets": 5.5
+  },
+  {
+    "label": "Stationary cycling, moderate",
+    "mets": 7
+  },
+  {
+    "label": "Stationary cycling, vigorous",
+    "mets": 10.5
+  },
+  {
+    "label": "Stationary cycling, very vigorous",
+    "mets": 12.5
+  },
+  {
+    "label": "Calisthenics, vigorous, pushups, situps…",
+    "mets": 8
+  },
+  {
+    "label": "Calisthenics, light",
+    "mets": 3.5
+  },
+  {
+    "label": "Circuit training, minimal rest",
+    "mets": 8
+  },
+  {
+    "label": "Weight lifting, body building, vigorous",
+    "mets": 6
+  },
+  {
+    "label": "Weight lifting, light workout",
+    "mets": 3
+  },
+  {
+    "label": "Health club exercise",
+    "mets": 5.5
+  },
+  {
+    "label": "Stair machine",
+    "mets": 9
+  },
+  {
+    "label": "Rowing machine, light",
+    "mets": 3.5
+  },
+  {
+    "label": "Rowing machine, moderate",
+    "mets": 7
+  },
+  {
+    "label": "Rowing machine, vigorous",
+    "mets": 8.5
+  },
+  {
+    "label": "Rowing machine, very vigorous",
+    "mets": 12
+  },
+  {
+    "label": "Ski machine",
+    "mets": 7
+  },
+  {
+    "label": "Aerobics, low impact",
+    "mets": 5
+  },
+  {
+    "label": "Aerobics, high impact",
+    "mets": 7
+  },
+  {
+    "label": "Aerobics, step aerobics",
+    "mets": 8.5
+  },
+  {
+    "label": "Aerobics, general",
+    "mets": 6.5
+  },
+  {
+    "label": "Jazzercise",
+    "mets": 6
+  },
+  {
+    "label": "Stretching, hatha yoga",
+    "mets": 4
+  },
+  {
+    "label": "Mild stretching",
+    "mets": 2.5
+  },
+  {
+    "label": "Instructing aerobic class",
+    "mets": 6
+  },
+  {
+    "label": "Water aerobics",
+    "mets": 4
+  },
+  {
+    "label": "Ballet, twist, jazz, tap",
+    "mets": 4.5
+  },
+  {
+    "label": "Ballroom dancing, slow",
+    "mets": 3
+  },
+  {
+    "label": "Ballroom dancing, fast",
+    "mets": 5.5
+  },
+  {
+    "label": "Running, 5 mph (12 minute mile)",
+    "mets": 8
+  },
+  {
+    "label": "Running, 5.2 mph (11.5 minute mile)",
+    "mets": 9
+  },
+  {
+    "label": "Running, 6 mph (10 min mile)",
+    "mets": 10
+  },
+  {
+    "label": "Running, 6.7 mph (9 min mile)",
+    "mets": 11
+  },
+  {
+    "label": "Running, 7 mph (8.5 min mile)",
+    "mets": 11.5
+  },
+  {
+    "label": "Running, 7.5mph (8 min mile)",
+    "mets": 12.5
+  },
+  {
+    "label": "Running, 8 mph (7.5 min mile)",
+    "mets": 13.5
+  },
+  {
+    "label": "Running, 8.6 mph (7 min mile)",
+    "mets": 14
+  },
+  {
+    "label": "Running, 9 mph (6.5 min mile)",
+    "mets": 15
+  },
+  {
+    "label": "Running, 10 mph (6 min mile)",
+    "mets": 16
+  },
+  {
+    "label": "Running, 10.9 mph (5.5 min mile)",
+    "mets": 18
+  },
+  {
+    "label": "Running, cross country",
+    "mets": 9
+  },
+  {
+    "label": "Running, general",
+    "mets": 8
+  },
+  {
+    "label": "Running, on a track, team practice",
+    "mets": 10
+  },
+  {
+    "label": "Running, stairs, up",
+    "mets": 15
+  },
+  {
+    "label": "Track and field (shot, discus)",
+    "mets": 4
+  },
+  {
+    "label": "Track and field (high jump, pole vault)",
+    "mets": 6
+  },
+  {
+    "label": "Track and field (hurdles)",
+    "mets": 10
+  },
+  {
+    "label": "Archery",
+    "mets": 3.5
+  },
+  {
+    "label": "Badminton",
+    "mets": 4.5
+  },
+  {
+    "label": "Basketball game, competitive",
+    "mets": 8
+  },
+  {
+    "label": "Playing basketball, non game",
+    "mets": 6
+  },
+  {
+    "label": "Basketball, officiating",
+    "mets": 7
+  },
+  {
+    "label": "Basketball, shooting baskets",
+    "mets": 4.5
+  },
+  {
+    "label": "Basketball, wheelchair",
+    "mets": 6.5
+  },
+  {
+    "label": "Running, training, pushing wheelchair",
+    "mets": 8
+  },
+  {
+    "label": "Billiards",
+    "mets": 2.5
+  },
+  {
+    "label": "Bowling",
+    "mets": 3
+  },
+  {
+    "label": "Boxing, in ring",
+    "mets": 12
+  },
+  {
+    "label": "Boxing, punching bag",
+    "mets": 6
+  },
+  {
+    "label": "Boxing, sparring",
+    "mets": 9
+  },
+  {
+    "label": "Coaching: football, basketball, soccer…",
+    "mets": 4
+  },
+  {
+    "label": "Cricket (batting, bowling)",
+    "mets": 5
+  },
+  {
+    "label": "Croquet",
+    "mets": 2.5
+  },
+  {
+    "label": "Curling",
+    "mets": 4
+  },
+  {
+    "label": "Darts (wall or lawn)",
+    "mets": 2.5
+  },
+  {
+    "label": "Fencing",
+    "mets": 6
+  },
+  {
+    "label": "Football, competitive",
+    "mets": 9
+  },
+  {
+    "label": "Football, touch, flag, general",
+    "mets": 8
+  },
+  {
+    "label": "Football or baseball, playing catch",
+    "mets": 2.5
+  },
+  {
+    "label": "Frisbee playing, general",
+    "mets": 3
+  },
+  {
+    "label": "Frisbee, ultimate frisbee",
+    "mets": 8
+  },
+  {
+    "label": "Golf, general",
+    "mets": 4.5
+  },
+  {
+    "label": "Golf, walking and carrying clubs",
+    "mets": 4.5
+  },
+  {
+    "label": "Golf, driving range",
+    "mets": 3
+  },
+  {
+    "label": "Golf, miniature golf",
+    "mets": 3
+  },
+  {
+    "label": "Golf, walking and pulling clubs",
+    "mets": 4.3
+  },
+  {
+    "label": "Golf, using power cart",
+    "mets": 3.5
+  },
+  {
+    "label": "Gymnastics",
+    "mets": 4
+  },
+  {
+    "label": "Hacky sack",
+    "mets": 4
+  },
+  {
+    "label": "Handball",
+    "mets": 12
+  },
+  {
+    "label": "Handball, team",
+    "mets": 8
+  },
+  {
+    "label": "Hockey, field hockey",
+    "mets": 8
+  },
+  {
+    "label": "Hockey, ice hockey",
+    "mets": 8
+  },
+  {
+    "label": "Riding a horse, general",
+    "mets": 4
+  },
+  {
+    "label": "Horesback riding, saddling horse",
+    "mets": 3.5
+  },
+  {
+    "label": "Horseback riding, grooming horse",
+    "mets": 3.5
+  },
+  {
+    "label": "Horseback riding, trotting",
+    "mets": 6.5
+  },
+  {
+    "label": "Horseback riding, walking",
+    "mets": 2.5
+  },
+  {
+    "label": "Horse racing, galloping",
+    "mets": 8
+  },
+  {
+    "label": "Horse grooming, moderate",
+    "mets": 6
+  },
+  {
+    "label": "Horseshoe pitching",
+    "mets": 3
+  },
+  {
+    "label": "Jai alai",
+    "mets": 12
+  },
+  {
+    "label": "Martial arts, judo, karate, jujitsu",
+    "mets": 10
+  },
+  {
+    "label": "Martial arts, kick boxing",
+    "mets": 10
+  },
+  {
+    "label": "Martial arts, tae kwan do",
+    "mets": 10
+  },
+  {
+    "label": "Krav maga training",
+    "mets": 10
+  },
+  {
+    "label": "Juggling",
+    "mets": 4
+  },
+  {
+    "label": "Kickball",
+    "mets": 7
+  },
+  {
+    "label": "Lacrosse",
+    "mets": 8
+  },
+  {
+    "label": "Orienteering",
+    "mets": 9
+  },
+  {
+    "label": "Playing paddleball",
+    "mets": 6
+  },
+  {
+    "label": "Paddleball, competitive",
+    "mets": 10
+  },
+  {
+    "label": "Polo",
+    "mets": 8
+  },
+  {
+    "label": "Racquetball, competitive",
+    "mets": 10
+  },
+  {
+    "label": "Playing racquetball",
+    "mets": 7
+  },
+  {
+    "label": "Rock climbing, ascending rock",
+    "mets": 11
+  },
+  {
+    "label": "Rock climbing, rappelling",
+    "mets": 8
+  },
+  {
+    "label": "Jumping rope, fast",
+    "mets": 12
+  },
+  {
+    "label": "Jumping rope, moderate",
+    "mets": 10
+  },
+  {
+    "label": "Jumping rope, slow",
+    "mets": 8
+  },
+  {
+    "label": "Rugby",
+    "mets": 10
+  },
+  {
+    "label": "Shuffleboard, lawn bowling",
+    "mets": 3
+  },
+  {
+    "label": "Skateboarding",
+    "mets": 5
+  },
+  {
+    "label": "Roller skating",
+    "mets": 7
+  },
+  {
+    "label": "Roller blading, in-line skating",
+    "mets": 12
+  },
+  {
+    "label": "Sky diving",
+    "mets": 3
+  },
+  {
+    "label": "Soccer, competitive",
+    "mets": 10
+  },
+  {
+    "label": "Playing soccer",
+    "mets": 7
+  },
+  {
+    "label": "Softball or baseball",
+    "mets": 5
+  },
+  {
+    "label": "Softball, officiating",
+    "mets": 4
+  },
+  {
+    "label": "Softball, pitching",
+    "mets": 6
+  },
+  {
+    "label": "Squash",
+    "mets": 12
+  },
+  {
+    "label": "Table tennis, ping pong",
+    "mets": 4
+  },
+  {
+    "label": "Tai chi",
+    "mets": 4
+  },
+  {
+    "label": "Playing tennis",
+    "mets": 7
+  },
+  {
+    "label": "Tennis, doubles",
+    "mets": 6
+  },
+  {
+    "label": "Tennis, singles",
+    "mets": 8
+  },
+  {
+    "label": "Trampoline",
+    "mets": 3.5
+  },
+  {
+    "label": "Volleyball, competitive",
+    "mets": 8
+  },
+  {
+    "label": "Playing volleyball",
+    "mets": 3
+  },
+  {
+    "label": "Volleyball, beach",
+    "mets": 8
+  },
+  {
+    "label": "Wrestling",
+    "mets": 6
+  },
+  {
+    "label": "Wallyball",
+    "mets": 7
+  },
+  {
+    "label": "Backpacking, Hiking with pack",
+    "mets": 7
+  },
+  {
+    "label": "Carrying infant, level ground",
+    "mets": 3.5
+  },
+  {
+    "label": "Carrying infant, upstairs",
+    "mets": 5
+  },
+  {
+    "label": "Carrying 16 to 24 lbs, upstairs",
+    "mets": 6
+  },
+  {
+    "label": "Carrying 25 to 49 lbs, upstairs",
+    "mets": 8
+  },
+  {
+    "label": "Standing, playing with children, light",
+    "mets": 2.8
+  },
+  {
+    "label": "Walk/run, playing with children, moderate",
+    "mets": 4
+  },
+  {
+    "label": "Walk/run, playing with children, vigorous",
+    "mets": 5
+  },
+  {
+    "label": "Carrying small children",
+    "mets": 3
+  },
+  {
+    "label": "Loading, unloading car",
+    "mets": 3
+  },
+  {
+    "label": "Climbing hills, carrying up to 9 lbs",
+    "mets": 7
+  },
+  {
+    "label": "Climbing hills, carrying 10 to 20 lb",
+    "mets": 7.5
+  },
+  {
+    "label": "Climbing hills, carrying 21 to 42 lb",
+    "mets": 8
+  },
+  {
+    "label": "Climbing hills, carrying over 42 lb",
+    "mets": 9
+  },
+  {
+    "label": "Walking downstairs",
+    "mets": 3
+  },
+  {
+    "label": "Hiking, cross country",
+    "mets": 6
+  },
+  {
+    "label": "Bird watching",
+    "mets": 2.5
+  },
+  {
+    "label": "Marching, rapidly, military",
+    "mets": 6.5
+  },
+  {
+    "label": "Children's games, hopscotch, dodgeball",
+    "mets": 5
+  },
+  {
+    "label": "Pushing stroller or walking with children",
+    "mets": 2.5
+  },
+  {
+    "label": "Pushing a wheelchair",
+    "mets": 4
+  },
+  {
+    "label": "Race walking",
+    "mets": 6.5
+  },
+  {
+    "label": "Rock climbing, mountain climbing",
+    "mets": 8
+  },
+  {
+    "label": "Walking using crutches",
+    "mets": 5
+  },
+  {
+    "label": "Walking the dog",
+    "mets": 3
+  },
+  {
+    "label": "Walking, under 2.0 mph, very slow",
+    "mets": 2
+  },
+  {
+    "label": "Walking 2.0 mph, slow",
+    "mets": 2.5
+  },
+  {
+    "label": "Walking 2.5 mph",
+    "mets": 3
+  },
+  {
+    "label": "Walking 3.0 mph, moderate",
+    "mets": 3.3
+  },
+  {
+    "label": "Walking 3.5 mph, brisk pace",
+    "mets": 3.8
+  },
+  {
+    "label": "Walking 3.5 mph, uphill",
+    "mets": 6
+  },
+  {
+    "label": "Walking 4.0 mph, very brisk",
+    "mets": 5
+  },
+  {
+    "label": "Walking 4.5 mph",
+    "mets": 6.3
+  },
+  {
+    "label": "Walking 5.0 mph",
+    "mets": 8
+  },
+  {
+    "label": "Boating, power, speed boat",
+    "mets": 2.5
+  },
+  {
+    "label": "Canoeing, camping trip",
+    "mets": 4
+  },
+  {
+    "label": "Canoeing, rowing, light",
+    "mets": 3
+  },
+  {
+    "label": "Canoeing, rowing, moderate",
+    "mets": 7
+  },
+  {
+    "label": "Canoeing, rowing, vigorous",
+    "mets": 12
+  },
+  {
+    "label": "Crew, sculling, rowing, competition",
+    "mets": 12
+  },
+  {
+    "label": "Kayaking",
+    "mets": 5
+  },
+  {
+    "label": "Paddle boat",
+    "mets": 4
+  },
+  {
+    "label": "Windsurfing, sailing",
+    "mets": 3
+  },
+  {
+    "label": "Sailing, competition",
+    "mets": 5
+  },
+  {
+    "label": "Sailing, yachting, ocean sailing",
+    "mets": 3
+  },
+  {
+    "label": "Skiing, water skiing",
+    "mets": 6
+  },
+  {
+    "label": "Ski mobiling",
+    "mets": 7
+  },
+  {
+    "label": "Skin diving, fast",
+    "mets": 16
+  },
+  {
+    "label": "Skin diving, moderate",
+    "mets": 12.5
+  },
+  {
+    "label": "Skin diving, scuba diving",
+    "mets": 7
+  },
+  {
+    "label": "Snorkeling",
+    "mets": 5
+  },
+  {
+    "label": "Surfing, body surfing or board surfing",
+    "mets": 3
+  },
+  {
+    "label": "Whitewater rafting, kayaking, canoeing",
+    "mets": 5
+  },
+  {
+    "label": "Swimming laps, freestyle, fast",
+    "mets": 10
+  },
+  {
+    "label": "Swimming laps, freestyle, slow",
+    "mets": 7
+  },
+  {
+    "label": "Swimming backstroke",
+    "mets": 7
+  },
+  {
+    "label": "Swimming breaststroke",
+    "mets": 10
+  },
+  {
+    "label": "Swimming butterfly",
+    "mets": 11
+  },
+  {
+    "label": "Swimming leisurely, not laps",
+    "mets": 6
+  },
+  {
+    "label": "Swimming sidestroke",
+    "mets": 8
+  },
+  {
+    "label": "Swimming synchronized",
+    "mets": 8
+  },
+  {
+    "label": "Swimming, treading water, fast, vigorous",
+    "mets": 10
+  },
+  {
+    "label": "Swimming, treading water, moderate",
+    "mets": 4
+  },
+  {
+    "label": "Water aerobics, water calisthenics",
+    "mets": 4
+  },
+  {
+    "label": "Water polo",
+    "mets": 10
+  },
+  {
+    "label": "Water volleyball",
+    "mets": 3
+  },
+  {
+    "label": "Water jogging",
+    "mets": 8
+  },
+  {
+    "label": "Diving, springboard or platform",
+    "mets": 3
+  },
+  {
+    "label": "Ice skating, < 9 mph",
+    "mets": 5.5
+  },
+  {
+    "label": "Ice skating, average speed",
+    "mets": 7
+  },
+  {
+    "label": "Ice skating, rapidly",
+    "mets": 9
+  },
+  {
+    "label": "Speed skating, ice, competitive",
+    "mets": 15
+  },
+  {
+    "label": "Cross country snow skiing, slow",
+    "mets": 7
+  },
+  {
+    "label": "Cross country skiing, moderate",
+    "mets": 8
+  },
+  {
+    "label": "Cross country skiing, vigorous",
+    "mets": 9
+  },
+  {
+    "label": "Cross country skiing, racing",
+    "mets": 14
+  },
+  {
+    "label": "Cross country skiing, uphill",
+    "mets": 16.5
+  },
+  {
+    "label": "Snow skiing, downhill skiing, light",
+    "mets": 5
+  },
+  {
+    "label": "Downhill snow skiing, moderate",
+    "mets": 6
+  },
+  {
+    "label": "Downhill snow skiing, racing",
+    "mets": 8
+  },
+  {
+    "label": "Sledding, tobagganing, luge",
+    "mets": 7
+  },
+  {
+    "label": "Snow shoeing",
+    "mets": 8
+  },
+  {
+    "label": "Snowmobiling",
+    "mets": 3.5
+  },
+  {
+    "label": "General housework",
+    "mets": 3.5
+  },
+  {
+    "label": "Cleaning gutters",
+    "mets": 5
+  },
+  {
+    "label": "Painting",
+    "mets": 4.5
+  },
+  {
+    "label": "Sit, playing with animals",
+    "mets": 2.5
+  },
+  {
+    "label": "Walk / run, playing with animals",
+    "mets": 4
+  },
+  {
+    "label": "Bathing dog",
+    "mets": 3.5
+  },
+  {
+    "label": "Mowing lawn, walk, power mower",
+    "mets": 5.5
+  },
+  {
+    "label": "Mowing lawn, riding mower",
+    "mets": 2.5
+  },
+  {
+    "label": "Walking, snow blower",
+    "mets": 3.5
+  },
+  {
+    "label": "Riding, snow blower",
+    "mets": 3
+  },
+  {
+    "label": "Shoveling snow by hand",
+    "mets": 6
+  },
+  {
+    "label": "Raking lawn",
+    "mets": 4.3
+  },
+  {
+    "label": "Gardening, general",
+    "mets": 4
+  },
+  {
+    "label": "Bagging grass, leaves",
+    "mets": 4
+  },
+  {
+    "label": "Watering lawn or garden",
+    "mets": 1.5
+  },
+  {
+    "label": "Weeding, cultivating garden",
+    "mets": 4.5
+  },
+  {
+    "label": "Carpentry, general",
+    "mets": 3.5
+  },
+  {
+    "label": "Carrying heavy loads",
+    "mets": 8
+  },
+  {
+    "label": "Carrying moderate loads upstairs",
+    "mets": 8
+  },
+  {
+    "label": "General cleaning",
+    "mets": 3.5
+  },
+  {
+    "label": "Cleaning, dusting",
+    "mets": 2.5
+  },
+  {
+    "label": "Taking out trash",
+    "mets": 3
+  },
+  {
+    "label": "Walking, pushing a wheelchair",
+    "mets": 4
+  },
+  {
+    "label": "Teach physical education,exercise class",
+    "mets": 4
+  },
+  {
+    "label": "Teach exercise classes (& participate)",
+    "mets": 6.5
+  }
+]

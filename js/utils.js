@@ -35,6 +35,7 @@ var utils = {
 		svg.attr("transform", "translate(" + opts.marginLeft + "," + opts.marginTop + ")");
 
 		return {
+			root: d3.select(svg.node().parentNode),
 			svg: svg,
 			width: width,
 			height: height,
@@ -596,15 +597,15 @@ var utils = {
 	},
 
 	setupSelect: function(opts){
-		$el = $(opts.el);
+		var $el = $(opts.el);
 		var templateStr = "<span class='valueHolder'></span> <span class='down-arrow glyphicon glyphicon-menu-down'></span>"
 		+ "<select id=\"" + opts.id + "\" >"
 		+ _.map(opts.options, function(o){return "<option value=\"" + o.value + "\">" + o.label + "</option>"}).join('')
 		+ "</select>";
 		$el.addClass('quiet-select').html(templateStr);
 
-		$valueHolder = $el.find('.valueHolder');
-		$select =$el.find('select');
+		var $valueHolder = $el.find('.valueHolder');
+		var $select =$el.find('select');
 
 		var indexedOptions = _.keyBy(opts.options, 'value');
 

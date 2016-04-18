@@ -1,3 +1,95 @@
+#snack-list{
+	float:left;
+	width:120px;
+	border-right:solid 1px #cecece;
+	height:100%;
+}
+
+
+#main-snack{
+	float:left;
+	width:350px;
+	height:100%;
+}
+
+#equals{
+	line-height:600px;
+	font-size:100px;
+	color:#cecece;
+	float:left;
+	width:80px;
+}
+
+#activities{
+	float:left;
+	width:500px;
+	margin-left:20px;
+}
+
+.food-title{
+	font-size:28px;
+}
+
+.food-subtitle{
+	font-size:16px;
+	color:#8A8A8A;
+}
+.food-calories{
+	font-weight:bold;
+	font-size:26px;
+}
+.food-img{
+	text-align:center;
+	margin-top:25px;
+}
+.main-snack-container{
+	margin:20px;
+	margin-top:100px;
+}
+
+.food-list-item{
+	margin-bottom:10px;
+	border:solid 3px white;
+	padding:5px;
+	cursor:pointer;
+}
+.food-list-item:hover{
+	border:solid 3px #D4E2FF;
+}
+
+.food-thumb-title{
+	font-size:12px;
+	text-align:center;
+}
+
+.food-thumb img{
+	width:100%;
+}
+
+
+.met-label{
+	font-size:12px;
+}
+
+.met-item .bar{
+	height:30px;
+	background-color:#FF8A00;
+	position:relative;
+}
+
+.met-item{
+	margin-top:20px;
+}
+
+.met-item .bar-label{
+	position:absolute;
+	left:100%;
+	line-height:30px;
+	padding-left:5px;
+	white-space: nowrap;
+}
+
+
 .row{ margin-bottom:20px; }
 
 .header{
@@ -7,6 +99,10 @@
 	margin-bottom:30px;
 }
 
+
+h3{
+	margin-top:0;
+}
 
 .header h1{ 
 	margin-top:0; 
@@ -65,18 +161,141 @@
 	margin-bottom:10px;
 }
 
+.font2{
+	font-family:BenchNine, sans-serif;
+}
 
 .placeholder{
 	height:175px;
-	background-color:#cecece;
+	border:solid 1px #cecece;
 }
 
 
+.calculator .domain{
+	stroke:none;
+}
+
+.selection-bar{fill:#FFC03D;}
+
+.slider{pointer-events: none;}
+
+.calculator .background{
+	cursor:pointer !important;
+}
 
 
-.calculator-weight-label{
+.handle{fill:#5D5D5D;}
+
+.calculator-weight-label, 
+.calculator-height-label,
+.calculator-bmi-label{
 	font-size:30px;
 }
+
+
+#bmiBody path{
+	fill:#676767;
+}
+
+.report-header{
+	margin-top:10px;
+	text-align:center;
+	font-weight:bold;
+	font-size:18px;
+	margin-bottom:20px;
+}
+
+.report-subheader{
+	font-weight:bold;
+	margin-top:20px;
+	margin-bottom:5px;
+}
+
+.obesityClass{
+	font-size:28px;
+	font-weight:bold;
+	text-align:center;
+	margin-bottom: 30px;
+}
+
+.calculator-report{
+    position: absolute;
+    left: 684px;
+    top: 20px;
+    width: 501px;
+    height: 620px;
+    border: solid 1px #cecece;
+    padding:15px;
+}
+
+.risk-icon{
+	margin-right:5px;
+	font-size: 28px;
+    vertical-align: middle;
+}
+
+.background-bar{
+	fill:#C1C1C1;
+}
+
+.top-selects{
+	position: absolute;
+    left: 40px;
+    top: 10px;
+    font-size: 18px;
+}
+
+.top-selects .quiet-select{
+	margin-right: 41px;
+	cursor:pointer;
+}
+
+.top-selects select{
+	cursor:pointer;
+}
+
+.summary {
+    display: inline-block;
+    font-family: Open Sans;
+    vertical-align: top;
+}
+.summary .number {
+    font-size: 35px;
+    line-height: 30px;
+    font-weight: 300;
+}
+
+.summary .number .smaller{
+	font-size:80%;
+}
+
+.summary .number .fa{
+	line-height: 15px;
+    font-size: 90%;
+}
+
+.summary .summaryLabel {
+    font-size: 13px;
+    font-weight: normal;
+    color: gray;
+    position: relative;
+    top: 4px;
+    line-height: 12px;
+}
+.bad-color {
+    color: #D03434;
+}
+.ok-color {
+    color: #FFA500;
+}
+.good-color {
+    color: #4B8C4B;
+}
+
+
+
+
+
 
 
 /****************/
@@ -253,7 +472,7 @@ h2{
 }
 
 .quiet-select .down-arrow {
-	font-size:8px;
+	font-size:60%;
 	position:relative;
 	top:-1px;
 }
