@@ -14,8 +14,11 @@ function SnackViz(){
 				'Running, 9 mph (6.5 min mile)',
 				'Jumping rope, moderate',
 				'Swimming laps, freestyle, slow',
+				'Jumping rope, moderate',
+				'Stair machine',
+				'Running, 6 mph (10 min mile)',
 			], o.label);
-		});
+		}).sort(function(a,b){return a.mets - b.mets;});
 
 
 

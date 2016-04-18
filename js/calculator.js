@@ -496,7 +496,7 @@ function Calculator(){
 	var self = this;
 	this.weight = 150;
 	this.height = 70;
-	this.gender = 1; // 1 = male
+	this.gender = 0; // 1 = male
 	this.age = 34;
 	this.bmi = null;
 	this.bodyfat = null;
