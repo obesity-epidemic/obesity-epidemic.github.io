@@ -10,6 +10,7 @@
         }
     }
 
+    // A line chart for health spending.
     var Line = function(parentSelector, data, options) {
         this.parentSelector = parentSelector;
         this.data = data;
@@ -18,6 +19,7 @@
         this.initVis();
     };
 
+    // Intialize the vis.
     Line.prototype.initVis = function() {
         var vis = this;
 
@@ -103,6 +105,7 @@
         vis.wrangleData();
     };
 
+    // Filter the data.
     Line.prototype.wrangleData = function() {
         var vis = this;
 
@@ -118,6 +121,7 @@
         vis.updateVis();
     };
 
+    // Render the vis.
     Line.prototype.updateVis = function () {
         var vis = this;
 

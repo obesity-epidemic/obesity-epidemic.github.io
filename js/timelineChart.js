@@ -15,6 +15,7 @@
         scaleValueCounts: 7
     };
 
+    // Timeline for choropleth linked view.
     var Timeline = function(parentSelector, data, activeProperty, options) {
         this.parentSelector = parentSelector;
         this.data = data;
@@ -26,6 +27,7 @@
         this.initVis();
     };
 
+    // Initialize the chart.
     Timeline.prototype.initVis = function() {
         var vis = this;
 
@@ -58,14 +60,11 @@
 
         var dates = _.map(vis.data, 'date');
         var ends = d3.extent(dates);
-        // vis.x.domain([ends[0].setYear(ends[0].getFullYear() - 5), ends[1].setYear(ends[1].getFullYear() + 5)]);
+
         vis.x.domain([new Date(ends[0].getFullYear() - 1, 0), new Date(ends[1].getFullYear() + 1, 0)]);
 
         vis.xMin = vis.x(ends[0]);
         vis.xMax = vis.x(ends[1]);
-
-        // vis.y = d3.scale.linear()
-        //     .range([vis.height, 0]);
 
         vis.quantize = d3.scale.quantize()
             .range(d3.range(vis.opts.scaleValueCounts).map(function (i) {
@@ -76,10 +75,6 @@
             .scale(vis.x)
             .tickSize(0)
             .orient('bottom');
-
-        // vis.yAxis = d3.svg.axis()
-        //     .scale(vis.y)
-        //     .orient('left');
 
         // Attach axes
         vis.svg.append('g')
@@ -143,13 +138,14 @@
         vis.init = true;
     };
 
+    // Begin playing of year-over-year
     Timeline.prototype.play = function() {
         var vis = this;
         vis.steps = _.map(vis.data, 'property');
         vis.steps = vis.steps.slice(_.indexOf(vis.steps, vis.activeProperty));
 
         if (!vis.steps || vis.steps.length === 0 ||
-            (vis.steps.length === 1)) { // && vis.steps[0] === vis.data[vis.steps.length - 1].property)) {
+            (vis.steps.length === 1)) {
 
             vis.steps = _.map(vis.data, 'property');
         }
@@ -160,6 +156,7 @@
         vis.pauseIcon.style('display', null);
     };
 
+    // Move to next step
     Timeline.prototype.nextStep = function() {
         var vis = this;
 
@@ -172,6 +169,7 @@
         }
     };
 
+    // Pause any playing
     Timeline.prototype.pause = function() {
         var vis = this;
 
@@ -181,6 +179,7 @@
         vis.pauseIcon.style('display', 'none');
     };
 
+    // Change the display mode
     Timeline.prototype.setMode = function(mode) {
         var vis = this;
 
@@ -224,6 +223,7 @@
         return vis;
     };
 
+    // Change the property from the data set to view.
     Timeline.prototype.setActiveProperty = function(activeProperty) {
         var vis = this;
 
@@ -238,30 +238,22 @@
         return vis;
     };
 
+    // A placeholder for future filtering and adjustments.
     Timeline.prototype.wrangleData = function() {
         var vis = this;
 
         vis.updateVis();
     };
 
+    // Render the vis.
     Timeline.prototype.updateVis = function () {
         var vis = this;
         vis.yearPositions = {};
 
-        var prev = null;
         _.forEach(vis.data, function(v, k) {
             var pos = vis.x(v.date);
             vis.yearPositions[k] = pos;
-
-            // if (prev) {
-            //
-            // }
-            //
-            // prev = k; //pos
         });
-
-        //vis.snappingRules
-        //_.forEach(vis.yearPositions, )
 
         vis.markers = vis.svg.selectAll('.marker')
             .data(_.values(vis.data), function(d) { return d.property; });
@@ -292,7 +284,7 @@
             .style('opacity', 0)
             .remove();
 
-        if (!vis.gBrush) {
+        if (!vis.gBrush && vis.mode === 'over-time') {
             // Add brush
             vis.gBrush = vis.svg.append('g')
                 .attr('class', 'brush')
@@ -312,13 +304,17 @@
                 .attr('width', 3);
         }
 
-        vis.brush(vis.gBrush);
+        if (vis.gBrush) {
+            vis.brush(vis.gBrush);
+        }
+
         vis.placeIndicator(vis.x(vis.activeDate));
 
         // Call axis functions with the new domain
         vis.svg.select('.x-axis').call(vis.xAxis);
     };
 
+    // Handle the user moving the indicator
     Timeline.prototype.indicatorDragged = function() {
         var vis = this;
         //var indicator = d3.select(this);
@@ -335,23 +331,13 @@
         vis.placeIndicator(x);
     };
 
+    // Handle the user dropping the indicator
     Timeline.prototype.indicatorDragEnded = function() {
         var vis = this;
         var x = vis.indicator.attr('data-x');
         var nearest;
-        var newX = 0;
-        //var prop = null;
+        var newX;
 
-        // TODO: Update with the closest year.
-        // _.forEach(vis.yearPositions, function(xPos, year) {
-        //     // Stop gap: snap to next lowest date.
-        //     newX = xPos;
-        //     prop = vis.data[year].property;
-        //
-        //     if ((x - 20) < xPos) {
-        //         return false;
-        //     }
-        // });
         nearest = vis.findNearest(vis.x.invert(x));
         newX = vis.x(nearest.date);
 
@@ -359,6 +345,7 @@
         vis.setActiveProperty(nearest.property);
     };
 
+    // Center the indicator on the given `x` value
     Timeline.prototype.placeIndicator = function(x) {
         var vis = this;
 
@@ -367,6 +354,7 @@
             .attr('data-x', x);
     };
 
+    // Update the timeline based on the current brush positioning
     Timeline.prototype.brushed = function() {
         var vis = this;
         var s = vis.brush.extent();
@@ -377,6 +365,7 @@
         });
     };
 
+    // Handle and apply the users new selection (including snapping and notifying externally)
     Timeline.prototype.brushEnd = function() {
         var vis = this;
         var extent0 = vis.brush.extent();
@@ -424,6 +413,7 @@
         vis.dispatch.rangeChange(dataRange);
     };
 
+    // Find the nearest marker to a given reference date
     Timeline.prototype.findNearest = function(ref) {
         var vis = this;
         var near = null;

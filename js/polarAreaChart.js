@@ -13,6 +13,7 @@
         gridCircles: [10, 20, 30, 40]
     };
 
+    // A polar area chart for comparing states.
     var PolarArea = function(parentSelector, data, activeProperty, options) {
         this.parentSelector = parentSelector;
         this.data = data;
@@ -23,6 +24,7 @@
         this.initVis();
     };
 
+    // Initialize the vis.
     PolarArea.prototype.initVis = function() {
         var vis = this;
         var radius;
@@ -59,9 +61,6 @@
             .append('g')
             .attr('transform', 'translate(' + vis.width / 2 + ',' + vis.height / 2 + ')');
 
-        // vis.color = d3.scale.linear()
-        //     .range(['rgb(254, 240, 217)', 'rgb(153, 0, 0)'])
-        //     .domain([0, 40]);
         vis.color = d3.scale.quantize()
             .range(d3.range(vis.opts.scaleValueCounts).map(function (i) {
                 return 'q' + i + '-' + vis.opts.scaleValueCounts;
@@ -75,6 +74,7 @@
         d3.rebind(vis, vis.dispatch, 'on');
     };
 
+    // Setter for `activeProperty`
     PolarArea.prototype.setActiveProperty = function(val) {
         var vis = this;
 
@@ -84,6 +84,7 @@
         return vis;
     };
 
+    // Setter for `sortOrder`
     PolarArea.prototype.setSort = function(val) {
         var vis = this;
 
@@ -93,6 +94,7 @@
         return vis;
     };
 
+    // Setter for `stateFilters` (i.e. the allowed US States)
     PolarArea.prototype.setStates = function (val) {
         var vis = this;
 
@@ -102,6 +104,7 @@
         return vis;
     };
 
+    // Prepare data based on sorting and selected states.
     PolarArea.prototype.wrangleData = function() {
         var vis = this;
 
@@ -147,6 +150,7 @@
         vis.updateVis();
     };
 
+    // Render the vis.
     PolarArea.prototype.updateVis = function () {
         var vis = this;
 
@@ -214,6 +218,7 @@
         vis.addCircleAxes();
     };
 
+    // Draw comparison circle.
     PolarArea.prototype.addCircleAxes = function() {
         var vis = this;
         var circleAxes;

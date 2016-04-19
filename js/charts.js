@@ -1,15 +1,16 @@
 (function() {
     
-
+    // Supporting currency processing function.
     function currencyToNumber(currencyStr) {
-        return  Number(currencyStr.replace(/[^0-9\.]+/g,""));
+        return  Number(currencyStr.replace(/[^0-9\.]+/g,''));
     }
 
+    // Render the obesity icon array.
     function nationalObesityIconArray() {
         var data = [
-            { label: "Total Extremely Obese (BMI>=40)", value: 6.6, cssClass: 'extreme-obese'},
-            { label: "Total Obese (BMI >= 30)", value: 35.3, cssClass: 'obese'},
-            { label: "Total Overweight (25 <= BMI < 30)", value: 33.3, cssClass: 'overweight'}
+            { label: 'Total Extremely Obese (BMI>=40)', value: 6.6, cssClass: 'extreme-obese'},
+            { label: 'Total Obese (BMI >= 30)', value: 35.3, cssClass: 'obese'},
+            { label: 'Total Overweight (25 <= BMI < 30)', value: 33.3, cssClass: 'overweight'}
         ];
 
         var chart = new window.charts.IconArray('#people-icon-viz', data, {
@@ -17,7 +18,8 @@
             rows: 5
         });
     }
-    
+
+    // Render the obesity stacked area chart.
     function nationalObesityStackedArea() {
         var chart = new window.charts.StackedArea('#overweight-percentage-viz', window.chartData.nationsTrends, {
             width: 573,
@@ -25,19 +27,22 @@
         });
     }
 
+    // Render the obesity spending lines chart.
     function nationalObesitySpendingLine() {
         var chart = new window.charts.Line('#health-spending-viz', window.chartData.nationsTrends, {
             width: 573,
             height: 180
         });
     }
-    
+
+    // Render the polar area chart.
     function stateObesityPolarArea() {
         var chart = new window.charts.PolarArea('#polarArea', window.chartData.stateTrends, 'yr2014', {
             width: 500,
             height: 500
         })
         .on('activeState', function(state) {
+            $('#polarAreaStateDetail .active-state').css('display', '');
             $('#polarAreaStateDetail .state-name').text(state.source.st);
             $('#polarAreaStateDetail .state-value').text(state.value);
 
@@ -94,6 +99,7 @@
         });
     }
 
+    // Create the linked views for the Choropleth.
     function stateObesityChoroplethLinkedViews() {
         var choropleth = new window.charts.Choropleth('#choropleth', window.chartData.stateTrends, window.topoJson.usa, 'yr2014');
         var years = {};
@@ -152,6 +158,7 @@
         });
     }
 
+    // Load all data and initiate each chart as it's dependencies are loaded.
     function init() {
         // Load data
         window.chartData = {};
@@ -167,8 +174,8 @@
                 var year = new Date(+yearMatches[1], 0, 0);
                 d.year = year;
 
-                d["US overweight Cost"] = currencyToNumber(d["US overweight Cost"]);
-                d["US obesity Cost"] = currencyToNumber(d["US obesity Cost"]);
+                d['US overweight Cost'] = currencyToNumber(d['US overweight Cost']);
+                d['US obesity Cost'] = currencyToNumber(d['US obesity Cost']);
             });
 
             window.chartData.nationsTrends = json;

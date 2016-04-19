@@ -15,6 +15,7 @@
         forceXDomain: false
     };
 
+    // Stacked area chart for obesity metrics.
     var StackedArea = function(parentSelector, data, options) {
         this.parentSelector = parentSelector;
         this.data = data;
@@ -23,6 +24,7 @@
         this.initVis();
     };
 
+    // Initialize the chart.
     StackedArea.prototype.initVis = function() {
         var vis = this;
 
@@ -106,23 +108,8 @@
 
         vis.pointData = _.flatten(vis.pointData);
 
-        // vis.pointData = vis.data.map(function(d) {
-        //     var vals = [];
-        //
-        //     vis.classScale.domain().forEach(function(name) {
-        //         vals.push({
-        //             year: d.year,
-        //             value: d[name]
-        //         });
-        //     });
-        //
-        //     return vals;
-        // });
 
-
-        // TO-DO: Stacked area layout
-        // vis.area = d3.svg.area()
-        //	...
+        // Stacked area layout
         vis.area = d3.svg.area()
             .interpolate("cardinal")
             .x(function(d) { return vis.x(d.year); })
@@ -148,6 +135,7 @@
         vis.wrangleData();
     };
 
+    // Filter data upon click events.
     StackedArea.prototype.wrangleData = function() {
         var vis = this;
 
@@ -158,13 +146,14 @@
 
         if (vis.filter) {
             vis.displayData = vis.displayData.filter(function(d) { return d.name === vis.filter; } );
-            vis.displayPointData = []; //vis.displayPointData.filter(function (d) { return d.name === vis.filter; });
+            vis.displayPointData = [];
         }
 
         // Update the visualization
         vis.updateVis();
     };
 
+    // Render the vis.
     StackedArea.prototype.updateVis = function () {
         var vis = this;
 
@@ -222,50 +211,8 @@
                 }
             })
             .transition()
-            //.delay(250)
             .duration(500)
             .style("opacity", 1);
-
-        // if (vis.filter) {
-        //     // Zoom in
-        //     var d0 = vis.singleArea(vis.data);
-        //     var d1 = vis.area(d.values);
-        //
-        //     categories
-        //     // .transition()
-        //     // .delay(500)
-        //     // .duration(500)
-        //     // .attr("d", function (d) {
-        //     //     if (vis.filter) {
-        //     //         // Single area
-        //     //         return vis.singleArea(vis.data);
-        //     //     }
-        //     //     else {
-        //     //         // Stacked areas
-        //     //         return vis.area(d.values);
-        //     //     }
-        //     // })
-        //         .style("opacity", 1)
-        //         .call(transition, d0, d1);
-        // }
-        // else {
-        //     // Zoom out
-        //     categories
-        //         //.transition()
-        //         //.delay(500)
-        //         //.duration(500)
-        //         .attr("d", function (d) {
-        //             if (vis.filter) {
-        //                 // Single area
-        //                 return vis.singleArea(vis.data);
-        //             }
-        //             else {
-        //                 // Stacked areas
-        //                 return vis.area(d.values);
-        //             }
-        //         })
-        //         .style("opacity", 1)
-        // }
 
         categories.exit()
             .transition()
@@ -276,10 +223,7 @@
         // Draw the points
         if (vis.opts.includePoints) {
             var points = vis.svg.selectAll('.point')
-                .data(vis.displayPointData)
-                // , function (d) {
-                //     return d.name + d.year.toString();
-                // });
+                .data(vis.displayPointData);
 
             points.enter().append('circle')
                 .style("opacity", 0)
@@ -292,7 +236,6 @@
 
             points
                 .transition()
-                //.delay(250)
                 .duration(250)
                 .attr('r', 3)
                 .style("opacity", 0.15);
@@ -303,7 +246,6 @@
                 .style("opacity", 0)
                 .remove();
         }
-
 
         // Call axis functions with the new domain
         vis.svg.select(".x-axis").call(vis.xAxis);
@@ -317,38 +259,39 @@
         }
     };
 
+    // TODO: Improve transitions from stacked to single.
     // Based on tweening at: https://bl.ocks.org/mbostock/3916621
-    function transition(path, d0, d1) {
-        path.transition()
-            .duration(2000)
-            .attrTween("d", pathTween(d1, 4))
-            .each("end", function() { d3.select(this).call(transition, d1, d0); });
-    }
-
-    function pathTween(d1, precision) {
-        return function() {
-            var path0 = this,
-                path1 = path0.cloneNode(),
-                n0 = path0.getTotalLength(),
-                n1 = (path1.setAttribute("d", d1), path1).getTotalLength();
-
-            // Uniform sampling of distance based on specified precision.
-            var distances = [0], i = 0, dt = precision / Math.max(n0, n1);
-            while ((i += dt) < 1) distances.push(i);
-            distances.push(1);
-
-            // Compute point-interpolators at each distance.
-            var points = distances.map(function(t) {
-                var p0 = path0.getPointAtLength(t * n0),
-                    p1 = path1.getPointAtLength(t * n1);
-                return d3.interpolate([p0.x, p0.y], [p1.x, p1.y]);
-            });
-
-            return function(t) {
-                return t < 1 ? "M" + points.map(function(p) { return p(t); }).join("L") : d1;
-            };
-        };
-    }
+    // function transition(path, d0, d1) {
+    //     path.transition()
+    //         .duration(2000)
+    //         .attrTween("d", pathTween(d1, 4))
+    //         .each("end", function() { d3.select(this).call(transition, d1, d0); });
+    // }
+    //
+    // function pathTween(d1, precision) {
+    //     return function() {
+    //         var path0 = this,
+    //             path1 = path0.cloneNode(),
+    //             n0 = path0.getTotalLength(),
+    //             n1 = (path1.setAttribute("d", d1), path1).getTotalLength();
+    //
+    //         // Uniform sampling of distance based on specified precision.
+    //         var distances = [0], i = 0, dt = precision / Math.max(n0, n1);
+    //         while ((i += dt) < 1) distances.push(i);
+    //         distances.push(1);
+    //
+    //         // Compute point-interpolators at each distance.
+    //         var points = distances.map(function(t) {
+    //             var p0 = path0.getPointAtLength(t * n0),
+    //                 p1 = path1.getPointAtLength(t * n1);
+    //             return d3.interpolate([p0.x, p0.y], [p1.x, p1.y]);
+    //         });
+    //
+    //         return function(t) {
+    //             return t < 1 ? "M" + points.map(function(p) { return p(t); }).join("L") : d1;
+    //         };
+    //     };
+    // }
 
     if (!window.charts) { window.charts = {}; }
     window.charts.StackedArea = StackedArea;

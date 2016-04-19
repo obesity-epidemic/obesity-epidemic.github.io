@@ -8,6 +8,7 @@
         fillCount: 100
     };
 
+    // Icon array of weight statuses
     var IconArray = function(parentSelector, data, options) {
         this.parentSelector = parentSelector;
         this.data = data;
@@ -16,6 +17,7 @@
         this.initVis();
     };
 
+    // Initialize the vis.
     IconArray.prototype.initVis = function() {
         var vis = this;
         var elems = vis.opts.rows * vis.opts.columns;
@@ -47,6 +49,7 @@
         vis.updateVis();
     };
 
+    // Render the vis.
     IconArray.prototype.updateVis = function () {
         var vis = this;
 
