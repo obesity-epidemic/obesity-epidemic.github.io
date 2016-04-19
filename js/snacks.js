@@ -3,22 +3,9 @@ function SnackViz(){
 
 
 		this.foods = foods;
-		//this.mets = mets.slice(0,5);
+		this.mets = mets;
 
-		this.mets = _.filter(mets, function(o){
-			return _.includes([
-				'Walking 2.5 mph',
-				'Cycling, 12-13.9 mph, moderate',
-				'Weight lifting, body building, vigorous',
-				'Rowing machine, moderate',
-				'Running, 9 mph (6.5 min mile)',
-				'Jumping rope, moderate',
-				'Swimming laps, freestyle, slow',
-				'Jumping rope, moderate',
-				'Stair machine',
-				'Running, 6 mph (10 min mile)',
-			], o.label);
-		}).sort(function(a,b){return a.mets - b.mets;});
+		
 
 
 
@@ -98,10 +85,33 @@ queue()
   .defer(d3.csv, "data/processed_data/food-calories.csv")
   .await(function(error, mets, foods){
   		
-  		_.each(foods, function(o,i){
-  			o.key = i+'';
-  			o.calories = +o.calories;
-  		})
+			_.each(foods, function(o,i){
+				o.key = i+'';
+				o.calories = +o.calories;
+				o.img = _.kebabCase(o.label.replace("'",'')) + '.jpg';
+			});
+
+			mets = _.filter(mets, function(o){
+				return _.includes([
+					'Walking 2.5 mph',
+					'Cycling, 12-13.9 mph, moderate',
+					'Weight lifting, body building, vigorous',
+					'Rowing machine, moderate',
+					'Running, 9 mph (6.5 min mile)',
+					'Jumping rope, moderate',
+					'Swimming laps, freestyle, slow',
+					'Jumping rope, moderate',
+					'Stair machine',
+					'Running, 6 mph (10 min mile)',
+				], o.label);
+			}).sort(function(a,b){return a.mets - b.mets;});
+
+			_.each(mets, function(o){
+				o.img = o.label.split(' ')[0].replace(',', '').toLowerCase() + '.png';
+			})
+
+
+
 
   		snackViz.init(mets, foods);
   })

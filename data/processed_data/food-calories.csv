@@ -1,5 +1,24 @@
-label,serving,calories,img
-McDonald's Big Mac,1 burger,563,bigmac.jpg
-Snickers,1.56oz bar,215,snickers.jpg
-Lettuce,1 cup shredded,5,lettuce.jpg
-Apple,1 medium,95,apple.jpg
+label,serving,calories
+McDonald's Big Mac,1 burger,563
+Snickers,1.56oz bar,215
+Lettuce,1 cup shredded,5
+Apple,1 medium,95
+Apple Pie,1 slice,277
+Einstein Plain Bagel,1 bagel,260
+Banana,medium size,105
+Blueberry Muffin,medium size,426
+Carrot,1 medium size,25
+Cap'n Crunch Cereal,3/4 cup,108
+Celery,4" piece,1
+Chocolate Chip Cookie,1 medium cookie,78
+Orange,1 fruit,62
+Dreyer's Vanilla Ice Cream,1/2 cup,140
+Milk,1 cup of 1%,103
+Coca Cola,12 fl oz can,140
+Pepsi,12 fl oz can,150
+Bread,1 slice of white,79
+Popcorn,1 cup,31
+Dominos Pepperoni Pizza,1 slice,220
+Rice,1 cup of white rice,206
+Yoplait Yogurt,1 container of strawberry flavor,150
+Cheerios,1 cup,110

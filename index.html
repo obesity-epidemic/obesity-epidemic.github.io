@@ -704,7 +704,7 @@
 			<div class='food-title'><%= d.label %></div>
 			<div class='food-subtitle'>Serving Size: <%= d.serving %></div>
 			<div class='food-calories'><span class='food-calories-value'><%= d.calories %></span> Calories</div>
-			<div class='food-img'><img src="img/<%= d.img %>" /></div>
+			<div class='food-img'><img src="img/snacks/<%= d.img %>" /></div>
 		</div>
 	</script>
 
@@ -712,14 +712,14 @@
 	<script type="text/template" class="js-template" id='mainSnackList'>
 		<% _.each(d.foods, function(d){ %>
 		<div class="food-list-item" onClick="snackViz.set('selectedFood', '<%= d.key %>')">
-			<div class='food-thumb'><img src="img/<%= d.img %>" /></div>
+			<div class='food-thumb'><img src="img/snacks/<%= d.img %>" /></div>
 			<div class='food-thumb-title'><%= d.label %></div>
 		</div>
 		<% }) %>
 	</script>	
 
 	<script type="text/template" class="js-template" id='metTemplate'>
-			<div class='met-thumb' style='display:none;'><img src="img/<%= d.img %>" /></div>
+			<div class='met-thumb'><img src="img/snacks/<%= d.img %>" /></div>
 			<div class='met-label'><%= d.label %></div>
 	</script>
 
