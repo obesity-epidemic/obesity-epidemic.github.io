@@ -161,13 +161,12 @@
 
 		<div class="row">
 			<div class="col-xs-12">
-				<div id="polarArea" class="col-xs-6"></div>
-				<div id="polarAreaStateDetail" class="col-xs-6">
+				<div id="polarArea" class="col-xs-6">
 					<div class="row">
-						<div class="col-xs-3">
+						<div class="col-xs-5">
 							<h4>Sort</h4>
-							<label><input name="polarAreaMode" value="alpha" type="radio" checked /> Alphabetical</label>
-							<label><input name="polarAreaMode" value="rate" type="radio" /> Rate</label>
+							<label><input name="polarAreaMode" value="rate" type="radio" checked /> Obesity Rate</label>
+							<label><input name="polarAreaMode" value="alpha" type="radio" /> State Name (Alphabetical)</label>
 						</div>
 						<div class="col-xs-2">
 							<h4>Year</h4>
@@ -189,22 +188,27 @@
 								<option value="yr2014" selected>2014</option>
 							</select>
 						</div>
-						<div class="col-xs-7">
+						<div class="col-xs-5">
 							<h4>Location</h4>
 							<button id="btn-polar-states" class="btn btn-default">Select Regions / States</button>
 						</div>
 					</div>
-
+				</div>
+				<div id="polarAreaStateDetail" class="col-xs-6">
+					<div class="prompt-active-state bg-info">
+						<i class="fa fa-arrow-left" aria-hidden="true"></i> Hover over the diagram to explore details.
+					</div>
 					<div class="active-state" style="display: none;">
 						<h2 class="state-name"></h2>
-						<div>
-							Selected Year Value: <span class="state-value"></span>
+						<div id="state-trend-line">
+							<!--Selected Year Value: <span class="state-value"></span>-->
+
 						</div>
 
 						<hr>
 						<b>Over Time</b>
 						<div id="stateTrendLineChart"></div>
-						<div class="state-all-values"></div>
+						<table class="state-all-values table table-striped table-condensed table-hover"></table>
 					</div>
 				</div>
 				<div class="state-filter-dialog">
@@ -761,6 +765,7 @@
 	<script src="js/choropleth.js"></script>
 	<script src="js/iconArray.js"></script>
 	<script src="js/polarAreaChart.js"></script>
+	<script src="js/trendChart.js"></script>
 	<script src="js/charts.js"></script>
 </body>
 </html>

@@ -37,11 +37,16 @@
 
     // Render the polar area chart.
     function stateObesityPolarArea() {
+        var trend = new window.charts.Trend('#state-trend-line');
+
         var chart = new window.charts.PolarArea('#polarArea', window.chartData.stateTrends, 'yr2014', {
             width: 500,
             height: 500
         })
         .on('activeState', function(state) {
+            var vals = [];
+
+            $('#polarAreaStateDetail .prompt-active-state').css('display', 'none');
             $('#polarAreaStateDetail .active-state').css('display', '');
             $('#polarAreaStateDetail .state-name').text(state.source.st);
             $('#polarAreaStateDetail .state-value').text(state.value);
@@ -53,10 +58,21 @@
                 var matches = k.match(/^yr(\d{4})$/);
 
                 if (matches) {
-                    var valRow = $('<div>').text(matches[1] + ': ' + v + '%');
+                    var valRow = $('<tr>');
+                    valRow.append($('<td>').text(matches[1]));
+                    valRow.append($('<td>').text(v + '%'));
                     $stateVals.append(valRow);
+
+                    if (v !== null) {
+                        vals.push({
+                            year: new Date(matches[1]),
+                            val: v
+                        });
+                    }
                 }
             });
+            
+            trend.setData(vals);
         });
 
         // Update charts when radios change

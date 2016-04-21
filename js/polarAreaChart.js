@@ -4,7 +4,7 @@
         width: 800,
         margin: {
             top: 0,
-            right: 0,
+            right: 10,
             bottom: 0,
             left: 0
         },
@@ -19,7 +19,7 @@
         this.data = data;
         this.opts = _.defaultsDeep({}, options, DEFAULTS);
         this.activeProperty = activeProperty;
-        this.sortOrder = 'alpha';
+        this.sortOrder = 'rate';
 
         this.initVis();
     };
@@ -43,20 +43,22 @@
         vis.outerRadius = function(d) {
             return radius * d.value / 40;
         };
+
         vis.arc = d3.svg.arc()
             .outerRadius(vis.outerRadius)
             //.innerRadius(0);
             .innerRadius(dim * 0.05);
 
         vis.pie = d3.layout.pie()
+            .sort(null)
             .value(function(d) { return d.value; });
 
         vis.grid = d3.svg.area.radial()
             .radius(150);
 
         vis.svg = d3.select(vis.parentSelector).append('svg')
-            .attr('width', vis.width)
-            .attr('height', vis.height)
+            .attr('width', vis.opts.width)
+            .attr('height', vis.opts.height)
             .attr('class', vis.opts.classes.join(' '))
             .append('g')
             .attr('transform', 'translate(' + vis.width / 2 + ',' + vis.height / 2 + ')');
@@ -110,16 +112,18 @@
 
         vis.displayData = _.map(vis.data, function(d) {
             var v = d[vis.activeProperty];
-
-            if (v === null) {
-                v = 10;
-            }
-
-            return {
+            var ret = {
                 name: d.ab,
                 value: v,
-                source: d
+                source: d,
+                rawValue: v
             };
+
+            if (v === null) {
+                ret.value = 10;
+            }
+
+            return ret;
         });
 
         if (vis.stateFilters) {
@@ -129,22 +133,22 @@
         }
 
         if (vis.sortOrder === 'alpha') {
-            // vis.displayData = vis.displayData.sort(function (a, b) {
-            //     return a.name.localeCompare(b.name);
-            // });
+            vis.displayData = vis.displayData.sort(function (a, b) {
+                return a.name.localeCompare(b.name);
+            });
 
-            vis.pie.sort(function (a, b) {
-                    return a.name.localeCompare(b.name);
-                });
+            // vis.pie.sort(function (a, b) {
+            //         return a.name.localeCompare(b.name);
+            //     });
         }
         else {
-            // vis.displayData = vis.displayData.sort(function(a, b){
-            //     return a.value - b.value;
-            // });
+            vis.displayData = vis.displayData.sort(function(a, b){
+                return a.value - b.value;
+            });
 
-            vis.pie.sort(function (a, b) {
-                    return a.value - b.value;
-                });
+            // vis.pie.sort(function (a, b) {
+            //         return a.value - b.value;
+            //     });
         }
 
         vis.updateVis();
@@ -153,19 +157,13 @@
     // Render the vis.
     PolarArea.prototype.updateVis = function () {
         var vis = this;
-
-        vis.svg.selectAll('.arc')
-            // .transition()
-            // .duration(1000)
-            // .attr('opacity', 0)
-            .remove();
-
+        var layoutData = vis.pie(vis.displayData);
         var arcs = vis.svg.selectAll('.arc')
-            .data(vis.pie(vis.displayData, function (d) {
+            .data(layoutData, function (d) {
                 return d.data.name;
-            }));
+            });
 
-        var g = arcs.enter().append('g')
+        var newArcs = arcs.enter().append('g')
             .attr('class', 'arc')
             .attr('opacity', 0);
 
@@ -174,31 +172,40 @@
             .attr('opacity', 0)
             .remove();
 
-        g.append('path')
+        newArcs.append('path')
             .attr('d', vis.arc)
-            .attr('class', function(d) { return vis.color(d.value); });
+            .each(function(d) {
+                this._current = d;
+            }); // store the initial angles
 
-        g.transition()
-            .attr('opacity', 1);
+        newArcs.transition().attr('opacity', 1);
 
-        g.on('click', function(d) {
-            vis.svg.select('.arc.active')
-                .classed('active', false);
-
+        // Handle user selection of a US State
+        newArcs.on('mouseover', _.debounce(function(d) {
             d3.select(this).classed('active', true);
-
+            vis.svg.select('.arc.active').classed('active', false);
             vis.svg.select('.circle-active').remove();
-
             vis.svg.append('circle')
                 .attr('class', 'circle-active')
                 .attr('r', vis.outerRadius({ value: d.value }));
 
             vis.dispatch.activeState(d.data);
-        });
+        }, 200));
 
-        g.append('text')
+        // Label each wedge
+        newArcs.append('text')
+            .attr('dy', '.35em')
+            .style('text-anchor', 'middle')
+            .text(function(d) {
+                return d.data.name; });
+
+        arcs.selectAll('text')
+            .data(function(d) { return [d]; }) // Update child data.
+            .transition()
+            //.attr('opacity', 0)
+            .transition()
+            .duration(1000)
             .attr('transform', function(d) {
-                //return 'translate(' + vis.arc.centroid(d) + ')';
                 var c = vis.arc.centroid(d);
                 var x = c[0];
                 var y = c[1];
@@ -209,13 +216,19 @@
 
                 return 'translate(' + (x/h * labelr) +  ',' +
                     (y/h * labelr) +  ')';
-            })
-            .attr('dy', '.35em')
-            .style('text-anchor', 'middle')
-            .text(function(d) {
-                return d.data.name; });
+            });
+
+        arcs.selectAll('path')
+            .data(function(d) { return [d]; }) // Update child data.
+            .attr('class', function(d) {
+                return d.data.rawValue === null ? 'black' : vis.color(d.value); })
+            .transition()
+            .duration(1000)
+            .delay(250)
+            .attr('d', vis.arc);
 
         vis.addCircleAxes();
+        setTimeout(_.bind(vis.addCircleTicks, vis), 1250); // Wait until after the wedges are in place.
     };
 
     // Draw comparison circle.
@@ -232,10 +245,65 @@
 
         circleAxes.append('svg:circle')
             .attr('r', function (d) {
-                return vis.outerRadius({ value: d });
+                return vis.outerRadius({value: d});
             })
             .attr('class', 'circle');
     };
+
+    PolarArea.prototype.addCircleTicks = function() {
+        var vis = this;
+
+        // Find arcs that overlap with where our labels will be placed.
+        // y +/- 10 && have an x > 0
+        var maxVal = 0;
+        var overlapArcs = vis.svg.selectAll('.arc').each(function(d) {
+                var el = this;
+                var box = el.getBBox();
+
+                if(box.x > 0 && (box.y > -50 || (box.y - box.height) < 50 )) {
+                    //console.log(d.data.name);
+
+                    if (box.x + box.width > maxVal) {
+                        maxVal = box.x + box.width;
+                    }
+                }
+            });
+
+        var lblToUse = _.filter(vis.opts.gridCircles, function (d) {
+            return vis.outerRadius({ value: d }) > (maxVal + 10);
+        });
+
+        var lbl = vis.svg.selectAll('.tick-label')
+            .data(lblToUse, function(d) { return d; });
+
+        lbl.exit()
+            .transition()
+            .style('opacity', 0)
+            .remove();
+
+        lbl.enter().append('g')
+            .style('opacity', 0)
+            .attr('class', 'tick-label')
+            .attr('transform', function (d) {
+                return 'translate('+ vis.outerRadius({ value: d }) +' , 0)'; })
+            .append('text')
+                .attr('dy', 10)
+                .text(function (d) { return d + '%'; });
+
+        lbl.transition()
+            .style('opacity', 1);
+    };
+
+    // Store the displayed angles in _current.
+    // Then, interpolate from _current to the new angles.
+    // During the transition, _current is updated in-place by d3.interpolate.
+    // function arcTween(a, el, arc) {
+    //     var i = d3.interpolate(el._current, a);
+    //     el._current = i(0);
+    //     return function(t) {
+    //         return arc(i(t));
+    //     };
+    // }
 
     if (!window.charts) { window.charts = {}; }
     window.charts.PolarArea = PolarArea;

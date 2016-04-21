@@ -22,7 +22,31 @@
   background-color: #ffffff;
 
   box-shadow: 0 0 5px rgba(0,0,0,0.5);
+  overflow: scroll;
 }
+
+.prompt-active-state {
+  margin-top: 250px;
+  padding: 10px 20px;
+}
+
+.prompt-active-state .fa {
+  margin-right: 10px;
+}
+
+.trend-chart .trend {
+  fill: url(#obese-gradient);
+  /*stroke: url(#obese-gradient);
+  stroke-width: 4px;*/ }
+
+.trend-chart .domain {
+  fill: none;
+  stroke: none; }
+
+.trend-chart .point {
+  fill: none;
+  stroke: #000;
+  stroke-width: 3px; }
 
 .state-filter {
   list-style: none;
@@ -251,6 +275,14 @@
   .polar-area .arc:hover text, .polar-area .arc.active text {
     fill: #000; }
 
+.polar-area .tick-label rect {
+  fill: #fff;
+  fill-opacity: 0.1; }
+
+.polar-area .tick-label text {
+  text-anchor: middle;
+  font-size: 10px; }
+
 .polar-area .circle-active {
   stroke: #09c;
   stroke-width: 4px;
@@ -261,3 +293,6 @@
   stroke: #000;
   opacity: 0.15;
   fill: none; }
+
+.active-state .state-name {
+  margin-top: 0; }
