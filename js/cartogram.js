@@ -28,6 +28,7 @@ $("#cartoMenu .region ").click(function (event) {
         event.preventDefault();
         event.stopPropagation();
         $(this).children(".division").toggleClass("hide");
+        $(this).find(".fa").toggleClass("fa-caret-down").toggleClass("fa-caret-up");
     }
     ;
 });
@@ -571,7 +572,7 @@ function updateVisArea(inputParam, maxSize=50) {
         d3.select(".legendSize").call(legendSize);}
 
 
-    var states = d3.selectAll(".cartoStates").data(cartoData);
+    var states = d3.selectAll(".cartoStates");//.data(cartoData);
 
     states
         .attr("transform", function (d) {
@@ -652,7 +653,7 @@ function updateVisColor(inputParam) {
             }
         )]);
 
-    var states = d3.selectAll(".cartoStates").data(cartoData);
+    var states = d3.selectAll(".cartoStates");//.data(cartoData);
 
     states
         .transition()
