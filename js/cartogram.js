@@ -552,7 +552,8 @@ function updateVisArea(inputParam, maxSize=50) {
         )]);
 
     var legendSize = d3.legend.size()
-        .scale(z)
+        .scale(z.range([5, maxSize*.75]))
+        .cells(4)
         .labelFormat(function(d){
             return getFormatRight(inputParam, d);})
         .shape('rect')
