@@ -418,10 +418,21 @@ CartogramChart.prototype.initStates = function () {
         .attr('class', 'd3-tip')
         .offset([-10, 0])
         .html(function (d) {
+            console.log(formatToolTip(colorCat));
             if (!d.filtered) {
                 d3.selectAll('.d3-tip').style("display", "block");
                 this.parentNode.appendChild(this);
-                return "<strong>" + d.state_name + ":</strong> <span style='color:red'>" + d['obesity %'] + "% Obese</span><br>" + eval(formatToolTip(sizeCat)) + "<br>" + eval(formatToolTip(colorCat)) + "<br>" + eval(formatToolTip(verticalCat));
+                return '<div class="tip-title">' + d.state_name + '</div>' +
+                    '<div>' +
+                    '<span class="tip-large-text">' +  d['obesity %'] + '%</span>' +
+                    '&nbsp;<span class="tip-small-text">in ' + 2014 +  '<br>' +
+                    eval(formatToolTip(sizeCat))  + '<br>' +
+                    eval(formatToolTip(colorCat)) + '<br>' +
+                    eval(formatToolTip(verticalCat))
+                    + '</span>' +
+                    '</div>';
+
+                // return "<strong>" + d.state_name + ":</strong> <span style='color:red'>" + d['obesity %'] + "% Obese</span><br>" + eval(formatToolTip(sizeCat)) + "<br>" + eval(formatToolTip(colorCat)) + "<br>" + eval(formatToolTip(verticalCat));
             } else {
                 d3.selectAll('.d3-tip').style("display", "none");
             }
