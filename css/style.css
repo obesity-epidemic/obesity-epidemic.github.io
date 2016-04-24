@@ -1,3 +1,11 @@
+section {
+	margin-top: 150px;
+}
+
+section.small-gap {
+	margin-top: 50px;
+}
+
 #snack-list{
 	float:left;
 	width:120px;
@@ -115,6 +123,7 @@
 	min-height: 200px;
 	background-color: #000000;
 	color: #ffffff;
+	margin-top: 100px;
 	margin-bottom: 0;
 	padding-top: 20px;
 	padding-bottom: 50px;
@@ -146,7 +155,6 @@ h3{
 	margin-top:30px;
 }
 
-
 .big-quote{
 	float:right;
 	width:375px;
@@ -159,7 +167,13 @@ h3{
 	font-weight:100;
 }
 
-.big-quote .source{
+.big-quote.inline {
+	float: none;
+	width: 80%;
+	margin: 50px auto;
+}
+
+.big-quote .source {
 	margin-top:10px;
 	text-align:center;
 	color: #808080;

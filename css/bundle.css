@@ -1,3 +1,52 @@
+.fa.extreme-obese {
+  color: #f30; }
+
+.fa.obese {
+  color: #f90; }
+
+.fa.overweight {
+  color: #fb0; }
+
+.fa.fa-usd {
+  color: #0a0;
+}
+
+.fact-group {
+  padding-left: 5%;
+}
+
+.fact-box {
+  background-color: #f0f0f0;
+  margin-bottom: 50px;
+  padding: 20px;
+}
+
+.fact-box > div {
+  margin-left: 45px;
+}
+
+.fact-box > .fa {
+  float: left;
+  font-size: 36px;
+  vertical-align: top;
+  padding-right: 10px;
+}
+
+.fact-lead {
+  font-size: 28px;
+}
+
+.fact-box .fact-small-lead {
+  font-size: 12px;
+  opacity: 0.5;
+  line-height: 12px;
+  margin-bottom: -10px;
+}
+
+.fact-caption {
+  opacity: 0.8;
+}
+
 .lead-wrap {
   background: url('../img/pizza_bw.jpg');
   background-size: cover;
