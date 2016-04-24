@@ -8,7 +8,9 @@
             bottom: 20,
             left: 40
         }
-    }
+    };
+
+    var currencyFormat = d3.format('$,f');
 
     // A line chart for health spending.
     var Line = function(parentSelector, data, options) {
@@ -57,7 +59,7 @@
 
         vis.classScale = d3.scale.ordinal()
             .range(['overweight', 'obese'])
-            .domain(['US overweight Cost', 'US obesity Cost']);
+            .domain(['US Overweight Cost', 'US Obesity Cost']);
 
         vis.xAxis = d3.svg.axis()
             .scale(vis.x)
@@ -95,12 +97,28 @@
             };
         });
 
+        // Tool tip
+        vis.tip = d3.tip()
+            .attr('class', 'd3-tip')
+            .offset([-10, 0])
+            .html(function(point) {
+                var d = vis.allData[point.index];
 
-        // TO-DO: Tooltip placeholder
-        // vis.placeholder = vis.svg.append("text")
-        //     .attr("class", "placeholder")
-        //     .attr("x", 5)
-        //     .attr("y", 5);
+                var rows = _(d).sortBy('y').reverse().map(function(v) {
+                    var r = '<tr class="' + v.name.toLowerCase().replace(/\s+/g, '-') + '" >';
+                    r += '<td><span></span>&nbsp;' + v.name + ':</td>';
+                    r += '<td class="text-right">&nbsp;' + currencyFormat(v.y) + '</td>'
+                    r += '</tr>';
+
+                    return r;
+                }).value();
+
+                return '<div class="tip-title">' + point.year.getFullYear() + '</div>'
+                    + '<table class="table table-dark">'
+                    + rows.join('')
+                    + '</table>';
+            });
+        vis.svg.call(vis.tip);
 
         vis.wrangleData();
     };
@@ -116,6 +134,34 @@
             vis.displayData = vis.displayData.filter(function(d) {
                 return d.name === vis.filter; } );
         }
+
+        vis.allData = [];
+
+        // Associate the line name to each point.
+        _.forEach(vis.displayData, function(line) {
+            _.forEach(line.values, function(v, i) {
+                v.name = line.name;
+                v.index = i;
+            });
+        });
+
+        // Associate data points at each index for each line together.
+        _.forEach(vis.displayData[0].values, function(d, i) {
+            _.forEach(vis.displayData, function(line){
+                if (!vis.allData[i]) {
+                    vis.allData.push({});
+                }
+
+                vis.allData[i][line.name] = line.values[i];
+            });
+        });
+
+        vis.displayPointData = [];
+        vis.displayData.forEach(function(line) {
+            vis.displayPointData.push(line.values);
+        });
+
+        vis.displayPointData = _.flatten(vis.displayPointData);
 
         // Update the visualization
         vis.updateVis();
@@ -156,6 +202,32 @@
         categories.exit()
             .transition()
             .duration(500)
+            .style("opacity", 0)
+            .remove();
+
+        // Draw the points
+        var points = vis.svg.selectAll('.point')
+            .data(vis.displayPointData);
+
+        points.enter().append('circle')
+            .style("opacity", 0)
+            .attr('class', 'point')
+            .attr('cx', function(d) { return vis.x(d.year); })
+            .attr('cy', function (d) {
+                return vis.y(d.y);
+            })
+            .on('mouseover', vis.tip.show)
+            .on('mouseout', vis.tip.hide);
+
+        points
+            .transition()
+            .duration(250)
+            .attr('r', 5)
+            .style("opacity", 0.15);
+
+        points.exit()
+            .transition()
+            .duration(250)
             .style("opacity", 0)
             .remove();
 

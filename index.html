@@ -12,6 +12,7 @@
 	<link rel="stylesheet" href="css/font-awesome.min.css">
 	<link rel="stylesheet" href="css/style.css">
 	<link rel="stylesheet" href="css/bundle.css">
+	<link rel="stylesheet" href="css/tooltip.css">
 </head>
 <body>
 
@@ -112,38 +113,48 @@
 			</div>
 		</div>
 
+		<!--<div class="row">-->
+			<!--<div class="col-xs-4">-->
+				<!--<div class="help-box">-->
+					<!--<div class="title">Not Worse, Not Better</div>-->
+					<!--<div class="description">Obesity really started to climb starting in the 1980s. Ever since 2010, rates have stabilized, but they are at extremely high levels. </div>-->
+					<!--<a href='#' onclick='demo("notBetter", this); return false;'>Show me &raquo;</a>-->
+				<!--</div>-->
+			<!--</div>-->
+
+			<!--<div class="col-xs-4">-->
+				<!--<div class="help-box">-->
+					<!--<div class="title">Where is obesity the worse?</div>-->
+					<!--<div class="description">The Southeast has continually had the highest levels of obesity.</div>-->
+					<!--<a href='#' onclick='demo("whereIsWorse", this); return false;'>Show me &raquo;</a>-->
+				<!--</div>-->
+			<!--</div>-->
+
+			<!--<div class="col-xs-4">-->
+				<!--<div class="help-box">-->
+					<!--<div class="title">What states are improving?</div>-->
+					<!--<div class="description">Since 2010, some States have made improvement towards fighting obesity.</div>-->
+					<!--<a href='#' onclick='demo("whereIsWorse", this); return false;'>Show me &raquo;</a>-->
+				<!--</div>-->
+			<!--</div>-->
+		<!--</div>-->
+
+
 		<div class="row">
-			<div class="col-xs-4">
-				<div class="help-box">
-					<div class="title">Not Worse, Not Better</div>
-					<div class="description">Obesity really started to climb starting in the 1980s. Ever since 2010, rates have stabilized, but they are at extremely high levels. </div>
-					<a href='#' onclick='demo("notBetter", this); return false;'>Show me &raquo;</a>
-				</div>
-			</div>
-
-			<div class="col-xs-4">
-				<div class="help-box">
-					<div class="title">Where is obesity the worse?</div>
-					<div class="description">The Southeast has continually had the highest levels of obesity.</div>
-					<a href='#' onclick='demo("whereIsWorse", this); return false;'>Show me &raquo;</a>
-				</div>
-			</div>
-
-			<div class="col-xs-4">
-				<div class="help-box">
-					<div class="title">What states are improving?</div>
-					<div class="description">Since 2010, some States have made improvement towards fighting obesity.</div>
-					<a href='#' onclick='demo("whereIsWorse", this); return false;'>Show me &raquo;</a>
-				</div>
-			</div>
-		</div>
-
-
-		<div class="row">
-			<div class="col-xs-2" style="padding-top: 150px">
+			<div class="col-xs-2" style="padding-top: 0px">
 				<h4>Mode</h4>
 				<label><input name="choroplethMode" value="by-year" type="radio" checked /> Obesity Rates</label>
 				<label><input name="choroplethMode" value="over-time" type="radio" /> Change Over Time</label>
+
+				<div id="map-extremes" style="margin-top: 100px; display: none;">
+					<b>Extremes</b>
+					<table class="table table-striped table-condensed">
+						<thead>
+							<tr><th></th><th>Best</th><th>Worst</th></tr>
+						</thead>
+						<tbody></tbody>
+					</table>
+				</div>
 			</div>
 			<div class="col-xs-10">
 				<div id="timeline"></div>
@@ -167,7 +178,7 @@
 						<div class="col-xs-5">
 							<h4>Sort</h4>
 							<label><input name="polarAreaMode" value="rate" type="radio" checked /> Obesity Rate</label>
-							<label><input name="polarAreaMode" value="alpha" type="radio" /> State Name (Alphabetical)</label>
+							<label><input name="polarAreaMode" value="alpha" type="radio" /> State Name <small>(Alphabetical)</small></label>
 						</div>
 						<div class="col-xs-2">
 							<h4>Year</h4>

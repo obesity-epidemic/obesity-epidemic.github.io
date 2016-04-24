@@ -1,4 +1,6 @@
 (function() {
+    var percentFormat = d3.format('0.2f');
+
     var DEFAULTS = {
         height: 70,
         width: 960,
@@ -12,7 +14,10 @@
         indicatorHeight: 20,
         indicatorGap: 3,
         stepDwell: 500,
-        scaleValueCounts: 7
+        scaleValueCounts: {
+            'seq': 7,
+            'diverge': 10
+        }
     };
 
     // Timeline for choropleth linked view.
@@ -66,10 +71,32 @@
         vis.xMin = vis.x(ends[0]);
         vis.xMax = vis.x(ends[1]);
 
-        vis.quantize = d3.scale.quantize()
-            .range(d3.range(vis.opts.scaleValueCounts).map(function (i) {
-                return 'q' + i + '-' + vis.opts.scaleValueCounts;
-            }));
+        // vis.quantize = d3.scale.quantize()
+        //     .range(d3.range(vis.opts.scaleValueCounts).map(function (i) {
+        //         return 'q' + i + '-' + vis.opts.scaleValueCounts;
+        //     }));
+        // Sequential scale for 'by-year'
+        vis.quantizeSeq = d3.scale.quantize()
+            .range(d3.range(vis.opts.scaleValueCounts.seq).map(function (i) {
+                return 'q' + i + '-' + vis.opts.scaleValueCounts.seq;
+            }))
+            .domain([0, 40]);
+
+        // Diverge scale for 'over-time'
+        vis.quantileDivergeBase = d3.scale.quantile()
+            .range(d3.range(vis.opts.scaleValueCounts.diverge).map(function (i) {
+                return 'q' + i + '-' + vis.opts.scaleValueCounts.diverge;
+            }))
+            .domain([-20, 20]);
+
+        vis.quantileDiverge = function(v) {
+            if (v === 0) {
+                return 'zero-' + vis.opts.scaleValueCounts.diverge;
+            }
+            else {
+                return vis.quantileDivergeBase(v);
+            }
+        };
 
         vis.xAxis = d3.svg.axis()
             .scale(vis.x)
@@ -119,12 +146,53 @@
         // Draw indicator
         var ihFull = vis.opts.indicatorHeight;
         var ihMid = vis.opts.indicatorHeight / 2;
-        vis.indicator = vis.svg.append('path')
-            //.attr('d', 'M0 0 H10 V10 L5 20 L0 10 Z')
-            .attr('d', 'M0 0 H11 Q12 ' + ihMid + ', 5.5 ' + ihFull + ' Q-2 ' + ihMid + ', 0 0 Z')
+        vis.indicator = vis.svg.append('g')
             .attr('class', 'indicator')
-            .style('stroke-linejoin', 'round')
             .call(indicatorDrag);
+
+        vis.indicator.append('path')
+            .attr('d', 'M0 0 H11 Q12 ' + ihMid + ', 5.5 ' + ihFull + ' Q-2 ' + ihMid + ', 0 0 Z')
+            .style('stroke-linejoin', 'round');
+
+        vis.indicator.append('line')
+            .attr('x1', 4)
+            .attr('y1', 2)
+            .attr('x2', 4)
+            .attr('y2', 10);
+
+        vis.indicator.append('line')
+            .attr('x1', 6)
+            .attr('y1', 2)
+            .attr('x2', 6)
+            .attr('y2', 10);
+
+        // Tool tip
+        vis.tip = d3.tip()
+            .attr('class', 'd3-tip')
+            .offset([-10, 0])
+            .html(function(d) {
+                // var ab = stateDatum.properties.postal.toUpperCase();
+                // var displayValue = vis.displayData[ab];
+                var currentYearMatches = d.property.match(/yr(\d{4})/);
+                var currentYear = currentYearMatches[1];
+                var displayValue;
+
+                if (vis.mode === 'by-year') {
+                    return '<div class="tip-title">National Average Obesity Rate</div>' +
+                    '<div>' +
+                    '<span class="tip-large-text">' + percentFormat(d.nationalAvg) + '%</span>' +
+                    '&nbsp;<span class="tip-small-text">in ' + currentYear + '</span>' +
+                    '</div>';
+                }
+                else {
+                    return '<div class="tip-title">National Avgerage Obesity Rate Change</div>' +
+                        '<div>' +
+                        '<span class="tip-large-text">' + percentFormat(d.nationalChange) + '%</span>' +
+                        '&nbsp;<span class="tip-small-text">1990 &mdash; ' + currentYear + '</span>' +
+                        '</div>';
+                }
+            });
+        vis.svg.call(vis.tip);
 
         vis.setMode('by-year');
         //vis.setMode('over-time');
@@ -191,7 +259,7 @@
                 diverge: true
             });
 
-            vis.quantize.domain([-20, 20]);
+            vis.color = vis.quantileDiverge;
             vis.indicator.style('display', 'none');
             if (vis.gBrush) { vis.gBrush.style('display', null); }
 
@@ -207,7 +275,7 @@
                 diverge: false
             });
 
-            vis.quantize.domain([0, 40]);
+            vis.color = vis.quantizeSeq;
             vis.indicator.style('display', null);
             if (vis.gBrush) { vis.gBrush.style('display', 'none'); }
 
@@ -255,36 +323,7 @@
             vis.yearPositions[k] = pos;
         });
 
-        vis.markers = vis.svg.selectAll('.marker')
-            .data(_.values(vis.data), function(d) { return d.property; });
-
-        vis.markers.enter().append('rect')
-            //.style('opacity', 0)
-            .attr('y', vis.opts.indicatorHeight + vis.opts.indicatorGap)
-            .attr('width', 5)
-            .attr('height', vis.height - vis.opts.indicatorHeight - vis.opts.indicatorGap)
-            .attr('class', function (d) {
-                return 'marker ' + d.date.getFullYear() + ' ' + vis.quantize(vis.mode === 'over-time' ? d.nationalChange : d.nationalAvg);
-            })
-            .on('click', function(d) {
-                vis.placeIndicator(vis.x(d.date));
-                vis.setActiveProperty(d.property);
-            });
-
-        vis.markers
-            .transition()
-            .duration(500)
-            .attr('x', function(d) {
-                return vis.x(d.date) - 2.5; });
-            //.style('opacity', 1);
-
-        vis.markers.exit()
-            .transition()
-            .duration(500)
-            .style('opacity', 0)
-            .remove();
-
-        if (!vis.gBrush && vis.mode === 'over-time') {
+        if (!vis.gBrush /*&& vis.mode === 'over-time'*/) {
             // Add brush
             vis.gBrush = vis.svg.append('g')
                 .attr('class', 'brush')
@@ -308,6 +347,37 @@
             vis.brush(vis.gBrush);
         }
 
+        vis.markers = vis.svg.selectAll('.marker')
+            .data(_.values(vis.data), function(d) { return d.property; });
+
+        vis.markers.enter().append('rect')
+            //.style('opacity', 0)
+            .attr('y', vis.opts.indicatorHeight + vis.opts.indicatorGap)
+            .attr('width', 5)
+            .attr('height', vis.height - vis.opts.indicatorHeight - vis.opts.indicatorGap)
+            .on('click', function(d) {
+                vis.placeIndicator(vis.x(d.date));
+                vis.setActiveProperty(d.property);
+            })
+            .on('mouseover', vis.tip.show)
+            .on('mouseout', vis.tip.hide);
+
+        vis.markers
+            .attr('class', function (d) {
+                return 'marker ' + d.date.getFullYear() + ' ' + vis.color(vis.mode === 'over-time' ? d.nationalChange : d.nationalAvg);
+            })
+            .transition()
+            .duration(500)
+            .attr('x', function(d) {
+                return vis.x(d.date) - 2.5; });
+            //.style('opacity', 1);
+
+        vis.markers.exit()
+            .transition()
+            .duration(500)
+            .style('opacity', 0)
+            .remove();
+
         vis.placeIndicator(vis.x(vis.activeDate));
 
         // Call axis functions with the new domain
@@ -319,6 +389,8 @@
         var vis = this;
         //var indicator = d3.select(this);
         var x = d3.event.x;
+
+        vis.dragging = true;
 
         // Constrain to in-bounds
         if (x < vis.xMin) {
@@ -343,6 +415,7 @@
 
         vis.placeIndicator(newX);
         vis.setActiveProperty(nearest.property);
+        vis.dragging = false;
     };
 
     // Center the indicator on the given `x` value

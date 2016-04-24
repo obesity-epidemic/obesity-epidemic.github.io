@@ -132,6 +132,42 @@
         //     .attr("x", 5)
         //     .attr("y", 5);
 
+        // Tool tip
+        vis.tip = d3.tip()
+            .attr('class', 'd3-tip')
+            .offset([-10, 0])
+            // .offset(function (pointData) {
+            //     if (pointData) {
+            //         // var yShift = vis.y(pointData.datum['Total Extremely Obese (BMI>=40)']) - this.getBBox().height -
+            //         //     vis.y(pointData.datum[pointData.name]);
+            //
+            //         //var yShift = vis.height - vis.y(pointData.datum[pointData.name]); // - this.getBBox().height;
+            //         var yShift = vis.height - this.getBBox().y;
+            //
+            //         return [-1 * yShift, 0];
+            //     }
+            // })
+            // .attr('y',function (pointData) {
+            //     if (pointData) {
+            //         return vis.y(pointData.datum['Total Extremely Obese (BMI>=40)']);
+            //     }
+            // })
+            .html(function(pointData) {
+                var d = pointData.datum;
+
+                var extremeObeseRate = d['Total Extremely Obese (BMI>=40)'];
+                var obeseRate = d['Total Obese (BMI >= 30)'];
+                var overweightRate = d['Total Overweight (25 <= BMI < 30)'];
+
+                return '<div class="tip-title">' + pointData.year.getFullYear() + '</div>'
+                    + '<table class="table table-dark">'
+                    + '<tr class="extreme-obese"><td><span class="legend"></span>&nbsp;Extreme Obesity&nbsp;</td><td class="text-right">' + extremeObeseRate + '%</td></tr>'
+                    + '<tr class="obese"><td><span class="legend"></span>&nbsp;Obesity</td><td class="text-right">' + obeseRate + '%</td></tr>'
+                    + '<tr class="overweight"><td><span class="legend"></span>&nbsp;Overweight</td><td class="text-right">' + overweightRate + '%</td></tr>'
+                    + '</table>';
+            });
+        vis.svg.call(vis.tip);
+
         vis.wrangleData();
     };
 
@@ -228,16 +264,17 @@
             points.enter().append('circle')
                 .style("opacity", 0)
                 .attr('class', 'point')
-                .attr('r', '1')
                 .attr('cx', function(d) { return vis.x(d.year); })
                 .attr('cy', function (d) {
                     return vis.y(d.y + d.y0);
-                });
+                })
+                .on('mouseover', vis.tip.show)
+                .on('mouseout', vis.tip.hide);
 
             points
                 .transition()
                 .duration(250)
-                .attr('r', 3)
+                .attr('r', 5)
                 .style("opacity", 0.15);
 
             points.exit()

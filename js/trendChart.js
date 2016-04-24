@@ -1,4 +1,6 @@
 (function() {
+    var percentFormat = d3.format('0.2f');
+
     var DEFAULTS = {
         height: 100,
         width: 555,
@@ -82,6 +84,18 @@
             .y1(function(d) {
                 return vis.y(d.val); });
 
+        // Tool tip
+        vis.tip = d3.tip()
+            .attr('class', 'd3-tip')
+            .offset([-10, 0])
+            .html(function(d) {
+                return '<div>' +
+                    '<span class="tip-large-text">' + percentFormat(d.val) + '%</span>' +
+                    '&nbsp;<span class="tip-small-text">in ' + d.year.getFullYear() + '</span>' +
+                    '</div>';
+            });
+        vis.svg.call(vis.tip);
+
         //vis.svg.append('path').attr('class', 'trend');
     };
 
@@ -128,10 +142,7 @@
 
         lines//.transition()
             //.attrTween('d', pathTween()
-            .attr('d', function(d) { return vis.line(d); })
-            .on('mousemove', function() {
-
-            });
+            .attr('d', function(d) { return vis.line(d); });
 
         lines.exit().remove();
 
@@ -143,12 +154,13 @@
         points.enter().append('circle')
             .style("opacity", 0)
             .attr('class', 'point')
-            .attr('r', 1);
+            .on('mousemove', vis.tip.show)
+            .on('mouseout', vis.tip.hide);
 
         points
             .transition()
             .duration(250)
-            .attr('r', 3)
+            .attr('r', 5)
             .attr('cx', function (d) { return vis.x(d.year); })
             .attr('cy', function (d) { return vis.y(d.val); })
             .style("opacity", 0.15);
