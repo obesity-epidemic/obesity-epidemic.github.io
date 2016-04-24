@@ -610,7 +610,7 @@ function updateVisArea(inputParam, maxSize=50) {
         })
         .duration(1000);
 
-    var statesLabels = d3.selectAll(".cartoStateLabel").data(cartoData);
+    var statesLabels = d3.selectAll(".cartoStateLabel");//.data(cartoData);
 
     statesLabels
         .attr("transform", function (d) {
