@@ -306,6 +306,19 @@
         return vis;
     };
 
+    // Change the property from the data set to view.
+    Timeline.prototype.setRange = function(range) {
+        var vis = this;
+
+        var start = new Date(new Date(range[0].substring(2), 0));
+        var end = new Date(new Date(range[1].substring(2), 0));
+
+        vis.brush.extent([start, end]);
+        vis.updateVis();
+
+        return vis;
+    };
+
     // A placeholder for future filtering and adjustments.
     Timeline.prototype.wrangleData = function() {
         var vis = this;

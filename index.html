@@ -69,12 +69,16 @@
                 <p>
                     The goal of this website is to raise awareness of seriousness of obesity. By creating a place where
                     people can clearly see how the prevalence of obesity has changed over time, and what other factors
-                    are strongly associated with it.
+                    are strongly associated with it. The hope is that this project will reveal insightful and meaningful
+                    information that will lead to change for individuals and possibly for new policy changes in
+                    organizations.
                 </p>
 
                 <p>
-                    The hope is that this project will reveal insightful and meaningful information that will lead to
-                    change for individuals and possibly for new policy changes in organizations.
+                    In the sections below you first explore obesity rate and trends by US State with an emphasis on
+                    geography and year-by-year, then you will dive deeper by analysing relationships among a large
+                    number of factors, and finally tools will be presented to help you understand the issue personally
+                    so that you can address your own concerns or those of someone you know.
                 </p>
 			</div>
 
@@ -177,13 +181,77 @@
         <section>
 		<div class="row">
 			<div class="col-xs-12">
-				<h2>Obesity By State</h2>
+				<h2>Obesity Trends across US States</h2>
 
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                <p>
+                    Overweight rates have remained largely unchanged since the 1960s hovering at about one-third of the
+                    population. It is clear that obesity in America has increased a staggering amount over recent
+                    decades in the US. This is a cause for great concern.
+                </p>
+
+                <p>
+                    This section is focused on providing tools that allow for comparison states and for analyzing rate
+                    changes for specific states over the years.
+                </p>
+
+                <p>
+                    Not all states have similar rates of obesity in fact there is significant disparity: in 2014,
+                    Colorado, the least obese state, had a rate of 21.3% and Arkansas, the most obese state had a rate
+                    of 35.9%. The national average in 2014 was 29.23%. The states also tend to fluctuate somewhat in
+                    ordering. Colorado has been consistently the lowest or second lowest across the our data set, but
+                    Arkansas did not enter the top five worst states until 2012.
+                </p>
+
+                <p>
+                    The obesity rates have been going up in general in every state year over year, but some states have
+                    shown decreases at times and the frequency in which states show decreases has become more often.
+                    Though the decreases have been minor these small victories may indicate that the fight in obesity is
+                    having some effect. One significant drop occurred in 2004; when compared with 2003 data over half of
+                    the states had no increase or had a decrease.
+                </p>
+
+                <p>
+                    There appears to be some regional groupings of rates. For example the South appears to out pace
+                    other areas of the country. Why? You can explore some of the factors that may explain this in a
+                    later section.
+                </p>
 			</div>
 		</div>
 
-		<!--<div class="row">-->
+		<div class="row">
+            <div class="col-xs-4">
+                <div class="help-box">
+                    <div class="title">2004 Obesity Rate Drop</div>
+                    <div class="description">
+                        In 2004 rates dropped (compared to 2003) in more states than any other time period in our data
+                        set. The national average still had a minor increase.
+                    </div>
+                    <a href='#' id="show-me-map-drop">Show me &raquo;</a>
+                </div>
+            </div>
+
+            <div class="col-xs-4">
+                <div class="help-box">
+                    <div class="title">2011: All states over 20%</div>
+                    <div class="description">
+                        In 2011, all states were over 20% obesity rate. The last hold out, Colorado, increased from
+                        19.8% in 2010 to 20.7% in 2011.
+                    </div>
+                    <a href='#' id="show-me-map-holdout">Show me &raquo;</a>
+                </div>
+            </div>
+
+            <div class="col-xs-4">
+                <div class="help-box">
+                    <div class="title">Rates over Time</div>
+                    <div class="description">
+                        Watch as rates over increase across the country. Pay special attention to regional patterns
+                        such as in the South.
+                    </div>
+                    <a href='#' id="show-me-map-time">Show me &raquo;</a>
+                </div>
+            </div>
+
 			<!--<div class="col-xs-4">-->
 				<!--<div class="help-box">-->
 					<!--<div class="title">Not Worse, Not Better</div>-->
@@ -207,7 +275,7 @@
 					<!--<a href='#' onclick='demo("whereIsWorse", this); return false;'>Show me &raquo;</a>-->
 				<!--</div>-->
 			<!--</div>-->
-		<!--</div>-->
+		</div>
 
 
 		<div class="row">
@@ -217,7 +285,7 @@
 				<label><input name="choroplethMode" value="over-time" type="radio" /> Change Over Time</label>
 
 				<div id="map-extremes" style="margin-top: 100px; display: none;">
-					<b>Extremes</b>
+					<b>Ends of the Spectrum</b>
 					<table class="table table-striped table-condensed">
 						<thead>
 							<tr><th></th><th>Best</th><th>Worst</th></tr>
@@ -233,13 +301,20 @@
 		</div>
 
 		<!-- State Trends -->
-		<div class="row">
-			<div class="col-xs-12">
-				<h3>State Trends</h3>
+		<!--<div class="row">-->
+			<!--<div class="col-xs-12">-->
+				<!--<h3>State Trends</h3>-->
 
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-			</div>
-		</div>
+				<!--Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.-->
+			<!--</div>-->
+		<!--</div>-->
+
+        <div class="row" style="margin-top: 100px">
+            <div class="col-xs-12">
+                The chart below you can easily compare the states to each other within a given year. Hover over a
+                specific state and you can examine the state's trend over time.
+            </div>
+        </div>
 
 		<div class="row">
 			<div class="col-xs-12">
@@ -856,7 +931,11 @@
 			<div class="col-xs-12">
 				<h2>Conclusion</h2>
                 <p>
-                Obesity is a major problem for many in the United States and throughout the world. It is important for governments and organizations to continue the fight against obesity, but individuals must take action in their own lives. Through physical activity and informed diet decisions improvements can be made person by person and family by family. Using tools such as the ones given above (BMI and snack calculators) better, healthier choices can be made.
+                    Obesity is a major problem for many in the United States and throughout the world. It is important
+                    for governments and organizations to continue the fight against obesity, but individuals must take
+                    action in their own lives. Through physical activity and informed diet decisions improvements can be
+                    made person by person and family by family. Using tools such as the ones given above (BMI and snack
+                    calculators) individuals can make better, healthier choices.
                 </p>
 			</div>
 		</div>

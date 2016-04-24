@@ -200,23 +200,66 @@
             };
         });
 
-        var chart = new window.charts.Timeline('#timeline', years, startingProperty);
+        var timeline = new window.charts.Timeline('#timeline', years, startingProperty);
 
         // Update choropleth when 'By Year' mode
-        chart.on('activeProperty', function(activeProperty) {
+        timeline.on('activeProperty', function(activeProperty) {
             choropleth.setActiveProperty(activeProperty);
             setBestWorstTable(activeProperty);
         });
 
         // Update choropleth when 'Over Time' mode
-        chart.on('rangeChange', function(range) {
+        timeline.on('rangeChange', function(range) {
             choropleth.setRange(range);
         });
 
         // Update charts when radios change
         $('input[type=radio][name=choroplethMode]').change(function() {
             choropleth.setMode(this.value);
-            chart.setMode(this.value);
+            timeline.setMode(this.value);
+        });
+
+        // Handle "Show Me" links.
+        $('#show-me-map-drop').click(function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            // Set mode: 'over-time'
+            choropleth.setMode('over-time');
+            timeline.setMode('over-time');
+
+            // Set range: 'yr2003', 'yr2004'
+            choropleth.setRange(['yr2003', 'yr2004']);
+            timeline.setRange(['yr2003', 'yr2004']);
+        });
+
+        $('#show-me-map-holdout').click(function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            // Set mode: 'by-year'
+            choropleth.setMode('by-year');
+            timeline.setMode('by-year');
+
+            // Set year: 'yr2011'
+            choropleth.setActiveProperty('yr2011');
+            timeline.setActiveProperty('yr2011');
+        });
+
+        $('#show-me-map-time').click(function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            // Set mode: 'by-year'
+            choropleth.setMode('by-year');
+            timeline.setMode('by-year');
+
+            // Set year: 'yr2011'
+            choropleth.setActiveProperty('yr1990');
+            timeline.setActiveProperty('yr1990');
+
+            // Play!
+            timeline.play();
         });
 
         // Set up initial table
