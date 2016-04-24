@@ -606,7 +606,12 @@ h2{
 /*********************/
 
 .cartoStates {
+	stroke: white;
+}
+
+.cartoStates :hover{
 	stroke: black;
+	opacity: 1;
 }
 
 .cartoStateLabel{
@@ -614,12 +619,127 @@ h2{
 	pointer-events: none;
 }
 
-#cartoMenu li {
-	width: 50px;
-	padding: 8px 16px;
+#cartoMenu .hide{
+	display:none;
 }
 
-#cartoMenu ul {
-	padding-left: 20px !important;
-	padding-right: 20px !important;
+#cartoMenu li .region-title {
+	padding-top: 3px;
+	padding-bottom: 0px;
+}
+
+#cartoMenu .cartostates {
+	list-style: none;
+	-webkit-padding-start: 10px;
+}
+
+#cartoMenu .state-filter .region{
+	list-style: none;
+	margin-bottom: 0px;
+	display:block;
+}
+
+#cartoMenu .state-filter .region-title{
+	background-color: #E8E8E8
+}
+
+#cartoMenu .state-filter :hover{
+	background-color: #F1F1F1
+}
+
+#cartoMenu input[type=checkbox]
+{
+	/* Double-sized Checkboxes */
+	-ms-transform: scale(1.25); /* IE */
+	-moz-transform: scale(1.25); /* FF */
+	-webkit-transform: scale(1.25); /* Safari and Chrome */
+	-o-transform: scale(1.25); /* Opera */
+	-webkit-padding-start: 10px;
+	vertical-align: top;
+	padding-bottom: 25px;
+}
+
+#cartoMenu .boxWrap {
+	position: absolute;
+	left: 27px;
+	padding-top: 10px;
+}
+
+#cartoMenu .boxWrap span {
+	color: #337ab7;
+	text-decoration: none;
+}
+
+#cartoMenu .boxWrap .outputBox {
+	position: absolute;
+	left: 115px;
+	top: 3px;
+}
+
+#cartoMenu .boxWrap output {
+	font-weight: bold;
+}
+
+.legendSize .swatch{
+	fill: #337ab7;
+}
+/*
+Thermo guage
+*/
+.unselectable {
+	-moz-user-select: -moz-none;
+	-khtml-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.lineargauge {
+	font-size: 12px;
+}
+
+.lineargauge .axis path,
+.lineargauge .axis line {
+	fill: none;
+	stroke: #000;
+}
+
+.lineargauge .lane, .lineargauge .cursor {
+	opacity: 0;
+}
+
+.lineargauge .tick {
+	fill: #000;
+}
+
+.lineargauge .major {
+	stroke-width: 2;
+}
+
+.lineargauge .ok {
+	fill: #008000;
+}
+
+.lineargauge .warning {
+	fill: #FFA500;
+}
+
+.lineargauge .weakfault {
+	fill: #BD4040;
+}
+
+.lineargauge .fault {
+	fill: #A70000;
+}
+
+#cartoMain .indicator {
+	fill:#5D5D5D
+}
+
+#cartoMain .legendTitle {
+	font-size: smaller;
+}
+
+#cartoMain .lineargaugeLabel{
+	font-size: smaller;
 }

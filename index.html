@@ -6,6 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>America's Obesity Epidemic</title>
 
+	<link rel="stylesheet" href="css/rangeSlider.min.css">
 	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700|BenchNine:400,700' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/font-awesome.min.css">
@@ -388,19 +389,180 @@
 
 
 		<div class="row">
+
 			<div class="col-md-12">
-				<div class="col-md-8" id = "cartoGram">
+				<div class="col-md-9" id = "cartoGram">
 					Obesity Factors Cartoid/Scatter
 
 
 				</div>
-				<div id = "cartoMenu" class="col-md-4">
+				<div class="col-md-3" id = "cartoMenu">
+					<ul class="nav nav-pills nav-stacked">
+						<li class="dropdown">
+							<a class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-filter" aria-hidden="true"></i> Select States
+								<span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<ul class="state-filter">
+									<li><label><input type="checkbox" checked value="all"> USA&nbsp;</label><i class="fa fa-caret-up" aria-hidden="true"></i></li>
+
+									<ul class="region">
+										<li class="region-title">&nbsp;<label><input type="checkbox" checked value="region-ne"> Northeast&nbsp;</label><i class="fa fa-caret-down" aria-hidden="true"></i></li>
+
+										<ul class="division hide">
+											<ul class="cartostates">
+												<li><label><input type="checkbox" checked value="CT"> Connecticut</label></li>
+												<li><label><input type="checkbox" checked value="ME"> Maine</label></li>
+												<li><label><input type="checkbox" checked value="MA"> Massachusetts</label></li>
+												<li><label><input type="checkbox" checked value="NH"> New Hampshire</label></li>
+												<li><label><input type="checkbox" checked value="RI"> Rhode Island</label></li>
+												<li><label><input type="checkbox" checked value="VT"> Vermont</label></li>
+												<li><label><input type="checkbox" checked value="NJ"> New Jersey</label></li>
+												<li><label><input type="checkbox" checked value="NY"> New York</label></li>
+												<li><label><input type="checkbox" checked value="PA"> Pennsylvania</label></li>
+											</ul>
+										</ul>
+									</ul>
+
+									<ul class="region">
+										<li class="region-title">&nbsp;<label><input type="checkbox" checked value="region-mw"> Midwest&nbsp;</label><i class="fa fa-caret-down" aria-hidden="true"></i></li>
+										<ul class="division hide">
+											<ul class="cartostates">
+												<li><label><input type="checkbox" checked value="IL"> Illinois</label></li>
+												<li><label><input type="checkbox" checked value="IN"> Indiana</label></li>
+												<li><label><input type="checkbox" checked value="MI"> Michigan</label></li>
+												<li><label><input type="checkbox" checked value="OH"> Ohio</label></li>
+												<li><label><input type="checkbox" checked value="WI"> Wisconsin</label></li>
+												<li><label><input type="checkbox" checked value="IA"> Iowa</label></li>
+												<li><label><input type="checkbox" checked value="KS"> Kansas</label></li>
+												<li><label><input type="checkbox" checked value="MN"> Minnesota</label></li>
+												<li><label><input type="checkbox" checked value="MO"> Missouri</label></li>
+												<li><label><input type="checkbox" checked value="NE"> Nebraska</label></li>
+												<li><label><input type="checkbox" checked value="ND"> North Dakota</label></li>
+												<li><label><input type="checkbox" checked value="SD"> South Dakota</label></li>
+											</ul>
+										</ul>
+									</ul>
+
+									<ul class="region">
+										<li class="region-title">&nbsp;<label><input type="checkbox" checked value="region-w"> West&nbsp;</label><i class="fa fa-caret-down" aria-hidden="true"></i></li>
+										<ul class="division hide">
+											<ul class="cartostates">
+												<li><label><input type="checkbox" checked value="AZ"> Arizona</label></li>
+												<li><label><input type="checkbox" checked value="CO"> Colorado</label></li>
+												<li><label><input type="checkbox" checked value="ID"> Idaho</label></li>
+												<li><label><input type="checkbox" checked value="MT"> Montana</label></li>
+												<li><label><input type="checkbox" checked value="NV"> Nevada</label></li>
+												<li><label><input type="checkbox" checked value="NM"> New Mexico</label></li>
+												<li><label><input type="checkbox" checked value="UT"> Utah</label></li>
+												<li><label><input type="checkbox" checked value="WY"> Wyoming</label></li>
+												<li><label><input type="checkbox" checked value="AK"> Alaska</label></li>
+												<li><label><input type="checkbox" checked value="CA"> California</label></li>
+												<li><label><input type="checkbox" checked value="HI"> Hawaii</label></li>
+												<li><label><input type="checkbox" checked value="OR"> Oregon</label></li>
+												<li><label><input type="checkbox" checked value="WA"> Washington</label></li>
+											</ul>
+										</ul>
+									</ul>
+
+									<ul class="region">
+										<li class="region-title">&nbsp;<label><input type="checkbox" checked value="region-s"> South&nbsp;</label><i class="fa fa-caret-down" aria-hidden="true"></i></li>
+										<ul class="division hide">
+											<ul class="cartostates">
+												<li><label><input type="checkbox" checked value="DE"> Delaware</label></li>
+												<li><label><input type="checkbox" checked value="FL"> Florida</label></li>
+												<li><label><input type="checkbox" checked value="GA"> Georgia</label></li>
+												<li><label><input type="checkbox" checked value="MD"> Maryland</label></li>
+												<li><label><input type="checkbox" checked value="NC"> North Carolina</label></li>
+												<li><label><input type="checkbox" checked value="SC"> South Carolina</label></li>
+												<li><label><input type="checkbox" checked value="VA"> Virginia</label></li>
+												<li><label><input type="checkbox" checked value="WV"> West Virginia</label></li>
+												<li><label><input type="checkbox" checked value="AL"> Alabama</label></li>
+												<li><label><input type="checkbox" checked value="KY"> Kentucky</label></li>
+												<li><label><input type="checkbox" checked value="MS"> Mississippi</label></li>
+												<li><label><input type="checkbox" checked value="TN"> Tennessee</label></li>
+												<li><label><input type="checkbox" checked value="AR"> Arkansas</label></li>
+												<li><label><input type="checkbox" checked value="LA"> Louisiana</label></li>
+												<li><label><input type="checkbox" checked value="OK"> Oklahoma</label></li>
+												<li><label><input type="checkbox" checked value="TX"> Texas</label></li>
+											</ul>
+										</ul>
+									</ul>
+								</ul>
+							</ul>
+						</li>
+						<li class="dropdown" >
+							<a class="dropdown-toggle sizeBy" data-toggle="dropdown"><i class="fa fa-arrows-alt" aria-hidden="true"></i> Size By
+								<span class="caret"></span></a>
+							<ul class="dropdown-menu sizeBy state-filter">
+								<li><a>Equal Size</a></li>
+								<li><a>Bottom Quintile of Income</a></li>
+								<li><a>Fruit Consumption</a></li>
+								<li><a>Income Inequality</a></li>
+								<li><a>Land Area</a></li>
+								<li><a>Leisure Activity</a></li>
+								<li><a>Obesity Rate</a></li>
+								<li><a>Obesity Total</a></li>
+								<li><a>Population</a></li>
+								<li><a>Soda Consumption</a></li>
+								<li><a>Top Quintile of Income</a></li>
+								<li><a>TV Activity</a></li>
+								<li><a>Vegetable Consumption</a></li>
+								<li><a>Weight Activity</a></li>
+							</ul>
+						</li>
+						<li class="dropdown colorBy">
+							<a class="dropdown-toggle colorBy" data-toggle="dropdown"><i class="fa fa-paint-brush" aria-hidden="true"></i> Color By
+								<span class="caret"></span></a>
+							<ul class="dropdown-menu colorBy state-filter">
+								<li><a>Census Region</a></li>
+								<li><a>Bottom Quintile of Income</a></li>
+								<li><a>Fruit Consumption</a></li>
+								<li><a>Income Inequality</a></li>
+								<li><a>Land Area</a></li>
+								<li><a>Leisure Activity</a></li>
+								<li><a>Obesity Rate</a></li>
+								<li><a>Obesity Total</a></li>
+								<li><a>Population</a></li>
+								<li><a>Soda Consumption</a></li>
+								<li><a>Top Quintile of Income</a></li>
+								<li><a>TV Activity</a></li>
+								<li><a>Vegetable Consumption</a></li>
+								<li><a>Weight Activity</a></li>
+							</ul>
+						</li>
+						<li class="dropdown placeBy">
+							<a class="dropdown-toggle placeBy" data-toggle="dropdown"><i class="fa fa-globe" aria-hidden="true"></i> Placement
+								<span class="caret"></span></a>
+							<ul class="dropdown-menu placeBy state-filter">
+								<li><a>US Map</a></li>
+								<li><a>Bottom Quintile of Income</a></li>
+								<li><a>Fruit Consumption</a></li>
+								<li><a>Income Inequality</a></li>
+								<li><a>Land Area</a></li>
+								<li><a>Leisure Activity</a></li>
+								<li><a>Obesity Total</a></li>
+								<li><a>Population</a></li>
+								<li><a>Soda Consumption</a></li>
+								<li><a>Top Quintile of Income</a></li>
+								<li><a>TV Activity</a></li>
+								<li><a>Vegetable Consumption</a></li>
+								<li><a>Weight Activity</a></li>
+							</ul>
+						</li>
+						<li class="cartoReset"><a><i class="fa fa fa-refresh" aria-hidden="true"></i> Reset Chart</a></li>
+						<div class="boxWrap">
+                <span><i class="fa fa-cube" aria-hidden="true"></i> Max Box Size:
+                    <div class="outputBox"><output></output></div>
+                </span>
+						</div>
+						<br>
+						<br>
+						<input type="range" min="11" max="50" step="1" data-rangeSlider>
+						<br>
+						<br>
+					</ul>
 				</div>
 			</div>
-			<br>
-			<br>
-			<br>
-		</div>
 
 
 
@@ -775,7 +937,13 @@
 	<script src="js/colorbrewer.js"></script>
 	<script src="js/lodash.min.js"></script>
 	<script src="js/utils.js"></script>
-	<script src="js/d3-dropdownmenu.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/rangeSlider.min.js"></script>
+	<script src="js/d3-legend.min.js"></script>
+	<script src="js/pearson-correlation.js"></script>
+	<script type="text/javascript" src="http://iop.io/js/vendor/polymer/PointerEvents/pointerevents.js"></script>
+	<script type="text/javascript" src="http://iop.io/js/vendor/polymer/PointerGestures/pointergestures.js"></script>
+	<script type="text/javascript" src="http://iop.io/js/iopctrl.js"></script>
 
 	<!-- Visualizations -->
 	<script src="js/main.js"></script>
