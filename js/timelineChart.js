@@ -15,7 +15,7 @@
         indicatorGap: 3,
         stepDwell: 500,
         scaleValueCounts: {
-            'seq': 7,
+            'seq': 8,
             'diverge': 10
         }
     };
@@ -87,7 +87,7 @@
             .range(d3.range(vis.opts.scaleValueCounts.diverge).map(function (i) {
                 return 'q' + i + '-' + vis.opts.scaleValueCounts.diverge;
             }))
-            .domain([-20, 20]);
+            .domain([-25, 25]);
 
         vis.quantileDiverge = function(v) {
             if (v === 0) {

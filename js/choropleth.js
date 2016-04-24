@@ -11,7 +11,7 @@
         classes: [],
         mode: 'by-year',
         scaleValueCounts: {
-            'seq': 7,
+            'seq': 8,
             'diverge': 10
         }
     };
@@ -74,7 +74,7 @@
             .range(d3.range(vis.opts.scaleValueCounts.diverge).map(function (i) {
                 return 'q' + i + '-' + vis.opts.scaleValueCounts.diverge;
             }))
-            .domain([-20, 20]);
+            .domain([-25, 25]);
         
         vis.quantileDiverge = function(v) {
             if (v === 0) {
@@ -127,6 +127,14 @@
             });
         vis.svg.call(vis.tip);
 
+        vis.legend = vis.svg.append("g")
+            .attr("class", "legendQuant")
+            .attr("transform", "translate(800,280)");
+
+        vis.legendFunc = d3.legend.color()
+            .labelFormat(d3.format(".2f"))
+            .useClass(true);
+
         vis.color = null;
         vis.setMode(vis.opts.mode);
         vis.wrangleData();
@@ -146,6 +154,9 @@
             // vis.colorScaleMode = 'diverge';
             vis.color = vis.quantileDiverge;
 
+            // Update legend
+            vis.legendFunc.scale(vis.quantileDivergeBase);
+
             if (!vis.rangeStart || !vis.rangeEnd) {
                 vis.rangeStart = 'yr1990';
                 vis.rangeEnd = 'yr2014';
@@ -158,8 +169,12 @@
             });
 
             vis.color = vis.quantizeSeq;
+
+            // Update legend
+            vis.legendFunc.scale(vis.color);
         }
 
+        vis.legend.call(vis.legendFunc);
         vis.wrangleData();
         
         return vis;
@@ -220,7 +235,7 @@
             return 'state ' + d.properties.postal.toLowerCase() + ' ' + returnVal;
         })
         .on('mousemove', vis.tip.show)
-        .on('mouseout', vis.tip.hide)
+        .on('mouseout', vis.tip.hide);
     };
 
     if (!window.charts) { window.charts = {}; }

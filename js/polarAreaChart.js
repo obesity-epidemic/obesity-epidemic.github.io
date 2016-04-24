@@ -5,11 +5,11 @@
         margin: {
             top: 0,
             right: 10,
-            bottom: 0,
+            bottom: 25,
             left: 0
         },
         classes: [],
-        scaleValueCounts: 7,
+        scaleValueCounts: 8,
         gridCircles: [10, 20, 30, 40]
     };
 
@@ -56,12 +56,15 @@
         vis.grid = d3.svg.area.radial()
             .radius(150);
 
-        vis.svg = d3.select(vis.parentSelector).append('svg')
+        vis.svgBase = d3.select(vis.parentSelector).append('svg')
             .attr('width', vis.opts.width)
             .attr('height', vis.opts.height)
             .attr('class', vis.opts.classes.join(' '))
             .append('g')
             .attr('transform', 'translate(' + vis.width / 2 + ',' + vis.height / 2 + ')');
+
+        vis.svg = vis.svgBase.append('g').attr('class', 'main');
+        vis.overlay = vis.svgBase.append('g').attr('class', 'overlay');
 
         vis.color = d3.scale.quantize()
             .range(d3.range(vis.opts.scaleValueCounts).map(function (i) {
@@ -74,6 +77,18 @@
 
         vis.dispatch = d3.dispatch('activeState');
         d3.rebind(vis, vis.dispatch, 'on');
+
+        vis.svg.append("g")
+            .attr("class", "legendQuant")
+            .attr("transform", "translate(-250,130)");
+
+        var legend = d3.legend.color()
+            .labelFormat(d3.format(".2f"))
+            .useClass(true)
+            .scale(vis.color);
+
+        vis.svg.select(".legendQuant")
+            .call(legend);
     };
 
     // Setter for `activeProperty`
@@ -176,10 +191,18 @@
         newArcs.on('mouseover', _.debounce(function(d) {
                 d3.select(this).classed('active', true);
                 vis.svg.select('.arc.active').classed('active', false);
-                vis.svg.select('.circle-active').remove();
-                vis.svg.append('circle')
-                    .attr('class', 'circle-active')
-                    .attr('r', vis.outerRadius({ value: d.value }));
+                //vis.overlay.select('.circle-active').remove();
+
+                var cir = vis.overlay.selectAll('.circle-active').data([{ value: d.value }]);
+
+                cir.enter()
+                    .append('circle')
+                    .attr('class', 'circle-active');
+
+                cir.exit().remove();
+
+                cir.transition()
+                    .attr('r', function(d) { return vis.outerRadius(d); });
 
                 vis.dispatch.activeState(d.data);
             }, 50));
@@ -205,6 +228,14 @@
                 // pythagorean theorem for hypotenuse
                 var h = Math.sqrt(x*x + y*y);
                 var labelr = vis.outerRadius(d) + 10;
+
+                // Keep labels legible even when data gets small and tightly bunched.
+                // if (labelr < 100) {
+                //     labelr = 140;
+                // }
+                // else if (labelr < 140) {
+                //     labelr += 20;
+                // }
 
                 return 'translate(' + (x/h * labelr) +  ',' +
                     (y/h * labelr) +  ')';
