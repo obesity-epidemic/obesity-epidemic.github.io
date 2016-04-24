@@ -219,13 +219,13 @@ CartogramChart.prototype.initVis = function () {
     vis.chart
         .append("g")
         .attr("class", "legendSize")
-        .attr("transform", "translate(720, 240)");
+        .attr("transform", "translate(720, 280)");
 
     // add a color legend
     vis.chart
         .append("g")
         .attr("class", "legendQuant")
-        .attr("transform", "translate(720,20)");
+        .attr("transform", "translate(720,60)");
 
     // make the correlation slider
     var slider = iopctrl.slider()
@@ -255,7 +255,7 @@ CartogramChart.prototype.initVis = function () {
     // add the correlation graph
     vis.chart
         .append("g")
-        .attr("transform", "translate(710, 420)")
+        .attr("transform", "translate(710, 460)")
         .attr("class", "lineargauge hide")
         .call(slider)
         .append("rect")
@@ -271,7 +271,7 @@ CartogramChart.prototype.initVis = function () {
         .append("text")
         .attr("class", "lineargaugeLabel")
         .attr("x", 720)
-        .attr("y", 380)
+        .attr("y", 420)
         .text("")
         .attr("opacity", 0);
 
@@ -280,7 +280,7 @@ CartogramChart.prototype.initVis = function () {
         .append("text")
         .attr("class", "lineargaugeR")
         .attr("x", 940)
-        .attr("y", 468)
+        .attr("y", 508)
         .text("R")
         .attr("opacity", 0);
 
@@ -289,7 +289,7 @@ CartogramChart.prototype.initVis = function () {
         .append("text")
         .attr("class", "lineargaugeRQual")
         .attr("x", 740)
-        .attr("y", 500)
+        .attr("y", 530)
         .text("strong negative association")
         .attr("opacity", 0);
 
@@ -388,7 +388,7 @@ CartogramChart.prototype.initStates = function () {
             case 'Population' :
                 return '"Population: " + vis.formatNumber(d["population"])';
             case 'Land Area' :
-                return '"Land Size: " + vis.formatNumber(d["area"])+ "square miles"';
+                return '"Land Size: " + vis.formatNumber(d["area"])+ " square miles"';
             case 'Fruit Consumption' :
                 return '"% Consuming 1+ fruits: " + vis.formatNumber(d["adult_at_least_one_fruit"])+"%"';
             case 'Vegetable Consumption' :
@@ -418,7 +418,6 @@ CartogramChart.prototype.initStates = function () {
         .attr('class', 'd3-tip')
         .offset([-10, 0])
         .html(function (d) {
-            console.log(formatToolTip(colorCat));
             if (!d.filtered) {
                 d3.selectAll('.d3-tip').style("display", "block");
                 this.parentNode.appendChild(this);
