@@ -12,9 +12,10 @@
         mode: 'by-year',
         scaleValueCounts: {
             'seq': 7,
-            'diverge': 11
+            'diverge': 10
         }
     };
+    var percentFormat = d3.format('0.2f');
 
     var Choropleth = function(parentSelector, data, mapData, activeProperty, options) {
         this.parentSelector = parentSelector;
@@ -36,23 +37,6 @@
         vis.height = vis.opts.width - vis.margin.top - vis.margin.bottom;
 
         vis.opts.classes.push('choropleth-chart', vis.opts.mode);
-
-// "yr1990"
-// "yr1995"
-// "yr2000"
-// "yr2003"
-// "yr2004"
-// "yr2005"
-// "yr2006"
-// "yr2007"
-// "yr2008"
-// "yr2009"
-// "yr2010"
-// "yr2011"
-// "yr2012"
-// "yr2013"
-// "yr2014"
-
 
         // SVG drawing area
         vis.svg = d3.select(vis.parentSelector).append('svg')
@@ -86,13 +70,64 @@
             .domain([0, 40]);
 
         // Diverge scale for 'over-time'
-        vis.quantizeDiverge = d3.scale.quantize()
+        vis.quantileDivergeBase = d3.scale.quantile()
             .range(d3.range(vis.opts.scaleValueCounts.diverge).map(function (i) {
                 return 'q' + i + '-' + vis.opts.scaleValueCounts.diverge;
             }))
-            .domain([-20, 20])
+            .domain([-20, 20]);
+        
+        vis.quantileDiverge = function(v) {
+            if (v === 0) {
+                return 'zero-' + vis.opts.scaleValueCounts.diverge;
+            }
+            else {
+                return vis.quantileDivergeBase(v);
+            }
+        };
 
-        vis.quantize = null;
+        // Tool tip
+        vis.tip = d3.tip()
+            .attr('class', 'd3-tip')
+            .offset([-10, 0])
+            .html(function(stateDatum) {
+                var ab = stateDatum.properties.postal.toUpperCase();
+                var displayValue;
+
+                var d = _.find(vis.data, function(d) {
+                   return d.ab == ab;
+                });
+
+                // return '<div class="tip-title">' + d.st + '</div>' +
+                //     '<div>' +
+                //         '<span class="tip-large-text">' + displayValue + '%</span>' +
+                //         '&nbsp;<span class="tip-small-text">in ' + currentYear + '</span>' +
+                //     '</div>';
+
+                if (vis.mode === 'by-year') {
+                    var currentYear = vis.activeProperty.match(/yr(\d{4})/)[1];
+                    displayValue = percentFormat(d[vis.activeProperty]);
+
+                    return '<div class="tip-title">' + d.st + '</div>' +
+                        '<div>' +
+                        '<span class="tip-large-text">' + displayValue + '%</span>' +
+                        '&nbsp;<span class="tip-small-text">in ' + currentYear + '</span>' +
+                        '</div>';
+                }
+                else {
+                    var startYear = vis.rangeStart.match(/yr(\d{4})/)[1];
+                    var endYear = vis.rangeEnd.match(/yr(\d{4})/)[1];
+                    displayValue = percentFormat(d[vis.rangeEnd] - d[vis.rangeStart]);
+
+                    return '<div class="tip-title">' + d.st + '</div>' +
+                        '<div>' +
+                        '<span class="tip-large-text">' + displayValue + '%</span>' +
+                        '&nbsp;<span class="tip-small-text">from ' + startYear + ' &mdash; ' + endYear + '</span>' +
+                        '</div>';
+                }
+            });
+        vis.svg.call(vis.tip);
+
+        vis.color = null;
         vis.setMode(vis.opts.mode);
         vis.wrangleData();
     };
@@ -109,7 +144,7 @@
             });
 
             // vis.colorScaleMode = 'diverge';
-            vis.quantize = vis.quantizeDiverge;
+            vis.color = vis.quantileDiverge;
 
             if (!vis.rangeStart || !vis.rangeEnd) {
                 vis.rangeStart = 'yr1990';
@@ -122,7 +157,7 @@
                 diverge: false
             });
 
-            vis.quantize = vis.quantizeSeq;
+            vis.color = vis.quantizeSeq;
         }
 
         vis.wrangleData();
@@ -178,12 +213,14 @@
 
             if (v !== null) {
                 if (!isNaN(v)) {
-                    returnVal = vis.quantize(v);
+                    returnVal = vis.color(v);
                 }
             }
 
             return 'state ' + d.properties.postal.toLowerCase() + ' ' + returnVal;
-        });
+        })
+        .on('mousemove', vis.tip.show)
+        .on('mouseout', vis.tip.hide)
     };
 
     if (!window.charts) { window.charts = {}; }

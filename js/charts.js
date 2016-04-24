@@ -117,7 +117,52 @@
 
     // Create the linked views for the Choropleth.
     function stateObesityChoroplethLinkedViews() {
-        var choropleth = new window.charts.Choropleth('#choropleth', window.chartData.stateTrends, window.topoJson.usa, 'yr2014');
+        function setBestWorstTable(activeProperty) {
+            var data = window.chartData.stateTrends;
+            var _data = _(data).map(function (d) {
+                return {
+                    value: d[activeProperty],
+                    datum: d
+                };
+            }).sortBy('value').filter(function (d) {
+                return d.value !== null;
+            });
+
+            var best = _data.take(5).value();
+            var worst = _data.takeRight(5).value().reverse();
+            var combo = _.zip(best, worst);
+
+            $('#map-extremes').css('display', '');
+            var rows = d3.select('#map-extremes table tbody').selectAll('tr')
+                .data(combo);
+
+            var newRows = rows.enter().append('tr');
+            newRows.append('td')
+                .html(function (pair, i) {
+                    return i + 1 + '.';
+                });
+
+            newRows.append('td').attr('class', 'best');
+            newRows.append('td').attr('class', 'worst')
+
+            rows.select('.best')
+                .html(function (pair) {
+                    var d = pair[0];
+                    return d.datum.ab + ': ' + d.value + '%';
+                });
+
+            rows.select('.worst')
+                .html(function (pair) {
+                    var d = pair[1];
+                    return d.datum.ab + ': ' + d.value + '%';
+                });
+
+            rows.exit()
+                .remove();
+        }
+
+        var startingProperty = 'yr2014';
+        var choropleth = new window.charts.Choropleth('#choropleth', window.chartData.stateTrends, window.topoJson.usa, startingProperty);
         var years = {};
         var dataPointKeys = _.keys(window.chartData.stateTrends[0]).filter(function(k) {
                 return /^yr\d{4}$/.exec(k);
@@ -155,11 +200,12 @@
             };
         });
 
-        var chart = new window.charts.Timeline('#timeline', years, 'yr2014');
+        var chart = new window.charts.Timeline('#timeline', years, startingProperty);
 
         // Update choropleth when 'By Year' mode
         chart.on('activeProperty', function(activeProperty) {
             choropleth.setActiveProperty(activeProperty);
+            setBestWorstTable(activeProperty);
         });
 
         // Update choropleth when 'Over Time' mode
@@ -172,6 +218,9 @@
             choropleth.setMode(this.value);
             chart.setMode(this.value);
         });
+
+        // Set up initial table
+        setBestWorstTable(startingProperty);
     }
 
     // Load all data and initiate each chart as it's dependencies are loaded.
@@ -190,8 +239,8 @@
                 var year = new Date(+yearMatches[1], 0, 0);
                 d.year = year;
 
-                d['US overweight Cost'] = currencyToNumber(d['US overweight Cost']);
-                d['US obesity Cost'] = currencyToNumber(d['US obesity Cost']);
+                d['US Overweight Cost'] = currencyToNumber(d['US Overweight Cost']);
+                d['US Obesity Cost'] = currencyToNumber(d['US Obesity Cost']);
             });
 
             window.chartData.nationsTrends = json;
@@ -203,6 +252,11 @@
         });
 
         var stateTrendsXhr = d3.json('data/processed_data/state_obesity_trend.json', function (error, json) {
+            if (error) {
+                alert(error);
+                return;
+            }
+
             window.chartData.stateTrends = json;
 
             stateObesityPolarArea();

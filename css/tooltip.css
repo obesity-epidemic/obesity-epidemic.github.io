@@ -1,0 +1,43 @@
+/****************/
+/*   TOOLTIPS   */
+/****************/
+
+.d3-tip {
+    padding: 12px;
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    border-radius: 2px;
+    pointer-events: none;
+}
+
+.d3-tip:after {
+    box-sizing: border-box;
+    display: inline;
+    font-size: 10px;
+    width: 100%;
+    line-height: 1;
+    color: rgba(0, 0, 0, 0.8);
+    position: absolute;
+    pointer-events: none;
+}
+
+.d3-tip.n:after {
+    content: "\25BC";
+    margin: -3px 0 0 0;
+    top: 100%;
+    left: 0;
+    text-align: center;
+}
+
+.d3-tip .tip-large-text {
+    font-size: 20px;
+}
+
+.d3-tip .tip-small-text {
+    opacity: 0.8;
+    font-size: 11px;
+}
+
+.d3-tip .tip-title {
+    margin-bottom: 10px;
+}

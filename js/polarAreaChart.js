@@ -136,19 +136,11 @@
             vis.displayData = vis.displayData.sort(function (a, b) {
                 return a.name.localeCompare(b.name);
             });
-
-            // vis.pie.sort(function (a, b) {
-            //         return a.name.localeCompare(b.name);
-            //     });
         }
         else {
             vis.displayData = vis.displayData.sort(function(a, b){
                 return a.value - b.value;
             });
-
-            // vis.pie.sort(function (a, b) {
-            //         return a.value - b.value;
-            //     });
         }
 
         vis.updateVis();
@@ -182,15 +174,15 @@
 
         // Handle user selection of a US State
         newArcs.on('mouseover', _.debounce(function(d) {
-            d3.select(this).classed('active', true);
-            vis.svg.select('.arc.active').classed('active', false);
-            vis.svg.select('.circle-active').remove();
-            vis.svg.append('circle')
-                .attr('class', 'circle-active')
-                .attr('r', vis.outerRadius({ value: d.value }));
+                d3.select(this).classed('active', true);
+                vis.svg.select('.arc.active').classed('active', false);
+                vis.svg.select('.circle-active').remove();
+                vis.svg.append('circle')
+                    .attr('class', 'circle-active')
+                    .attr('r', vis.outerRadius({ value: d.value }));
 
-            vis.dispatch.activeState(d.data);
-        }, 200));
+                vis.dispatch.activeState(d.data);
+            }, 50));
 
         // Label each wedge
         newArcs.append('text')
