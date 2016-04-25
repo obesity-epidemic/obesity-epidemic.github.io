@@ -502,8 +502,26 @@
 		<div class="row">
 			<div class="col-xs-12">
 				<h2>Obesity Factors</h2>
-
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+				<p>
+				The section above drives home the main point: the obesity rates in America vary significantly by regional grouping. What other regional circumstances contribute to obesity? Aside from genetics and medical problems which are difficult to measure at the state level, obesity is associated with the following risk factors: <b>inactivity</b>, <b>unhealthy diet</b>, and <b>socioeconomic status.</b>
+				</p>
+				<p>
+				Using data from the Behavioral Risk Factor Surveillance System <a>(http://www.cdc.gov/brfss/data_tools.htm)</a> we are able to explore the relationships between obesity risk factors and obesity rates. Understanding which risk factors are strongly associated with obesity rates can help policy makers implement more effective programs such as the Sugary Drinks Portion Cap Rule: <a>(https://en.wikipedia.org/wiki/Sugary_Drinks_Portion_Cap_Rule)</a>.</p>
+				The factors from the survey that we found most strongly associated with obesity were:
+				<ul>
+					<li><i>Daily soda consumption</i></li>
+					<li><i>People consuming at least one piece of fruit daily (fruit consumption)</i></li>
+					<li><i>Adults who spent no time exercising (leisure activity)</i></li>
+					<li><i>Percentage of people watching 3 or more hours of TV daily</i></li>
+					<li><i>Low income (bottom quintile of income)</i></li>
+				</ul>
+				</p>
+				<p>
+				The fruit consumption association was a little unexpected but not surprising since many fruits contain high levels of sugar.
+				</p>
+				<p>
+					The percentage of adults meeting the recommended Aerobic and Muscles Strengthening guideline <a>(http://www.cdc.gov/physicalactivity/basics/adults/)</a> <i>(weight activity)</i></i> was most negatively associated with obesity <i>(the more people exercising in each state the lower the obesity rates)</i>. Explore the factors for yourself and see which factors have the strongest association with obesity.
+				</p>
 			</div>
 		</div>
 
@@ -511,24 +529,24 @@
 			<div class="col-xs-4">
 				<div class="help-box">
 					<div class="title">States that sit more, weigh more.</div>
-					<div class="description">States with high levels of sedentary living have the highest rates of obesity.</div>
-					<a href='#' onclick='demo("notBetter", this); return false;'>Show me &raquo;</a>
+					<div class="description">States with the highest proportions of adults who engage in no physical activity during their leisure time have the highest rates of obesity.</div>
+					<a href='#' id="show-me-carto-lesiure">Show me &raquo;</a>
 				</div>
 			</div>
 
 			<div class="col-xs-4">
 				<div class="help-box">
-					<div class="title">Fast food, anyone?</div>
-					<div class="description">States where fast food was consumed the highest led to higher rates.</div>
-					<a href='#' onclick='demo("whereIsWorse", this); return false;'>Show me &raquo;</a>
+					<div class="title">Put Down the Soda</div>
+					<div class="description">States with the highest soda consumption had the most prevalent rates of obesity. This is the strongest positive association in this dataset.</div>
+					<a href='#' id="show-me-carto-soda">Show me &raquo;</a>
 				</div>
 			</div>
 
 			<div class="col-xs-4">
 				<div class="help-box">
 					<div class="title">Less money = More Weight</div>
-					<div class="description">States with lower incomes have higher rates of obesity. </div>
-					<a href='#' onclick='demo("whereIsWorse", this); return false;'>Show me &raquo;</a>
+					<div class="description">When looking at the bottom quintile of income: states with lower incomes have higher rates of obesity.</div>
+					<a href='#' id="show-me-carto-income">Show me &raquo;</a>
 				</div>
 			</div>
 		</div>

@@ -57,6 +57,50 @@ $("#cartoMenu .cartoReset").click(function () {
 
 });
 
+$('#show-me-carto-lesiure').click(function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    // change the display to Census
+    setTimeout(function () {
+        updateVisColor("obesity %");
+    }, 1000);
+    setTimeout(function () {
+        updateVisArea("adults_w_no_activity", sizeInput);
+    }, 2000);
+});
+
+$('#show-me-carto-soda').click(function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    // change the display to Census
+    setTimeout(function () {
+        updateVisColor("obesity %");
+    }, 1000);
+    setTimeout(function () {
+        updateVisArea("soda_consumption", sizeInput);
+    }, 2000);
+    setTimeout(function () {
+        updateVisPlacement("soda_consumption")
+    }, 3000);
+});
+
+$('#show-me-carto-income').click(function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    // change the display to Census
+    setTimeout(function () {
+        updateVisColor("obesity %");
+    }, 1000);
+    setTimeout(function () {
+        updateVisArea("bottom_quintile_hhi", sizeInput);
+    }, 2000);
+    setTimeout(function () {
+        updateVisPlacement("bottom_quintile_hhi")
+    }, 3000);
+});
+
+
+
 var $states = $('#cartoMenu.states input[type=checkbox]');
 $('#cartoMenu .state-filter input[type=checkbox]').change(function () {
     var $el = $(this);
