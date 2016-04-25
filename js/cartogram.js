@@ -225,7 +225,7 @@ CartogramChart.prototype.initVis = function () {
     // add a color legend
     vis.chart
         .append("g")
-        .attr("class", "legendQuant")
+        .attr("class", "cartolegendQuant")
         .attr("transform", "translate(720,60)");
 
     // make the correlation slider
@@ -683,12 +683,12 @@ function updateVisColor(inputParam) {
         .title(colorCat);
 
     if (inputParam == 'region'){
-        d3.select(".legendQuant").style("display","none")
+        d3.select(".cartolegendQuant").style("display","none")
     }
     else {
         // Add the shape legend
-        d3.select(".legendQuant").style("display","inline");
-        d3.select(".legendQuant").call(legend);}
+        d3.select(".cartolegendQuant").style("display","inline");
+        d3.select(".cartolegendQuant").call(legend);}
 
 }
 
