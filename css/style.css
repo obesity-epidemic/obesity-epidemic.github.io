@@ -7,11 +7,7 @@ section.small-gap {
 }
 
 #snack-list{
-	float:left;
-	width:120px;
-	border-right:solid 1px #cecece;
-	height:100%;
-	overflow-y:auto;
+	
 }
 
 
@@ -53,15 +49,17 @@ section.small-gap {
 }
 .main-snack-container{
 	margin:20px;
-	margin-top:100px;
+	margin-top:70px;
 }
 
 .food-list-item{
 	margin-bottom:10px;
 	border:solid 3px white;
-	padding:5px;
+	padding:0px;
 	cursor:pointer;
+	float:left;
 }
+.selected-snack,
 .food-list-item:hover{
 	border:solid 3px #D4E2FF;
 }
@@ -69,10 +67,11 @@ section.small-gap {
 .food-thumb-title{
 	font-size:12px;
 	text-align:center;
+	display:none;
 }
 
 .food-thumb img{
-	width:100%;
+	width:44px;
 }
 
 
@@ -87,6 +86,7 @@ section.small-gap {
 
 .met-label{
 	font-size:12px;
+	padding-left:8px;
 	color:#8E8E8E;
 }
 
@@ -105,8 +105,15 @@ section.small-gap {
 	position:absolute;
 	left:100%;
 	line-height:30px;
-	padding-left:5px;
+	padding-left:6px;
 	white-space: nowrap;
+}
+
+.snack-source{
+	clear:both;
+	font-size:11px;
+	text-align:right;
+	color:gray;
 }
 
 
@@ -210,7 +217,7 @@ h3{
 	stroke:none;
 }
 
-.selection-bar{fill:#FFC03D;}
+.selection-bar{fill:#6B6B6B;}
 
 .slider{pointer-events: none;}
 
@@ -224,13 +231,31 @@ h3{
 .calculator-weight-label, 
 .calculator-height-label,
 .calculator-bmi-label{
-	font-size:30px;
+	font-size:12px;
+}
+
+.calculator-weight-label span, 
+.calculator-height-label span,
+.calculator-bmi-label span{
+	font-size:20px;
 }
 
 
-#bmiBody path{
-	fill:#676767;
-}
+.calculator.under .bmi-color{  color:#3C86C1; fill:#3C86C1; }
+.calculator.normal .bmi-color{ color:#297D29; fill:#297D29; }
+.calculator.over .bmi-color{   color:#FFBB00; fill:#FFBB00; }
+.calculator.obese1 .bmi-color{ color:#F90; fill:#F90; }
+.calculator.obese2 .bmi-color{ color:#F30; fill:#F30; }
+.calculator.obese3 .bmi-color{ color:#C52323; fill:#C52323; }
+
+.calculator.obese2 .bmi-color{ color:#F90; fill:#F90; }
+.calculator.obese3 .bmi-color{ color:#F30; fill:#F30; }
+
+
+
+
+
+
 
 .report-header{
 	margin-top:10px;
@@ -259,14 +284,18 @@ h3{
     top: 20px;
     width: 501px;
     height: 620px;
-    border: solid 1px #cecece;
+    border-left: solid 1px #cecece;
     padding:15px;
 }
 
 .risk-icon{
 	margin-right:5px;
-	font-size: 28px;
+
     vertical-align: middle;
+}
+
+.rec-icon{
+	padding-right:5px;
 }
 
 .background-bar{
@@ -277,7 +306,12 @@ h3{
 	position: absolute;
     left: 40px;
     top: 10px;
-    font-size: 18px;
+    font-size: 13px;
+
+	left: 100px;
+    top: 480px;
+    z-index:1;
+
 }
 
 .top-selects .quiet-select{
@@ -328,7 +362,9 @@ h3{
 }
 
 
-
+.calculator .axis{
+	opacity: 1 !important;
+}
 
 
 

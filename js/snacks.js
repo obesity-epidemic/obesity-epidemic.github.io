@@ -19,7 +19,10 @@ function SnackViz(){
 	this.set = function(prop, val){
 
 		if(prop == 'selectedFood' && _.isString(val)){
-			val = _.find(this.foods, {key:val});
+			val = _.find(this.foods, {label:val});
+			if(this[prop] === val){
+				return; //If the value is already selected, nothing needs to be done.
+			}
 		}
 
 		this[prop] = val;
@@ -35,16 +38,38 @@ function SnackViz(){
 
 		$('#snack-list').html(templates.mainSnackList({foods:self.foods}));
 		$('#main-snack').html(templates.mainSnackTemplate(this.selectedFood));
-		//$('#activities').html();
 
+		var domainMax = getTime(_.last(this.foods).calories, this.mets[0]);
 
-		var scale = d3.scale.linear().domain([0,200]).range([0,400]);
+		var scale = d3.scale.linear().domain([0,domainMax]).range([0,550]);
 
 
 		var parent = d3.select('#activities');
 
 		var bar = parent.selectAll(".met-item")
 			.data(this.mets, function(d, i){ return d.label; });
+
+
+		function tweenText( newValue ) {
+			return function(d) {
+				//debugger;
+				// get current value as starting point for tween animation
+				var currentValue = (this.textContent+'').replace(' min', '') || '0 min';
+
+				currentValue = currentValue.replace(' min', '');
+				// create interpolator and do not show nasty floating numbers
+				var i = d3.interpolateRound( +currentValue, +newValue(d).replace(' min', '') );
+
+				return function(t) {
+					this.textContent = i(t) + ' min';
+				};
+			}
+		}
+
+
+		function getTime(calories, d) {
+			return Math.round(calories / (d.mets * weightInKg) * 60)
+		}
 
 		// Enter
 		bar.enter().append("div")
@@ -64,17 +89,12 @@ function SnackViz(){
 			
 			.selectAll(".bar")
 			//.text(function(d){ debugger; return (self.selectedFood.calories / (d.met * weightInKg) * 60) + 'minutes'  })
-			.style("width", function(d){ d.time = Math.round(self.selectedFood.calories / (d.mets * weightInKg) * 60); return scale(d.time) + 'px'})
+			.style("width", function(d){ d.time = getTime(self.selectedFood.calories, d); return (scale(d.time) + 8) + 'px'})
 			.selectAll(".bar-label")
-			.text(function(d){ return d.time + ' min'  })
+			.tween("text", tweenText(function(d){ return d.time + ' min'  }));
+
 			
-
-
 	}
-
-
-
-
 }
 
 var snackViz = new SnackViz();
@@ -89,10 +109,11 @@ queue()
 				o.key = i+'';
 				o.calories = +o.calories;
 				o.img = _.kebabCase(o.label.replace("'",'')) + '.jpg';
-			});
+			}).sort(function(a,b){return a.calories - b.calories;});;
 
 			mets = _.filter(mets, function(o){
 				return _.includes([
+					'Sitting',
 					'Walking 2.5 mph',
 					'Cycling, 12-13.9 mph, moderate',
 					'Weight lifting, body building, vigorous',

@@ -1,35 +1,101 @@
+//Add the line chart
+//Add the plant
+//Finish the report section
+//Update the body shapes
+
+
+
+// change the scale to be an svg.
+
+
+//Percentiles by age
+//http://www.cdc.gov/growthcharts/clinical_charts.htm
+
+
+
 // Always have same x values for bmi so they are animated.
 // have a bar charts showing the calorie intake of the different obesity levels.
 
 
+//https://www.researchgate.net/publication/6138361_BMI-based_body_size_guides_for_women_and_men_Development_and_validation_of_a_novel_pictorial_method_to_assess_weight-related_concepts_International_Journal_of_Obesity_London_322_336-342
+
+
+//OVerweight Raised Risk of
+////http://www.bbc.co.uk/health/tools/bmi_calculator/bmi.shtml
+/*
+Heart disease
+High blood pressure
+Diabetes
+Arthritis
+Infertility
+Asthma
+Cancer
+
+Obese
+Heart disease
+Diabetes
+Arthritis
+Infertility
+
+Asthma
+
+Cancer
+*/
+
+
+
+
+
+
+
+
+
+
 function init(){
 
-
+var body0 = d3.select('#body0').node();
 var body1 = d3.select('#body1').node();
 var body2 = d3.select('#body2').node();
 var body3 = d3.select('#body3').node();
 var body4 = d3.select('#body4').node();
 var body5 = d3.select('#body5').node();
 
+var mbody0 = d3.select('#mbody0').node();
+var mbody1 = d3.select('#mbody1').node();
+var mbody2 = d3.select('#mbody2').node();
+var mbody3 = d3.select('#mbody3').node();
+var mbody4 = d3.select('#mbody4').node();
+var mbody5 = d3.select('#mbody5').node();
+
+// These are so that at any point in time we can go to a specific body shape.
 var tweeners = [
-	getTweenerForPaths(body1, body1),
-	getTweenerForPaths(body1, body1), 
+	getTweenerForPaths(body0, body0),
+	getTweenerForPaths(body0, body1), 
 	getTweenerForPaths(body1, body2), 
 	getTweenerForPaths(body2, body3), 
 	getTweenerForPaths(body3, body4), 
 	getTweenerForPaths(body4, body5), 
 ];
 
+var mtweeners = [
+	getTweenerForPaths(mbody0, mbody0),
+	getTweenerForPaths(mbody0, mbody1), 
+	getTweenerForPaths(mbody1, mbody2), 
+	getTweenerForPaths(mbody2, mbody3), 
+	getTweenerForPaths(mbody3, mbody4), 
+	getTweenerForPaths(mbody4, mbody5), 
+];
+
 
 var maxWeight = 400;
 
 var weightClasses=[
-	{label: 'Underweight', color:'yellow',  start:0, end:18.5, mid: 15 },
-	{label: 'Normal Weight',      color:'green',   start:18.5, end:25 },
-	{label: 'Overweight',  color:'orange',  start:25, end:30 },
-	{label: 'Obese I',     color:'rgba(167, 0, 0, 0.50)',     start:30, end:35 },
-	{label: 'Obese II',    color:'rgba(167, 0, 0, 0.75)',     start:35, end:40 },
-	{label: 'Obese III',   color:'rgba(167, 0, 0, 1)',     start:40, end:200, mid: 43, maxWeight:maxWeight },
+	{id: 'under', label: 'Underweight', color:'#3C86C1',  start:0, end:18.5, mid: 15 },
+	{id: 'normal', label: 'Normal Weight',      color:'#297D29',   start:18.5, end:25 },
+	{id: 'over', label: 'Overweight',  color:'#FFBB00',  start:25, end:30 },
+	{id: 'obese1', label: 'Obese I',     color:'#F90',     start:30, end:35 },
+	{id: 'obese2', label: 'Obese II',    color:'#F90',     start:35, end:40 }, //#f30
+	{id: 'obese3', label: 'Obese III',   color:'#F30',     start:40, end:200, mid: 43, maxWeight:maxWeight }, //#c52323
 ];
 
 _.each(weightClasses, function(o){
@@ -44,8 +110,6 @@ _.each(weightClasses, function(o,i){
 
 	var start = _.get(weightClasses, '['+(i-1)+'].mid', 0);
 
-	console.log(start);
-
 	var scale = d3.scale.linear()
 		.domain([start, o.mid])
 		.range([0, 1])
@@ -55,20 +119,22 @@ _.each(weightClasses, function(o,i){
 		startBMI:start,
 		endBMI: o.mid,
 		getPathForBmi: function(bmi){
-			return tweeners[i](scale(bmi));
+			return calculator.gender ==1 ? mtweeners[i](scale(bmi)) : tweeners[i](scale(bmi));
 		}
 	})
 });
 
 
-
+var weightIcon = "<img src='img/snacks/weight2.png' class='rec-icon' />";
+var runningIcon = "<img src='img/snacks/running2.png' class='rec-icon' />";
+var aerobicIcon = "<img src='img/snacks/aerobic2.png' class='rec-icon' />";
+var jumpingIcon = "<img src='img/snacks/jumping2.png' class='rec-icon' />";
 
 
 //http://www.cdc.gov/physicalactivity/basics/children/index.htm
 var activityClasses=[
-	{ startAge:6, endAge:18,  label: "60 minutes or more of physical activity each day. 3 days aerobic, 3 days muscle strengthening, 3 days bone strengthening. (have icon for each type)"},
-	{ startAge:18, endAge:65, label: "Muscle strength training 2 days a week and either 1.25 hours of intense activity(jogging/running) or 2.5 hours of moderate activity (fast walking)"},
-	{ startAge:65, endAge:200, label: 'Muscle strength training 2 days a week and either 1.25 hours of intense activity(jogging/running) or 2.5 hours of moderate activity (fast walking)'},
+	{ startAge:6, endAge:18,  label: [ runningIcon + "1 hour of physical activity each day.", weightIcon + "3 days muscle strengthening",  aerobicIcon + "3 days aerobic", jumpingIcon + "3 days bone strengthening"].join("<br /><br />")},
+	{ startAge:18, endAge:200, label: [weightIcon + "Muscle strength training 2 days a week<br />", runningIcon + "1.25 hours of intense activity(jogging/running) per week <div><span style='padding-left:189px;'>&nbsp;</span><b>or</b></div> <span style='padding-left:27px;'>&nbsp;</span>2.5 hours of moderate activity (fast walking) per week"].join("<br />")},
 ];
 
 
@@ -79,20 +145,24 @@ var veryBadIcon = '<i class="risk-icon fa fa-exclamation-triangle" style="color:
 var extremelyBadIcon = '<i class="risk-icon fa fa-times-circle" style="color:#900000; "></i>';
 
 var riskLabels = {
-	none:          goodIcon + "No disease risk for type 2 diabetes, hypertension, and CVD",
-	increased:     okIcon + "Increased disease risk for type 2 diabetes, hypertension, and CVD",
-	high:          badIcon + "High disease risk for type 2 diabetes, hypertension, and CVD",
-	veryHigh:      veryBadIcon + "Very high disease risk for type 2 diabetes, hypertension, and CVD",
-	extremelyHigh: extremelyBadIcon + "Extremely high disease risk for type 2 diabetes, hypertension, and CVD",
+	none:          goodIcon + "No disease risk for type 2 diabetes, hypertension, and heart disease",
+	increased:     [okIcon + "Increased risk of type 2 diabetes", okIcon + "Increased risk of hypertension", okIcon + "Increased risk of heart disease"].join('<br />'),
+	high:          [badIcon + "High risk of type 2 diabetes", badIcon + "High risk of hypertension", badIcon + "High risk of heart disease"].join('<br />'),
+	veryHigh:      [veryBadIcon + "Very high risk of type 2 diabetes", veryBadIcon + "Very high risk of hypertension", veryBadIcon + "Very high risk of heart disease"].join('<br />'),
+	extremelyHigh:  [extremelyBadIcon + "Extremely high risk of type 2 diabetes", extremelyBadIcon + "Extremely high risk of hypertension", extremelyBadIcon + "Extremely high risk of heart disease"].join('<br />')
 };
+
+var overweightRisks = "<br />" + [okIcon + "Increased risk of arthritis", okIcon + "Increased risk of infertility", okIcon + "Increased risk of asthma",okIcon + "Increased risk of cancer"].join('<br />') 
+var obeseRisks = "<br />" + [badIcon + "High risk of arthritis", badIcon + "High risk of infertility", badIcon + "High risk of asthma",badIcon + "High risk of cancer", badIcon + "High risk of fatty liver disease", badIcon + "High risk of miscarriage"].join('<br />') 
+
 
 var riskClasses=[
 	{ startBMI:0,    endBMI:18.5, label: riskLabels.none},
 	{ startBMI:18.5, endBMI:25,   label: riskLabels.none},
-	{ startBMI:25,   endBMI:30,   label: riskLabels.increased,     label2:riskLabels.high},
-	{ startBMI:30,   endBMI:35,   label: riskLabels.high,          label2:riskLabels.veryHigh},
-	{ startBMI:35,   endBMI:40,   label: riskLabels.veryHigh,      label2:riskLabels.veryHigh},
-	{ startBMI:40,   endBMI:200,  label: riskLabels.extremelyHigh, label2:riskLabels.extremelyHigh}
+	{ startBMI:25,   endBMI:30,   label: riskLabels.increased + overweightRisks,     label2:riskLabels.high + overweightRisks},
+	{ startBMI:30,   endBMI:35,   label: riskLabels.high + obeseRisks,          label2:riskLabels.veryHigh+ obeseRisks},
+	{ startBMI:35,   endBMI:40,   label: riskLabels.veryHigh + obeseRisks,      label2:riskLabels.veryHigh + obeseRisks},
+	{ startBMI:40,   endBMI:200,  label: riskLabels.extremelyHigh + obeseRisks, label2:riskLabels.extremelyHigh + obeseRisks}
 ];
 
 var activityLevels=[
@@ -264,7 +334,8 @@ function updateBmiBody(params) {
 
 		calculator.bodyOpts.root.attr('viewBox', "0 0 239 482.4");
 
-		var path = calculator.bodyOpts.path = calculator.bodyOpts.svg.append('path');
+		var path = calculator.bodyOpts.path = calculator.bodyOpts.svg.append('path')
+		//.attr('class', 'bmi-color');
 		path.attr('d', getBodyPath(calculator.rawBmi));
 	}
 
@@ -273,9 +344,11 @@ function updateBmiBody(params) {
 
 	if(Math.abs(lastBmi - calculator.rawBmi) < 2){
 		lastBmi = calculator.rawBmi;
-		opts.path.attr('d', getBodyPath(calculator.rawBmi));
+		opts.path.attr('d', getBodyPath(calculator.rawBmi))
+		.attr('fill', calculator.weightClass.color);
 		return;
 	}
+	
 	
 	lastBmi = calculator.rawBmi;
 	transitionPath(opts);
@@ -286,7 +359,8 @@ function updateBmiBody(params) {
 function _transitionPath(opts){
 	opts.path.transition()
 		.duration(opts.duration)
-		.attrTween("d", pathTween(getBodyPath(calculator.rawBmi)));
+		.attrTween("d", pathTween(getBodyPath(calculator.rawBmi)))
+		.attr('fill', calculator.weightClass.color)
 }
 
 var transitionPath = _.debounce(_transitionPath, 100);
@@ -558,6 +632,10 @@ function Calculator(){
 	this.set = function(prop, val){
 		this[prop] = val;
 		this.refresh();
+
+		if(prop === 'weight' && snackViz){
+			snackViz.refresh();
+		}
 	}
 
 	this.refresh = function(){
@@ -566,7 +644,7 @@ function Calculator(){
 		this.bmi = Math.round(bmi);
 
 		var weightClass = getWeightClass(this.rawBmi);
-
+		this.weightClass = weightClass;
 
 		this.bodyfat = getBodyFatPercentage(this.bmi, this.age, this.gender);
 
@@ -617,6 +695,8 @@ function Calculator(){
 
 		$('.obesityClass').html(weightClass.label);
 
+
+		$('.calculator ').removeClass('under normal over obese1 obese2 obese3').addClass(weightClass.id);
 
 
 		updateWeightSlider();
@@ -689,3 +769,190 @@ window.calculator = calculator;
 };
 
 _.delay(init, 1000);
+//init();
+
+/*
+queue()
+  .defer(d3.csv, "data/processed_data/bmi_percentiles-by_age.csv")
+  .await(function(error, data){
+
+  	_.each(data, function(row){
+  		_.each(row, function(item, i){
+  			if(i !== 'gender'){
+  				row[i] = +row[i];
+  			}
+  		});
+  		row.data = [
+  			{percentile:5,  bmi: row['5th'] },
+  			{percentile:10, bmi: row['10th'] },
+  			{percentile:15, bmi: row['15th'] },
+  			{percentile:25, bmi: row['25th'] },
+  			{percentile:50, bmi: row['50th'] },
+  			{percentile:75, bmi: row['75th'] },
+  			{percentile:85, bmi: row['85th'] },
+  			{percentile:90, bmi: row['90th'] },
+  			{percentile:95, bmi: row['95th'] }
+  		];
+  	});
+
+
+  	var opts = utils.setupSVG({
+		selector: "#bmi-by-age",
+		width: 400,
+		height: 200,
+		marginTop: 40,
+		marginRight: 40,
+		marginBottom: 40,
+		marginLeft: 40,
+		duration: 800
+	});
+
+
+  	var data = data[25].data;
+
+  	// Create the scales.
+	var xScale = utils.setupScale({type: 'linear', axis:'x', data:data, prop:'percentile', opts:opts,  min:0, max: 100 });
+	var yScale = utils.setupScale({type: 'linear', axis:'y', data:data, prop:'bmi', opts:opts,  min:0, max: 45});
+
+	// Add the stacked area.
+	var paths = utils.addLine({parent: opts.svg, opts:opts, data:data,  x: xScale.getValue, y: yScale.getValue, y0:yScale.getValue});
+	var paths = utils.addScatter({parent: opts.svg, opts:opts, data:data,  x: xScale.getValue, y: yScale.getValue, z:5, y0:yScale.getValue});
+	//paths.style("fill", function(d){  return colorScale(d[0].source);})
+
+return;
+	// Create and add the x axis.
+	var xAxis = d3.svg.axis()
+		.scale(xScale)
+		.orient("bottom")
+		.ticks(d3.time.years, 1)
+		.tickFormat(d3.time.format('%Y'))
+		.tickSize(5);
+
+	var xAxisGroup = utils.addXAxis({parent: opts.svg, opts:opts, axis:xAxis});
+
+	// Create and add the y axis.
+	var yAxis = d3.svg.axis()
+		.scale(yScale)
+		.orient("left")
+		.ticks(7)
+		.tickFormat(function(d){ return d3.format("$.2s")(d).replace('G', 'B') });
+
+	utils.addYAxis({parent: opts.svg, opts:opts, axis:yAxis});
+	utils.addChartTitle({parent: opts.svg, label: "Funding for Malaria Control and Elimination", opts:opts });
+
+	var timeFormatter = d3.time.format('%Y')
+
+
+
+
+
+
+
+  	debugger;
+
+  });
+
+*/
+
+
+
+
+
+function demo(id, el){
+
+	switch(id){
+		case 'calculator1':
+
+			calculator.weight = 140.2;
+			calculator.height = 63.1;
+			calculator.gender = 0; // 1 = male
+			calculator.age = 34;
+			calculator.waist = 32;
+
+			calculator.weightOpts.updateBrush(calculator.weight);
+			calculator.heightOpts.updateBrush(calculator.height);
+
+
+			calculator.refresh();
+
+			_.delay(function(){
+				calculator.weight = 164.3;
+				calculator.height = 64.1;
+				calculator.gender = 0; // 1 = male
+				calculator.age = 34;
+				calculator.waist = 32;
+				calculator.weightOpts.updateBrush(calculator.weight);
+				calculator.heightOpts.updateBrush(calculator.height);
+				calculator.refresh();
+			}, 2000);
+
+		break;
+
+
+		case 'calculator2':
+
+			calculator.weight = 200;
+			calculator.height = 67;
+			calculator.gender = 0; // 1 = male
+			calculator.age = 34;
+			calculator.waist = 32;
+			calculator.weightOpts.updateBrush(calculator.weight);
+			calculator.heightOpts.updateBrush(calculator.height);
+			calculator.refresh();
+
+			_.delay(function(){
+				calculator.weight = 190;
+				calculator.weightOpts.updateBrush(calculator.weight);
+				calculator.heightOpts.updateBrush(calculator.height);
+				calculator.refresh();
+			}, 2000);
+
+		break;
+
+
+		case 'calculator3':
+
+			calculator.weight = 180;
+			calculator.height = 70;
+			calculator.gender = 1; // 1 = male
+			calculator.age = 34;
+			calculator.waist = 32;
+			calculator.weightOpts.updateBrush(calculator.weight);
+			calculator.heightOpts.updateBrush(calculator.height);
+			calculator.refresh();
+
+			_.delay(function(){
+				calculator.weight = 205;
+				calculator.weightOpts.updateBrush(calculator.weight);
+				calculator.heightOpts.updateBrush(calculator.height);
+				calculator.refresh();
+			}, 2000);
+
+		break;
+
+
+		case 'food1':
+
+			snackViz.set('selectedFood', 'Snickers');
+
+		break;
+
+		case 'food2':
+
+			snackViz.set('selectedFood', 'Pepsi');
+
+		break;
+
+		case 'food3':
+
+			snackViz.set('selectedFood', 'Celery');
+
+		break;
+
+
+
+
+	}
+
+
+}
