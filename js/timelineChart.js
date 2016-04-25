@@ -71,10 +71,6 @@
         vis.xMin = vis.x(ends[0]);
         vis.xMax = vis.x(ends[1]);
 
-        // vis.quantize = d3.scale.quantize()
-        //     .range(d3.range(vis.opts.scaleValueCounts).map(function (i) {
-        //         return 'q' + i + '-' + vis.opts.scaleValueCounts;
-        //     }));
         // Sequential scale for 'by-year'
         vis.quantizeSeq = d3.scale.quantize()
             .range(d3.range(vis.opts.scaleValueCounts.seq).map(function (i) {
@@ -194,6 +190,24 @@
             });
         vis.svg.call(vis.tip);
 
+        // Add brush
+        vis.gBrush = vis.svg.append('g')
+            .attr('class', 'brush')
+            .call(vis.brush);
+
+        vis.gBrush.selectAll('rect')
+            .attr('y', vis.opts.indicatorHeight + vis.opts.indicatorGap)
+            .attr('height', vis.height - vis.opts.indicatorHeight - vis.opts.indicatorGap);
+
+        vis.gBrush.selectAll('.resize').append('rect')
+            .attr('class', 'handle')
+            .attr('x', function(d) {
+                return d === 'w' ? -6 : 3;
+            })
+            .attr('y', vis.opts.indicatorHeight + vis.opts.indicatorGap - 1)
+            .attr('height', vis.height - vis.opts.indicatorHeight - vis.opts.indicatorGap)
+            .attr('width', 3);
+
         vis.setMode('by-year');
         //vis.setMode('over-time');
 
@@ -261,7 +275,9 @@
 
             vis.color = vis.quantileDiverge;
             vis.indicator.style('display', 'none');
-            if (vis.gBrush) { vis.gBrush.style('display', null); }
+            // if (vis.gBrush) {
+                vis.gBrush.style('display', null);
+            // }
 
             // Set brush extent
             vis.brush.extent([new Date(1990, 0), new Date(2014, 0)]);
@@ -277,7 +293,9 @@
 
             vis.color = vis.quantizeSeq;
             vis.indicator.style('display', null);
-            if (vis.gBrush) { vis.gBrush.style('display', 'none'); }
+            // if (vis.gBrush) {
+                vis.gBrush.style('display', 'none');
+            // }
 
             if (vis.markers) {
                 vis.markers.classed('dim', false);
@@ -336,29 +354,7 @@
             vis.yearPositions[k] = pos;
         });
 
-        if (!vis.gBrush /*&& vis.mode === 'over-time'*/) {
-            // Add brush
-            vis.gBrush = vis.svg.append('g')
-                .attr('class', 'brush')
-                .call(vis.brush);
-
-            vis.gBrush.selectAll('rect')
-                .attr('y', vis.opts.indicatorHeight + vis.opts.indicatorGap)
-                .attr('height', vis.height - vis.opts.indicatorHeight - vis.opts.indicatorGap);
-
-            vis.gBrush.selectAll('.resize').append('rect')
-                .attr('class', 'handle')
-                .attr('x', function(d) {
-                    return d === 'w' ? -6 : 3;
-                })
-                .attr('y', vis.opts.indicatorHeight + vis.opts.indicatorGap - 1)
-                .attr('height', vis.height - vis.opts.indicatorHeight - vis.opts.indicatorGap)
-                .attr('width', 3);
-        }
-
-        if (vis.gBrush) {
-            vis.brush(vis.gBrush);
-        }
+        vis.brush(vis.gBrush);
 
         vis.markers = vis.svg.selectAll('.marker')
             .data(_.values(vis.data), function(d) { return d.property; });
