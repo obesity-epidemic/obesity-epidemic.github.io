@@ -85,6 +85,7 @@
         var legend = d3.legend.color()
             .labelFormat(d3.format(".2f"))
             .useClass(true)
+            .ascending(true)
             .scale(vis.color);
 
         vis.svg.select(".legendQuant")

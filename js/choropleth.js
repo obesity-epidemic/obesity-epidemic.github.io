@@ -133,7 +133,8 @@
 
         vis.legendFunc = d3.legend.color()
             .labelFormat(d3.format(".2f"))
-            .useClass(true);
+            .useClass(true)
+            .ascending(true);
 
         vis.color = null;
         vis.setMode(vis.opts.mode);

@@ -1,9 +1,13 @@
 section {
-	margin-top: 150px;
+	margin-top: 100px;
 }
 
 section.small-gap {
 	margin-top: 50px;
+}
+
+section h2 {
+	margin-bottom: 30px;
 }
 
 #snack-list{

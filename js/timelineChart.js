@@ -108,6 +108,13 @@
             .attr('class', 'y-axis axis');
 
         // Attach Play/Pause
+        vis.iconBg = vis.svg.append('circle')
+            .attr('cx', -32)
+            .attr('cy', 40)
+            .attr('r', 17)
+            .style('fill', '#eee')
+            .style('stroke', '#ccc');
+
         vis.playIcon = vis.svg.append('path')
             .attr('d', 'M0 0 L20 10 L0 20 Z')
             .attr('class', 'play')
@@ -284,6 +291,7 @@
 
             vis.pause();
             vis.playIcon.style('display', 'none');
+            vis.iconBg.style('display', 'none');
         }
         else if (mode === 'by-year') {
             vis.svg.classed({
@@ -302,6 +310,7 @@
             }
 
             vis.playIcon.style('display', null);
+            vis.iconBg.style('display', null);
         }
 
         vis.updateVis();

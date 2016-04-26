@@ -181,8 +181,14 @@
 .timeline-chart .play {
   fill: #3a6; }
 
+.timeline-chart .play:hover {
+  fill: #3c6; }
+
 .timeline-chart .pause {
   fill: #08c; }
+
+.timeline-chart .pause:hover {
+  fill: #0ac; }
 
 .timeline-chart .indicator {
   fill: #666;
