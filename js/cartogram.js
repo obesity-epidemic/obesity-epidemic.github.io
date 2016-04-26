@@ -2,27 +2,29 @@
  *  jQuery listeners for bootstrap menus
  *
  */
+$("#cartoMenu").find(".nav").hover(function (){
+    $(this).css({'cursor' : 'pointer'})
+});
 
-
-$("#cartoMenu .colorBy li a").click(function () {
+$("#cartoMenu").find(".colorBy li a").click(function () {
     var inputVal = $(this).text();
     colorCat = inputVal;
     menuListener(inputVal, "colorBy")
 });
 
-$("#cartoMenu .sizeBy li a").click(function () {
+$("#cartoMenu").find(".sizeBy li a").click(function () {
     var inputVal = $(this).text();
     sizeCat = inputVal;
     menuListener(inputVal, "sizeBy")
 });
 
-$("#cartoMenu .placeBy li a").click(function () {
+$("#cartoMenu").find(".placeBy li a").click(function () {
     var inputVal = $(this).text();
     verticalCat = inputVal;
     menuListener(inputVal, "placeBy")
 });
 
-$("#cartoMenu .region ").click(function (event) {
+$("#cartoMenu").find(".region ").click(function (event) {
     var target = $(event.target);
     if (!target.is("input")) {
         event.preventDefault();
@@ -33,7 +35,17 @@ $("#cartoMenu .region ").click(function (event) {
     ;
 });
 
-$("#cartoMenu .cartoReset").click(function () {
+
+$("#cartoMenu").find(".cartoReset").click(function (event) {
+
+
+    $("#cartoMenu").find(".nav").hover(function (){
+        $(this).css({'cursor' : 'wait'})
+    });
+
+    $("#cartoMain").hover(function (){
+        $(this).css({'cursor' : 'wait'})
+    });
 
     // change the display to Census
     setTimeout(function () {
@@ -54,6 +66,14 @@ $("#cartoMenu .cartoReset").click(function () {
         updateVisArea("Equisize", sizeInput);
     }, 5000);
     // Use the
+    setTimeout(function () {
+        $("#cartoMenu").find(".nav").mousemove(function (){
+            $(this).css({'cursor' : 'pointer'})
+        });
+        $("#cartoMain").mousemove(function (){
+            $(this).css({'cursor' : 'default'})
+        });
+    }, 5000);
 
 });
 
@@ -82,6 +102,7 @@ $('#show-me-carto-soda').click(function(e) {
     setTimeout(function () {
         updateVisPlacement("soda_consumption")
     }, 3000);
+    verticalCat = 'Soda Consumption';
 });
 
 $('#show-me-carto-income').click(function(e) {
@@ -97,6 +118,7 @@ $('#show-me-carto-income').click(function(e) {
     setTimeout(function () {
         updateVisPlacement("bottom_quintile_hhi")
     }, 3000);
+    verticalCat = 'Bottom Quintile of Income';
 });
 
 
@@ -191,15 +213,15 @@ function menuListener(inputValue, functionCall) {
 function styleRegion(d) {
     switch (d.region) {
         case 'PACIFIC':
-            return '#039362';
+            return '#297D29';
         case 'WEST':
-            return '#E12E34';
+            return '#297D29';
         case 'MIDWEST':
-            return '#959595';
+            return  '#FFBB00';
         case 'SOUTH':
-            return '#F59219';
+            return '#FF3300';
         case 'NORTHEAST':
-            return '#0281CA';
+            return '#3C86C1';
     }
 }
 
@@ -264,17 +286,17 @@ CartogramChart.prototype.initVis = function () {
     vis.chart
         .append("g")
         .attr("class", "legendSize")
-        .attr("transform", "translate(720, 280)");
+        .attr("transform", "translate(720, 60)");
 
     // add a color legend
     vis.chart
         .append("g")
         .attr("class", "cartolegendQuant")
-        .attr("transform", "translate(720,60)");
+        .attr("transform", "translate(775,228)");
 
     // make the correlation slider
     var slider = iopctrl.slider()
-        .width(50)
+        .width(40)
         .events(false)
         .bands([
             {"domain": [-.25, .25], "span":[0.75, 0.12] , "class": "fault"},
@@ -289,7 +311,7 @@ CartogramChart.prototype.initVis = function () {
 
     var slideScale = d3.scale.linear()
         .domain([-1,1])
-        .range([0, 200]);
+        .range([0, 160]);
 
     slider.axis().orient("top")
         .ticks(6)
@@ -306,7 +328,7 @@ CartogramChart.prototype.initVis = function () {
         .append("rect")
         .attr("class", "indicator")
         .attr("x", 19)
-        .attr("y", 23)
+        .attr("y", 18)
         .attr("height", 38)
         .attr("width", 5)
         .attr("opacity", 0);
@@ -316,7 +338,7 @@ CartogramChart.prototype.initVis = function () {
         .append("text")
         .attr("class", "lineargaugeLabel")
         .attr("x", 720)
-        .attr("y", 420)
+        .attr("y", 440)
         .text("")
         .attr("opacity", 0);
 
@@ -324,7 +346,7 @@ CartogramChart.prototype.initVis = function () {
     vis.chart
         .append("text")
         .attr("class", "lineargaugeR")
-        .attr("x", 940)
+        .attr("x", 900)
         .attr("y", 508)
         .text("R")
         .attr("opacity", 0);
@@ -333,7 +355,7 @@ CartogramChart.prototype.initVis = function () {
     vis.chart
         .append("text")
         .attr("class", "lineargaugeRQual")
-        .attr("x", 740)
+        .attr("x", 720)
         .attr("y", 530)
         .text("strong negative association")
         .attr("opacity", 0);
@@ -464,6 +486,12 @@ CartogramChart.prototype.initStates = function () {
         .offset([-10, 0])
         .html(function (d) {
             if (!d.filtered) {
+                $(this).awesomeCursor('filter', {
+                    color:'gray',
+                    outline:'black',
+                    size: 28,
+                    hotspot: [5,5]
+                });
                 d3.selectAll('.d3-tip').style("display", "block");
                 this.parentNode.appendChild(this);
                 return '<div class="tip-title">' + d.state_name + '</div>' +
@@ -575,6 +603,17 @@ CartogramChart.prototype.initStates = function () {
             return d.state + "Label";
         });
 
+    var customScale = d3.scale.quantize()
+        .range(['#297D29', '#FFBB00', '#FF3300', '#3C86C1']);
+
+    var legend = d3.legend.color()
+        .scale(customScale)
+        .title("Census Regions")
+        .labels(['WEST','MIDWEST','SOUTH','NORTHEAST']);
+
+    d3.select(".cartolegendQuant").style("display","inline");
+    d3.select(".cartolegendQuant").call(legend);
+
 };
 
 function updateVisArea(inputParam, maxSize=50) {
@@ -597,7 +636,7 @@ function updateVisArea(inputParam, maxSize=50) {
         )]);
 
     var legendSize = d3.legend.size()
-        .scale(z.range([5, maxSize*.75]))
+        .scale(z.range([5, maxSize*.95]))
         .cells(4)
         .labelFormat(function(d){
             return getFormatRight(inputParam, d);})
@@ -678,7 +717,6 @@ function updateVisArea(inputParam, maxSize=50) {
                 return "translate(" + 0 + "," + 0 + ")";
             }
         }).duration(1000);
-
 }
 
 function updateVisColor(inputParam) {
@@ -727,7 +765,16 @@ function updateVisColor(inputParam) {
         .title(colorCat);
 
     if (inputParam == 'region'){
-        d3.select(".cartolegendQuant").style("display","none")
+        var customScale = d3.scale.quantize()
+            .range(['#297D29', '#FFBB00', '#FF3300', '#3C86C1']);
+
+        legend
+            .scale(customScale)
+            .title("Census Regions")
+            .labels(['WEST','MIDWEST','SOUTH','NORTHEAST']);
+
+        d3.select(".cartolegendQuant").style("display","inline");
+        d3.select(".cartolegendQuant").call(legend);
     }
     else {
         // Add the shape legend
@@ -1101,7 +1148,7 @@ function getCorrelation(inputParam) {
 
     var slideScale = d3.scale.linear()
         .domain([-1,1])
-        .range([19, 218]);
+        .range([19, 177]);
 
     d3.select(".lineargauge.hide")
         .attr("class","lineargauge");
@@ -1120,13 +1167,13 @@ function getCorrelation(inputParam) {
         .attr('opacity', 1)
         .style('fill', function(){
             if (Math.abs(value) > .74) {
-                return '#008000';
+                return '#297C29';
             } else if (Math.abs(value) > .50) {
-                return '#FFA500';
+                return '#FFBB00';
             }  else if (Math.abs(value) > .25) {
-                return '#BD4040';
+                return '#FF9900';
             } else {
-                return '#A70000';
+                return '#FF3300';
             }
         })
         .text("R = "+Math.round(value*1000)/1000)
@@ -1137,18 +1184,18 @@ function getCorrelation(inputParam) {
         .ease("sin-in-out")
         .attr('opacity', 1)
         .attr('fill', function(){
-            return '#008000';
+            return '#297C29';
         })
         .text(function(){
             var strength = "no";
             if (Math.abs(value) > .74) {
-                d3.select(this).style("fill", '#008000');
+                d3.select(this).style("fill", '#297C29');
                 strength = "strong";
             } else if (Math.abs(value) > .50) {
-                d3.select(this).style("fill", '#FFA500');
+                d3.select(this).style("fill", '#FFBB00');
                 strength = "moderate";
             }  else if (Math.abs(value) > .25) {
-                d3.select(this).style("fill", '#BD4040');
+                d3.select(this).style("fill", '#FF9900');
                 strength = "weak";
             }
             if (strength != "no" && value > 0) {
@@ -1156,7 +1203,7 @@ function getCorrelation(inputParam) {
             } else if (strength != "no") {
                 return strength + " negative association";
             }
-            d3.select(this).style("fill", '#A70000');
+            d3.select(this).style("fill", '#FF3300');
             return "no association";
         })
         .duration(500);

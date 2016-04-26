@@ -734,6 +734,15 @@ h2{
 	font-weight: bold;
 }
 
+#cartoMenu .dropdown-menu{
+	min-width: 235px;
+}
+
+#cartoMain .label{
+	font-size: 68%;
+	font-weight: 400;
+}
+
 .legendSize .swatch{
 	fill: #337ab7;
 }
@@ -771,19 +780,19 @@ Thermo guage
 }
 
 .lineargauge .ok {
-	fill: #008000;
+	fill: #297C29;
 }
 
 .lineargauge .warning {
-	fill: #FFA500;
+	fill: #FFBB00;
 }
 
 .lineargauge .weakfault {
-	fill: #BD4040;
+	fill: #FF9900;
 }
 
 .lineargauge .fault {
-	fill: #A70000;
+	fill: #FF3300;
 }
 
 #cartoMain .indicator {
