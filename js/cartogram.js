@@ -2,27 +2,29 @@
  *  jQuery listeners for bootstrap menus
  *
  */
+$("#cartoMenu").find(".nav").hover(function (){
+    $(this).css({'cursor' : 'pointer'})
+});
 
-
-$("#cartoMenu .colorBy li a").click(function () {
+$("#cartoMenu").find(".colorBy li a").click(function () {
     var inputVal = $(this).text();
     colorCat = inputVal;
     menuListener(inputVal, "colorBy")
 });
 
-$("#cartoMenu .sizeBy li a").click(function () {
+$("#cartoMenu").find(".sizeBy li a").click(function () {
     var inputVal = $(this).text();
     sizeCat = inputVal;
     menuListener(inputVal, "sizeBy")
 });
 
-$("#cartoMenu .placeBy li a").click(function () {
+$("#cartoMenu").find(".placeBy li a").click(function () {
     var inputVal = $(this).text();
     verticalCat = inputVal;
     menuListener(inputVal, "placeBy")
 });
 
-$("#cartoMenu .region ").click(function (event) {
+$("#cartoMenu").find(".region ").click(function (event) {
     var target = $(event.target);
     if (!target.is("input")) {
         event.preventDefault();
@@ -33,7 +35,17 @@ $("#cartoMenu .region ").click(function (event) {
     ;
 });
 
-$("#cartoMenu .cartoReset").click(function () {
+
+$("#cartoMenu").find(".cartoReset").click(function (event) {
+
+
+    $("#cartoMenu").find(".nav").hover(function (){
+        $(this).css({'cursor' : 'wait'})
+    });
+
+    $("#cartoMain").hover(function (){
+        $(this).css({'cursor' : 'wait'})
+    });
 
     // change the display to Census
     setTimeout(function () {
@@ -54,6 +66,14 @@ $("#cartoMenu .cartoReset").click(function () {
         updateVisArea("Equisize", sizeInput);
     }, 5000);
     // Use the
+    setTimeout(function () {
+        $("#cartoMenu").find(".nav").mousemove(function (){
+            $(this).css({'cursor' : 'pointer'})
+        });
+        $("#cartoMain").mousemove(function (){
+            $(this).css({'cursor' : 'default'})
+        });
+    }, 5000);
 
 });
 
@@ -272,7 +292,7 @@ CartogramChart.prototype.initVis = function () {
     vis.chart
         .append("g")
         .attr("class", "cartolegendQuant")
-        .attr("transform", "translate(720,218)");
+        .attr("transform", "translate(775,228)");
 
     // make the correlation slider
     var slider = iopctrl.slider()
@@ -466,6 +486,12 @@ CartogramChart.prototype.initStates = function () {
         .offset([-10, 0])
         .html(function (d) {
             if (!d.filtered) {
+                $(this).awesomeCursor('filter', {
+                    color:'gray',
+                    outline:'black',
+                    size: 28,
+                    hotspot: [5,5]
+                });
                 d3.selectAll('.d3-tip').style("display", "block");
                 this.parentNode.appendChild(this);
                 return '<div class="tip-title">' + d.state_name + '</div>' +
@@ -576,7 +602,7 @@ CartogramChart.prototype.initStates = function () {
         .attr('id', function (d) {
             return d.state + "Label";
         });
-    
+
     var customScale = d3.scale.quantize()
         .range(['#297D29', '#FFBB00', '#FF3300', '#3C86C1']);
 
