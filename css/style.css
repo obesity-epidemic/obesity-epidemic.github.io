@@ -262,7 +262,7 @@ h3{
 
 
 .report-header{
-	margin-top:10px;
+	margin-top:0px;
 	text-align:center;
 	font-weight:bold;
 	font-size:18px;
@@ -287,9 +287,8 @@ h3{
     left: 684px;
     top: 20px;
     width: 501px;
-    height: 620px;
     border-left: solid 1px #cecece;
-    padding:15px;
+    padding:0 15px;
 }
 
 .risk-icon{
@@ -299,7 +298,9 @@ h3{
 }
 
 .rec-icon{
-	padding-right:5px;
+	padding-right: 8px;
+    font-size: 18px !important;
+    vertical-align: middle;
 }
 
 .background-bar{
@@ -332,6 +333,15 @@ h3{
     font-family: Open Sans;
     vertical-align: top;
 }
+
+.summary.cell1{
+	margin-left:60px;
+}
+
+.summary.cell2{
+	margin-left:10px;
+}
+
 .summary .number {
     font-size: 35px;
     line-height: 30px;
@@ -371,6 +381,10 @@ h3{
 }
 
 
+.small-text1{
+	font-family:Open Sans, arial, sans-serif;
+	font-size:11px;
+}
 
 
 /****************/
@@ -646,7 +660,6 @@ h2{
 }
 
 .source{
-	margin-top:50px;
 	color:gray;
 	font-size:11px;
 }

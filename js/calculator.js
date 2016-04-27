@@ -124,17 +124,17 @@ _.each(weightClasses, function(o,i){
 	})
 });
 
-
-var weightIcon = "<img src='img/snacks/weight2.png' class='rec-icon' />";
-var runningIcon = "<img src='img/snacks/running2.png' class='rec-icon' />";
-var aerobicIcon = "<img src='img/snacks/aerobic2.png' class='rec-icon' />";
-var jumpingIcon = "<img src='img/snacks/jumping2.png' class='rec-icon' />";
+var weightIcon = "<i class='material-icons rec-icon'>fitness_center</i>";
+var walkingIcon = "<i class='material-icons rec-icon'>directions_walk</i>";
+var runningIcon = "<i class='material-icons rec-icon'>directions_run</i>";
+var aerobicIcon = "<i class='material-icons rec-icon'>directions_bike</i>";
+var jumpingIcon = "<i class='material-icons rec-icon'>accessibility</i>";
 
 
 //http://www.cdc.gov/physicalactivity/basics/children/index.htm
 var activityClasses=[
 	{ startAge:6, endAge:18,  label: [ runningIcon + "1 hour of physical activity each day.", weightIcon + "3 days muscle strengthening",  aerobicIcon + "3 days aerobic", jumpingIcon + "3 days bone strengthening"].join("<br /><br />")},
-	{ startAge:18, endAge:200, label: [weightIcon + "Muscle strength training 2 days a week<br />", runningIcon + "1.25 hours of intense activity(jogging/running) per week <div><span style='padding-left:189px;'>&nbsp;</span><b>or</b></div> <span style='padding-left:27px;'>&nbsp;</span>2.5 hours of moderate activity (fast walking) per week"].join("<br />")},
+	{ startAge:18, endAge:200, label: [weightIcon + "Muscle strength training 2 days a week<br />", runningIcon + "1.25 hours of intense activity(jogging/running) per week <div><span style='padding-left:189px;'>&nbsp;</span><b>or</b></div>" +walkingIcon+ "2.5 hours of moderate activity (fast walking) per week"].join("<br />")},
 ];
 
 
