@@ -370,64 +370,15 @@
 					</div>
 				</div>
 				<div class="state-filter-dialog">
+					<h1>Select States</h1>
+
 					<ul class="state-filter">
-						<li><label><input type="checkbox" checked value="all"> USA</label></li>
-
-						<ul class="region">
-							<li class="region-title">&nbsp;<label><input type="checkbox" checked value="region-ne"> Northeast</label></li>
-							<ul class="division">
-								<li>&nbsp;<label><input type="checkbox" checked value="division-new-england"> New England</label></li>
-								<ul class="states">
-									<li><label><input type="checkbox" checked value="CT"> Connecticut</label></li>
-									<li><label><input type="checkbox" checked value="ME"> Maine</label></li>
-									<li><label><input type="checkbox" checked value="MA"> Massachusetts</label></li>
-									<li><label><input type="checkbox" checked value="NH"> New Hampshire</label></li>
-									<li><label><input type="checkbox" checked value="RI"> Rhode Island</label></li>
-									<li><label><input type="checkbox" checked value="VT"> Vermont</label></li>
-								</ul>
-							</ul>
-
-							<ul class="division">
-								<li>&nbsp;<label><input type="checkbox" checked value="division-mid-atlantic">Mid-Atlantic</label></li>
-								<ul class="states">
-									<li><label><input type="checkbox" checked value="NJ"> New Jersey</label></li>
-									<li><label><input type="checkbox" checked value="NY"> New York</label></li>
-									<li><label><input type="checkbox" checked value="PA"> Pennsylvania</label></li>
-								</ul>
-							</ul>
-						</ul>
-
-						<ul class="region">
-							<li class="region-title">&nbsp;<label><input type="checkbox" checked value="region-mw"> Midwest</label></li>
-							<ul class="division">
-								<li>&nbsp;<label><input type="checkbox" checked value="division-east-north-central"> East North Central</label></li>
-								<ul class="states">
-									<li><label><input type="checkbox" checked value="IL"> Illinois</label></li>
-									<li><label><input type="checkbox" checked value="IN"> Indiana</label></li>
-									<li><label><input type="checkbox" checked value="MI"> Michigan</label></li>
-									<li><label><input type="checkbox" checked value="OH"> Ohio</label></li>
-									<li><label><input type="checkbox" checked value="WI"> Wisconsin</label></li>
-								</ul>
-							</ul>
-
-							<ul class="division">
-								<li>&nbsp;<label><input type="checkbox" checked value="division-west-north-central"> West North Central</label></li>
-								<ul class="states">
-									<li><label><input type="checkbox" checked value="IA"> Iowa</label></li>
-									<li><label><input type="checkbox" checked value="KS"> Kansas</label></li>
-									<li><label><input type="checkbox" checked value="MN"> Minnesota</label></li>
-									<li><label><input type="checkbox" checked value="MO"> Missouri</label></li>
-									<li><label><input type="checkbox" checked value="NE"> Nebraska</label></li>
-									<li><label><input type="checkbox" checked value="ND"> North Dakota</label></li>
-									<li><label><input type="checkbox" checked value="SD"> South Dakota</label></li>
-								</ul>
-							</ul>
-						</ul>
+						<li class="country-title" style="font-size: 20px; margin-bottom: 20px;"><label><input type="checkbox" checked value="all"> USA</label></li>
 
 						<ul class="region">
 							<li class="region-title">&nbsp;<label><input type="checkbox" checked value="region-w"> West</label></li>
 							<ul class="division">
-								<li>&nbsp;<label><input type="checkbox" checked value="division-mountain"> Mountain</label></li>
+								<li class="division-title">&nbsp;<label><input type="checkbox" checked value="division-mountain"> Mountain</label></li>
 								<ul class="states">
 									<li><label><input type="checkbox" checked value="AZ"> Arizona</label></li>
 									<li><label><input type="checkbox" checked value="CO"> Colorado</label></li>
@@ -441,7 +392,7 @@
 							</ul>
 
 							<ul class="division">
-								<li>&nbsp;<label><input type="checkbox" checked value="division-pacific"> Pacific</label></li>
+								<li class="division-title">&nbsp;<label><input type="checkbox" checked value="division-pacific"> Pacific</label></li>
 								<ul class="states">
 									<li><label><input type="checkbox" checked value="AK"> Alaska</label></li>
 									<li><label><input type="checkbox" checked value="CA"> California</label></li>
@@ -453,9 +404,81 @@
 						</ul>
 
 						<ul class="region">
-							<li class="region-title">&nbsp;<label><input type="checkbox" checked value="region-s"> South</label></li>
+							<li class="region-title">&nbsp;<label><input type="checkbox" checked value="region-mw"> Midwest</label></li>
 							<ul class="division">
-								<li>&nbsp;<label><input type="checkbox" checked value="division-south-atlantic"> South Atlantic</label></li>
+								<li class="division-title">&nbsp;<label><input type="checkbox" checked value="division-east-north-central"> East North Central</label></li>
+								<ul class="states">
+									<li><label><input type="checkbox" checked value="IL"> Illinois</label></li>
+									<li><label><input type="checkbox" checked value="IN"> Indiana</label></li>
+									<li><label><input type="checkbox" checked value="MI"> Michigan</label></li>
+									<li><label><input type="checkbox" checked value="OH"> Ohio</label></li>
+									<li><label><input type="checkbox" checked value="WI"> Wisconsin</label></li>
+								</ul>
+							</ul>
+
+							<ul class="division">
+								<li class="division-title">&nbsp;<label><input type="checkbox" checked value="division-west-north-central"> West North Central</label></li>
+								<ul class="states">
+									<li><label><input type="checkbox" checked value="IA"> Iowa</label></li>
+									<li><label><input type="checkbox" checked value="KS"> Kansas</label></li>
+									<li><label><input type="checkbox" checked value="MN"> Minnesota</label></li>
+									<li><label><input type="checkbox" checked value="MO"> Missouri</label></li>
+									<li><label><input type="checkbox" checked value="NE"> Nebraska</label></li>
+									<li><label><input type="checkbox" checked value="ND"> North Dakota</label></li>
+									<li><label><input type="checkbox" checked value="SD"> South Dakota</label></li>
+								</ul>
+							</ul>
+						</ul>
+
+						<ul class="region">
+							<li class="region-title">&nbsp;<label><input type="checkbox" checked value="region-ne"> Northeast</label></li>
+							<ul class="division">
+								<li class="division-title">&nbsp;<label><input type="checkbox" checked value="division-new-england"> New England</label></li>
+								<ul class="states">
+									<li><label><input type="checkbox" checked value="CT"> Connecticut</label></li>
+									<li><label><input type="checkbox" checked value="ME"> Maine</label></li>
+									<li><label><input type="checkbox" checked value="MA"> Massachusetts</label></li>
+									<li><label><input type="checkbox" checked value="NH"> New Hampshire</label></li>
+									<li><label><input type="checkbox" checked value="RI"> Rhode Island</label></li>
+									<li><label><input type="checkbox" checked value="VT"> Vermont</label></li>
+								</ul>
+							</ul>
+
+							<ul class="division">
+								<li class="division-title">&nbsp;<label><input type="checkbox" checked value="division-mid-atlantic"> Mid-Atlantic</label></li>
+								<ul class="states">
+									<li><label><input type="checkbox" checked value="NJ"> New Jersey</label></li>
+									<li><label><input type="checkbox" checked value="NY"> New York</label></li>
+									<li><label><input type="checkbox" checked value="PA"> Pennsylvania</label></li>
+								</ul>
+							</ul>
+						</ul>
+
+						<ul class="region">
+							<li class="region-title">&nbsp;<label><input type="checkbox" checked value="region-s"> South</label></li>
+
+							<ul class="division">
+								<li class="division-title"><label>&nbsp;<input type="checkbox" checked value="division-west-south-central"> West South Central</label></li>
+								<ul class="states">
+									<li><label><input type="checkbox" checked value="AR"> Arkansas</label></li>
+									<li><label><input type="checkbox" checked value="LA"> Louisiana</label></li>
+									<li><label><input type="checkbox" checked value="OK"> Oklahoma</label></li>
+									<li><label><input type="checkbox" checked value="TX"> Texas</label></li>
+								</ul>
+							</ul>
+
+							<ul class="division">
+								<li class="division-title"><label>&nbsp;<input type="checkbox" checked value="division-east-south-central"> East South Central</label></li>
+								<ul class="states">
+									<li><label><input type="checkbox" checked value="AL"> Alabama</label></li>
+									<li><label><input type="checkbox" checked value="KY"> Kentucky</label></li>
+									<li><label><input type="checkbox" checked value="MS"> Mississippi</label></li>
+									<li><label><input type="checkbox" checked value="TN"> Tennessee</label></li>
+								</ul>
+							</ul>
+
+							<ul class="division">
+								<li class="division-title">&nbsp;<label><input type="checkbox" checked value="division-south-atlantic"> South Atlantic</label></li>
 								<ul class="states">
 									<li><label><input type="checkbox" checked value="DE"> Delaware</label></li>
 									<li><label><input type="checkbox" checked value="FL"> Florida</label></li>
@@ -466,26 +489,6 @@
 									<li><label><input type="checkbox" checked value="VA"> Virginia</label></li>
 									<li><label><input type="checkbox" checked value="DC"> Washington D.C.</label></li>
 									<li><label><input type="checkbox" checked value="WV"> West Virginia</label></li>
-								</ul>
-							</ul>
-
-							<ul class="division">
-								<li><label>&nbsp;<input type="checkbox" checked value="division-east-south-central"> East South Central</label></li>
-								<ul class="states">
-									<li><label><input type="checkbox" checked value="AL"> Alabama</label></li>
-									<li><label><input type="checkbox" checked value="KY"> Kentucky</label></li>
-									<li><label><input type="checkbox" checked value="MS"> Mississippi</label></li>
-									<li><label><input type="checkbox" checked value="TN"> Tennessee</label></li>
-								</ul>
-							</ul>
-
-							<ul class="division">
-								<li><label>&nbsp;<input type="checkbox" checked value="division-west-south-central"> West South Central</label></li>
-								<ul class="states">
-									<li><label><input type="checkbox" checked value="AR"> Arkansas</label></li>
-									<li><label><input type="checkbox" checked value="LA"> Louisiana</label></li>
-									<li><label><input type="checkbox" checked value="OK"> Oklahoma</label></li>
-									<li><label><input type="checkbox" checked value="TX"> Texas</label></li>
 								</ul>
 							</ul>
 						</ul>
@@ -1138,17 +1141,18 @@
 		<div class="row">
 			<div class="col-xs-4">
 				<h4 class="lead">Footnotes</h4>
-				<a id="foot-note-1" href="http://www.who.int/features/factfiles/obesity/en/">10 facts on obesity, World Health Organization</a><br/>
-				<a id="foot-note-2" href="http://www.cdc.gov/obesity/adult/causes.html">Adult Obesity Causes & Consequences, CDC</a><br/>
-				<a id="foot-note-3" href="https://www.more-life.co.uk/Default.aspx?PageName=Consequences+of+Obesity">Consequences of Obesity, MORElife</a><br/>
-				<a id="foot-note-4" href="http://www.jlgh.org/Past-Issues/Volume-4---Issue-4/Behavioral-and-Psychological-Factors-in-Obesity.aspx">Behavioral and Psychological Factors in Obesity, JLGH</a><br/>
-				<a id="foot-note-5" href="http://www.cdc.gov/healthyweight/losing_weight/">Losing Weight, CDC</a><br/>
-				<a id="foot-note-6" href="http://www.ncbi.nlm.nih.gov/pubmed/23638485">Strategies to Prevent Weight Gain Among Adults, PubMed</a><br/>
-				<a id="foot-note-7" href="http://www.cdc.gov/physicalactivity/basics/pa-health/">Physical Activity and Health, CDC</a><br/>
-				<a id="foot-note-8" href="http://www.care2.com/greenliving/11-super-health-benefits-in-just-1-celery-stalk.html">11 Super Health Benefits in Just One Celery Stalk, care2</a><br/>
-
-				<a href="http://www.ncbi.nlm.nih.gov/pubmed/2043597">Body Fat Percentage Calculation, PubMed</a><br/>
-				<a href="https://www.ncbi.nlm.nih.gov/pubmed/2305711">A new predictive equation for resting energy expenditure in healthy individuals, PubMed</a><br/>
+				<ol>
+					<li><a id="foot-note-1" href="http://www.who.int/features/factfiles/obesity/en/">10 facts on obesity, World Health Organization</a></li>
+					<li><a id="foot-note-2" href="http://www.cdc.gov/obesity/adult/causes.html">Adult Obesity Causes & Consequences, CDC</a></li>
+					<li><a id="foot-note-3" href="https://www.more-life.co.uk/Default.aspx?PageName=Consequences+of+Obesity">Consequences of Obesity, MORElife</a></li>
+					<li><a id="foot-note-4" href="http://www.jlgh.org/Past-Issues/Volume-4---Issue-4/Behavioral-and-Psychological-Factors-in-Obesity.aspx">Behavioral and Psychological Factors in Obesity, JLGH</a></li>
+					<li><a id="foot-note-5" href="http://www.cdc.gov/healthyweight/losing_weight/">Losing Weight, CDC</a></li>
+					<li><a id="foot-note-6" href="http://www.ncbi.nlm.nih.gov/pubmed/23638485">Strategies to Prevent Weight Gain Among Adults, PubMed</a></li>
+					<li><a id="foot-note-7" href="http://www.cdc.gov/physicalactivity/basics/pa-health/">Physical Activity and Health, CDC</a></li>
+					<li><a id="foot-note-8" href="http://www.care2.com/greenliving/11-super-health-benefits-in-just-1-celery-stalk.html">11 Super Health Benefits in Just One Celery Stalk, care2</a></li>
+				</ol>
+					<a href="http://www.ncbi.nlm.nih.gov/pubmed/2043597">Body Fat Percentage Calculation, PubMed</a><br/>
+					<a href="https://www.ncbi.nlm.nih.gov/pubmed/2305711">A new predictive equation for resting energy expenditure in healthy individuals, PubMed</a><br/>
 			</div>
 
 			<div class="col-xs-4">
@@ -1436,9 +1440,7 @@
 	<script src="js/main.js"></script>
 	<script src="js/calculator.js"></script>
 	<script src="js/snacks.js"></script>
-	
 
-	<!-- Custom -->
 	<script src="js/stackedAreaChart.js"></script>
 	<script src="js/lineChart.js"></script>
 	<script src="js/timelineChart.js"></script>

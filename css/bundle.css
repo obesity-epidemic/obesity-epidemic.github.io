@@ -85,16 +85,18 @@
   position: fixed;
   z-index: 9999;
   top: 50px;
-  left: 50px;
-  right: 50px;
   bottom: 50px;
+  width: 890px;
+  left: 50%;
+  margin-left: -445px;
 
   padding: 20px;
   border: 1px solid #ccc;
-  border-radius: 3px;
+  border-radius: 1px;
   background-color: #ffffff;
+  text-align: center;
 
-  box-shadow: 0 0 5px rgba(0,0,0,0.5);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.5);
   overflow: scroll;
 }
 
@@ -124,25 +126,40 @@
 .state-filter {
   list-style: none;
   padding: 10px; }
-  .state-filter .region,
-  .state-filter .division,
+  .state-filter .region {
+    list-style: none;
+    vertical-align: top;
+    display: inline-block; }
+.state-filter .division,
   .state-filter .states {
     list-style: none;
-    display: inline-block;
     vertical-align: top; }
   .state-filter .region {
     padding-left: 0;
-    border: 1px solid #ddd;
-    margin-bottom: 10px; }
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    margin-right: 20px;
+    background-color: #f8f8f8; }
   .state-filter .division {
     margin: 10px;
-    padding-left: 10px; }
+    border: 1px solid #095;
+    padding-left: 0;
+    background-color: #fff; }
   .state-filter .states {
-    border-left: 2px solid #ccc;
-    padding-left: 3px !important;
+    /*border-left: 2px solid #ccc;*/
+    padding-left: 0 !important;
     margin-left: 8px; }
+    .state-filter .states li {
+      padding: 5px 10px;
+      /*display: inline-block;*/
+      vertical-align: top; }
   .state-filter .region-title {
-    background-color: #999; }
+    padding: 3px 10px;
+    background-color: #ddd; }
+  .state-filter .division-title {
+    padding: 3px 10px;
+    color: #ffffff;
+    background-color: #00aa66; }
 
 .stacked-area-chart.timeline .area.extreme-obese {
   fill: #595959; }
@@ -266,6 +283,12 @@
 
 .seq .q6-7 {
   fill: #990000; }*/
+
+.choropleth-chart .seq path,
+.choropleth-chart .diverge path {transition: fill 1s; }
+
+.polar-area.seq path,
+.polar-area.diverge path {transition: fill 250ms; }
 
 .seq .q0-8{fill:rgb(255,247,236)}
 .seq .q1-8{fill:rgb(254,232,200)}

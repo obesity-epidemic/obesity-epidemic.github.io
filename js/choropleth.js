@@ -100,22 +100,26 @@
 
                 if (vis.mode === 'by-year') {
                     var currentYear = vis.activeProperty.match(/yr(\d{4})/)[1];
-                    displayValue = percentFormat(d[vis.activeProperty]);
+                    displayValue = d[vis.activeProperty] === null ? '(No Data)' : (percentFormat(d[vis.activeProperty]) + '%');
 
                     return '<div class="tip-title">' + d.st + '</div>' +
                         '<div>' +
-                        '<span class="tip-large-text">' + displayValue + '%</span>' +
+                        '<span class="tip-large-text">' + displayValue + '</span>' +
                         '&nbsp;<span class="tip-small-text">in ' + currentYear + '</span>' +
                         '</div>';
                 }
                 else {
                     var startYear = vis.rangeStart.match(/yr(\d{4})/)[1];
                     var endYear = vis.rangeEnd.match(/yr(\d{4})/)[1];
-                    displayValue = percentFormat(d[vis.rangeEnd] - d[vis.rangeStart]);
+                    displayValue = '(Missing Data)';
+
+                    if (d[vis.rangeEnd]!== null && d[vis.rangeStart] !== null) {
+                        displayValue = percentFormat(d[vis.rangeEnd] - d[vis.rangeStart]) + '%';
+                    }
 
                     return '<div class="tip-title">' + d.st + '</div>' +
                         '<div>' +
-                        '<span class="tip-large-text">' + displayValue + '%</span>' +
+                        '<span class="tip-large-text">' + displayValue + '</span>' +
                         '&nbsp;<span class="tip-small-text">from ' + startYear + ' &mdash; ' + endYear + '</span>' +
                         '</div>';
                 }
@@ -198,10 +202,12 @@
         var vis = this;
         vis.displayData = {};
         _.forEach(vis.data, function(d) {
-            var val;
+            var val = null;
                 
             if (vis.mode === 'over-time') {
-                val = d[vis.rangeEnd] - d[vis.rangeStart];
+                if (d[vis.rangeEnd] !== null && d[vis.rangeStart] !== null) {
+                    val = d[vis.rangeEnd] - d[vis.rangeStart];
+                }
             }
             else {
                 val = d[vis.activeProperty];

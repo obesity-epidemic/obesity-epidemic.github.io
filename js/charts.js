@@ -61,13 +61,13 @@
         })
         .on('activeState', function(state) {
             var vals = [];
+            var $polarAreaStateDetail = $('#polarAreaStateDetail');
+            $polarAreaStateDetail.find('.prompt-active-state').css('display', 'none');
+            $polarAreaStateDetail.find('.active-state').css('display', '');
+            $polarAreaStateDetail.find('.state-name').text(state.source.st);
+            $polarAreaStateDetail.find('.state-value').text(state.value);
 
-            $('#polarAreaStateDetail .prompt-active-state').css('display', 'none');
-            $('#polarAreaStateDetail .active-state').css('display', '');
-            $('#polarAreaStateDetail .state-name').text(state.source.st);
-            $('#polarAreaStateDetail .state-value').text(state.value);
-
-            var $stateVals = $('#polarAreaStateDetail .state-all-values');
+            var $stateVals = $polarAreaStateDetail.find('.state-all-values');
             $stateVals.empty();
             $stateVals.append('<tr><th>Year</th><th>Obesity Rate</th><th>Rate Change <small>(from previous measurement)</small></th></tr>');
 
@@ -85,7 +85,7 @@
 
                     if (previous && v) {
                         var change = Math.round((v - previous) * 100) / 100;
-                        var valBoxDiverge = '<span class="diverge valbox ' + quantileDiverge(change) + '"></span> ';
+                        var valBoxDiverge = '<span class="diverge valbox ' + quantileDiverge(change) + '"></span>&nbsp;';
                         var append = change < 0 ? ' <i class="fa fa-arrow-down"></i>' : '';
                         valRow.append($('<td>').html(valBoxDiverge + change + '%' + append));
                     }
@@ -114,7 +114,8 @@
             chart.setSort(this.value);
         });
 
-        var $states =  $('.states input[type=checkbox]');
+        var $states = $('.states input[type=checkbox]');
+        var $usa = $('.country-title input[type=checkbox]');
         $('.state-filter input[type=checkbox]').change(function() {
             var $el = $(this);
             var v = this.value;
@@ -126,6 +127,14 @@
             }
             else if (v.indexOf('region-') > -1 || v.indexOf('division-') > -1) {
                 $el.closest('ul').find('input[type=checkbox]').prop('checked', checked);
+            }
+            else { // It is a state
+                if (!checked) {
+                    // Clearing a state should uncheck the containing division, region, and country
+                    $el.closest('.division').find('.division-title input[type=checkbox]').prop('checked', false);
+                    $el.closest('.region').find('.region-title input[type=checkbox]').prop('checked', false);
+                    $usa.prop('checked', false);
+                }
             }
 
             var stateFilters = {};
@@ -177,19 +186,19 @@
                 });
 
             newRows.append('td').attr('class', 'best');
-            newRows.append('td').attr('class', 'worst')
+            newRows.append('td').attr('class', 'worst');
 
             rows.select('.best')
                 .html(function (pair) {
                     var d = pair[0];
-                    var valBox = '<span class="seq valbox ' + quantizeSeq(d.value) + '"></span> ';
+                    var valBox = '<span class="seq valbox ' + quantizeSeq(d.value) + '"></span>&nbsp;';
                     return valBox + d.datum.ab + ': ' + d.value + '%';
                 });
 
             rows.select('.worst')
                 .html(function (pair) {
                     var d = pair[1];
-                    var valBox = '<span class="seq valbox ' + quantizeSeq(d.value) + '"></span> ';
+                    var valBox = '<span class="seq valbox ' + quantizeSeq(d.value) + '"></span>&nbsp;';
                     return valBox + d.datum.ab + ': ' + d.value + '%';
                 });
 
@@ -200,8 +209,14 @@
         function setBestWorstChangeTable(range) {
             var data = window.chartData.stateTrends;
             var _data = _(data).map(function (d) {
+                var v = null;
+
+                if (d[range[1]] !== null && d[range[0]] !== null) {
+                    v = d[range[1]] - d[range[0]];
+                }
+
                 return {
-                    value: d[range[1]] - d[range[0]],
+                    value: v,
                     datum: d
                 };
             }).sortBy('value').filter(function (d) {
@@ -223,12 +238,12 @@
                 });
 
             newRows.append('td').attr('class', 'best');
-            newRows.append('td').attr('class', 'worst')
+            newRows.append('td').attr('class', 'worst');
 
             rows.select('.best')
                 .html(function (pair) {
                     var d = pair[0];
-                    var valBox = '<span class="diverge valbox ' + quantileDiverge(d.value) + '"></span> ';
+                    var valBox = '<span class="diverge valbox ' + quantileDiverge(d.value) + '"></span>&nbsp;';
                     var append = d.value < 0 ? ' <i class="fa fa-arrow-down"></i>' : '';
                     return valBox + d.datum.ab + ': ' + percentFormat(d.value) + '%' + append;
                 });
@@ -236,7 +251,7 @@
             rows.select('.worst')
                 .html(function (pair) {
                     var d = pair[1];
-                    var valBox = '<span class="diverge valbox ' + quantileDiverge(d.value) + '"></span> ';
+                    var valBox = '<span class="diverge valbox ' + quantileDiverge(d.value) + '"></span>&nbsp;';
                     return valBox + d.datum.ab + ': ' + percentFormat(d.value) + '%';
                 });
 
@@ -244,7 +259,7 @@
                 .remove();
         }
 
-        var activeRange = ['yr1990', 'yr2014']
+        var activeRange = ['yr1990', 'yr2014'];
         var activeProperty = 'yr2014';
         var choropleth = new window.charts.Choropleth('#choropleth', window.chartData.stateTrends, window.topoJson.usa, activeProperty);
         var years = {};
