@@ -72,6 +72,10 @@
             }))
             .domain([0, 40]);
 
+        vis.compareCircleScale = d3.scale.sqrt()
+            .range([2, 6])
+            .domain([0, 40]);
+
         // (Filter, aggregate, modify data)
         vis.wrangleData();
 
@@ -95,8 +99,7 @@
             .attr('class', 'key-compare')
             .attr('opacity', 0)
             .attr('transform', 'translate(' + (vis.width / 2 - 40) + ',' + (vis.height / 2 + 20)  + ')');
-       vis.compareGrp.append('circle')
-            .attr('r', 5);
+        vis.compareGrp.append('circle');
 
         vis.compareLabel = vis.compareGrp
             .append('text')
@@ -219,7 +222,11 @@
 
                 vis.compareGrp.transition()
                     .attr('opacity', 1)
-                    .attr('transform', 'translate(' + (vis.width / 2 - 80) + ',' + (vis.height / 2 + vis.opts.margin.bottom - 10)  + ')');
+                    .attr('transform', 'translate(' + (vis.width / 2 - 80) + ',' + (vis.height / 2 + vis.opts.margin.bottom - 10)  + ')')
+                    .select('circle')
+                    .attr('r', function() {
+                        return vis.compareCircleScale(d.value);
+                    });
                 vis.compareLabel.text(d.value + '%');
 
                 vis.dispatch.activeState(d.data);
