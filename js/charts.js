@@ -7,6 +7,20 @@
 
     var percentFormat = d3.format('.2f');
 
+    // Sequential scale for 'by-year'
+    var quantizeSeq = d3.scale.quantize()
+        .range(d3.range(8).map(function (i) {
+            return 'q' + i + '-8';
+        }))
+        .domain([0, 40]);
+
+    // Diverge scale for 'over-time'
+    var quantileDiverge = d3.scale.quantile()
+        .range(d3.range(10).map(function (i) {
+            return 'q' + i + '-10';
+        }))
+        .domain([-25, 25]);
+
     // Render the obesity icon array.
     function nationalObesityIconArray() {
         var data = [
@@ -60,16 +74,20 @@
             var previous = null;
             _.forEach(state.source, function(v, k) {
                 var matches = k.match(/^yr(\d{4})$/);
-                var val = v ? v + '%' : '&mdash;';
+                var val = v ? v + '%' : '(No Data)';
 
                 if (matches) {
+                    var valBoxSeq = v ? '<span class="seq valbox ' + quantizeSeq(v) + '"></span> ' : '';
+
                     var valRow = $('<tr>');
                     valRow.append($('<td>').text(matches[1]));
-                    valRow.append($('<td>').html(val));
+                    valRow.append($('<td>').html(valBoxSeq + val));
 
                     if (previous && v) {
                         var change = Math.round((v - previous) * 100) / 100;
-                        valRow.append($('<td>').text(change + '%'));
+                        var valBoxDiverge = '<span class="diverge valbox ' + quantileDiverge(change) + '"></span> ';
+                        var append = change < 0 ? ' <i class="fa fa-arrow-down"></i>' : '';
+                        valRow.append($('<td>').html(valBoxDiverge + change + '%' + append));
                     }
                     else {
                         valRow.append($('<td>').html('&mdash;'));
@@ -164,13 +182,15 @@
             rows.select('.best')
                 .html(function (pair) {
                     var d = pair[0];
-                    return d.datum.ab + ': ' + d.value + '%';
+                    var valBox = '<span class="seq valbox ' + quantizeSeq(d.value) + '"></span> ';
+                    return valBox + d.datum.ab + ': ' + d.value + '%';
                 });
 
             rows.select('.worst')
                 .html(function (pair) {
                     var d = pair[1];
-                    return d.datum.ab + ': ' + d.value + '%';
+                    var valBox = '<span class="seq valbox ' + quantizeSeq(d.value) + '"></span> ';
+                    return valBox + d.datum.ab + ': ' + d.value + '%';
                 });
 
             rows.exit()
@@ -208,13 +228,16 @@
             rows.select('.best')
                 .html(function (pair) {
                     var d = pair[0];
-                    return d.datum.ab + ': ' + percentFormat(d.value) + '%';
+                    var valBox = '<span class="diverge valbox ' + quantileDiverge(d.value) + '"></span> ';
+                    var append = d.value < 0 ? ' <i class="fa fa-arrow-down"></i>' : '';
+                    return valBox + d.datum.ab + ': ' + percentFormat(d.value) + '%' + append;
                 });
 
             rows.select('.worst')
                 .html(function (pair) {
                     var d = pair[1];
-                    return d.datum.ab + ': ' + percentFormat(d.value) + '%';
+                    var valBox = '<span class="diverge valbox ' + quantileDiverge(d.value) + '"></span> ';
+                    return valBox + d.datum.ab + ': ' + percentFormat(d.value) + '%';
                 });
 
             rows.exit()
@@ -300,8 +323,11 @@
             timeline.setMode('over-time');
 
             // Set range: 'yr2003', 'yr2004'
-            choropleth.setRange(['yr2003', 'yr2004']);
-            timeline.setRange(['yr2003', 'yr2004']);
+            activeRange = ['yr2003', 'yr2004'];
+            choropleth.setRange(activeRange);
+            timeline.setRange(activeRange);
+
+            setBestWorstChangeTable(activeRange);
         });
 
         $('#show-me-map-holdout').click(function(e) {
@@ -313,8 +339,9 @@
             timeline.setMode('by-year');
 
             // Set year: 'yr2011'
-            choropleth.setActiveProperty('yr2011');
-            timeline.setActiveProperty('yr2011');
+            activeProperty = 'yr2011';
+            choropleth.setActiveProperty(activeProperty);
+            timeline.setActiveProperty(activeProperty);
         });
 
         $('#show-me-map-time').click(function(e) {
@@ -325,9 +352,10 @@
             choropleth.setMode('by-year');
             timeline.setMode('by-year');
 
-            // Set year: 'yr2011'
-            choropleth.setActiveProperty('yr1990');
-            timeline.setActiveProperty('yr1990');
+            // Set year: 'yr1990'
+            activeProperty = 'yr1990';
+            choropleth.setActiveProperty(activeProperty);
+            timeline.setActiveProperty(activeProperty);
 
             // Play!
             timeline.play();

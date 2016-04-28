@@ -1,5 +1,9 @@
+p {
+	line-height: 1.5em;
+}
+
 section {
-	margin-top: 100px;
+	margin-top: 60px;
 }
 
 section.small-gap {
@@ -9,6 +13,12 @@ section.small-gap {
 section h2 {
 	margin-bottom: 30px;
 }
+
+.section-divide {
+	margin: 100px auto 0;
+	width: 50%;
+	border-top-width: 3px;
+	border-top-color: #f0f0f0; }
 
 #snack-list{
 	
@@ -65,7 +75,8 @@ section h2 {
 }
 .selected-snack,
 .food-list-item:hover{
-	border:solid 3px #D4E2FF;
+	border:solid 3px #4a90e2;
+	border-radius: 3px;
 }
 
 .food-thumb-title{
@@ -140,9 +151,17 @@ section h2 {
 	padding-bottom: 50px;
 }
 
+h3 {
+	font-weight: normal;
+	opacity: 0.85;
+}
 
-h3{
-	margin-top:0;
+h3.stand-off {
+	margin-top: 50px;
+}
+
+h3.chart-title {
+	margin-top: 0;
 }
 
 .header h1{ 
@@ -194,6 +213,7 @@ h3{
 .help-box{
 	background:#F1F1F1;
 	padding:10px;
+	margin-top: 15px;
 }
 .help-box .title{
 	font-family:BenchNine, sans-serif;
@@ -287,8 +307,9 @@ h3{
     left: 684px;
     top: 20px;
     width: 501px;
-    border-left: solid 1px #cecece;
+    border-left: solid 1px #eeeeee;
     padding:0 15px;
+	min-height: 625px;
 }
 
 .risk-icon{

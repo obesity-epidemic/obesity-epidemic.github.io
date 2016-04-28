@@ -1,7 +1,7 @@
 (function() {
     var DEFAULTS = {
         height: 500,
-        width: 960,
+        width: 880,
         margin: {
             top: 0,
             right: 0,
@@ -47,7 +47,8 @@
             .attr('transform', 'translate(' + vis.margin.left + ',' + vis.margin.top + ')');
 
         vis.projection = d3.geo.albersUsa()
-            .scale(1000);
+            .scale(1000)
+            .translate([420, 250]);
             //.translate([vis.width / 2, vis.height / 2]);
         vis.path = d3.geo.path().projection(vis.projection);
 
@@ -97,12 +98,6 @@
                    return d.ab == ab;
                 });
 
-                // return '<div class="tip-title">' + d.st + '</div>' +
-                //     '<div>' +
-                //         '<span class="tip-large-text">' + displayValue + '%</span>' +
-                //         '&nbsp;<span class="tip-small-text">in ' + currentYear + '</span>' +
-                //     '</div>';
-
                 if (vis.mode === 'by-year') {
                     var currentYear = vis.activeProperty.match(/yr(\d{4})/)[1];
                     displayValue = percentFormat(d[vis.activeProperty]);
@@ -129,7 +124,7 @@
 
         vis.legend = vis.svg.append("g")
             .attr("class", "legendQuant")
-            .attr("transform", "translate(800,280)");
+            .attr("transform", "translate(740,330)");
 
         vis.legendFunc = d3.legend.color()
             .labelFormat(d3.format(".2f"))

@@ -3,7 +3,7 @@
 
     var DEFAULTS = {
         height: 70,
-        width: 960,
+        width: 860,
         margin: {
             top: 0,
             right: 10,

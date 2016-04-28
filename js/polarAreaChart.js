@@ -94,7 +94,7 @@
         vis.compareGrp = vis.svg.append('g')
             .attr('class', 'key-compare')
             .attr('opacity', 0)
-            .attr('transform', 'translate(' + (vis.width / 2 - 40) + ',' + (vis.height / 2 - 0)  + ')');
+            .attr('transform', 'translate(' + (vis.width / 2 - 40) + ',' + (vis.height / 2 + 20)  + ')');
        vis.compareGrp.append('circle')
             .attr('r', 5);
 
@@ -217,7 +217,9 @@
                 cir.transition()
                     .attr('r', function(d) { return vis.outerRadius(d); });
 
-                vis.compareGrp.transition().attr('opacity', 1);
+                vis.compareGrp.transition()
+                    .attr('opacity', 1)
+                    .attr('transform', 'translate(' + (vis.width / 2 - 80) + ',' + (vis.height / 2 + vis.opts.margin.bottom - 10)  + ')');
                 vis.compareLabel.text(d.value + '%');
 
                 vis.dispatch.activeState(d.data);
@@ -232,7 +234,7 @@
 
         arcs.selectAll('text')
             .data(function(d) { return [d]; }) // Update child data.
-            .transition()
+            //.transition()
             //.attr('opacity', 0)
             .transition()
             .duration(1000)
@@ -260,7 +262,7 @@
         arcs.selectAll('path')
             .data(function(d) { return [d]; }) // Update child data.
             .attr('class', function(d) {
-                return d.data.rawValue === null ? 'black' : vis.color(d.value); })
+                return d.data.rawValue === null ? 'no-data' : vis.color(d.value); })
             .transition()
             .duration(1000)
             .delay(250)
