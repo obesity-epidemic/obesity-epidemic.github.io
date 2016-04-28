@@ -53,6 +53,8 @@ Cancer
 
 function init(){
 
+var percentileData;
+
 var body0 = d3.select('#body0').node();
 var body1 = d3.select('#body1').node();
 var body2 = d3.select('#body2').node();
@@ -89,6 +91,16 @@ var mtweeners = [
 
 var maxWeight = 400;
 
+var childrenWeightClasses = [
+	{id: 'under',  label: 'Underweight',    color:'#3C86C1',  start:0, end:5 },
+	{id: 'normal', label: 'Normal Weight',  color:'#297D29',  start:5, end:85 },
+	{id: 'over',   label: 'Overweight',     color:'#FFBB00',  start:85, end:95 },
+	{id: 'obese1', label: 'Obese',          color:'#F90',     start:95, end:200,  maxWeight:maxWeight },
+	{id: 'obese1', label: 'Obese',          color:'#F90',     start:95, end:200, maxWeight:maxWeight },
+	{id: 'obese1', label: 'Obese',          color:'#F90',     start:95, end:200, maxWeight:maxWeight }
+];
+
+
 var weightClasses=[
 	{id: 'under', label: 'Underweight', color:'#3C86C1',  start:0, end:18.5, mid: 15 },
 	{id: 'normal', label: 'Normal Weight',      color:'#297D29',   start:18.5, end:25 },
@@ -108,21 +120,25 @@ var pathObjects = [];
 
 _.each(weightClasses, function(o,i){
 
-	var start = _.get(weightClasses, '['+(i-1)+'].mid', 0);
-
-	var scale = d3.scale.linear()
-		.domain([start, o.mid])
-		.range([0, 1])
-		.clamp(true);
-
 	pathObjects.push({
-		startBMI:start,
-		endBMI: o.mid,
+		getBMIRange: function(){
+			var start = _.get(weightClasses, '['+(i-1)+'].mid', 0);
+			return {start:weightClasses[i], end:  weightClasses[i].mid};
+		},
 		getPathForBmi: function(bmi){
+			var start = _.get(weightClasses, '['+(i-1)+'].mid', 0);
+
+			var scale = d3.scale.linear()
+			.domain([start, weightClasses[i].mid])
+			.range([0, 1])
+			.clamp(true);
+
 			return calculator.gender ==1 ? mtweeners[i](scale(bmi)) : tweeners[i](scale(bmi));
 		}
 	})
 });
+
+var adultWeightClasses = weightClasses;
 
 var weightIcon = "<i class='material-icons rec-icon'>fitness_center</i>";
 var walkingIcon = "<i class='material-icons rec-icon'>directions_walk</i>";
@@ -175,8 +191,6 @@ var activityLevels=[
 
 var activityLevelsIndexed = _.keyBy(activityLevels, 'value');
 
-var normalWeightObj = weightClasses[1];
-
 function getWeightFromBmi(bmi){
 	var height = calculator.height;
 	return getWeightFromBmiAndHeight(bmi, height);
@@ -223,10 +237,10 @@ function updateWeightSlider(params) {
 	bar
 		.transition()
 		.duration(opts.duration)
-		.attr("transform", function(d) { return "translate(" + x(getWeightFromBmi(d.start)) + ",0)"; })
+		.attr("transform", function(d) {  return "translate(" + x(getWeightFromBmi(d.start)) + ",0)"; })
 		.selectAll(".bar")
 		.attr('opacity', 1)
-		.attr("width", function(d){ var end = d.maxWeight || getWeightFromBmi(d.end); return x(end) - x(getWeightFromBmi(d.start))})
+		.attr("width", function(d,i,j){ d = weightClasses[j];  var end = d.maxWeight || getWeightFromBmi(d.end);   return x(end) - x(getWeightFromBmi(d.start))})
 		
 	//Exit
 	bar.exit()
@@ -461,6 +475,145 @@ function updateHeightSlider(params) {
 }
 
 
+function updatePercentile(params) {
+	// Setup the svg.
+	if(!calculator.percentileOpts){
+		calculator.percentileOpts = utils.setupSVG({
+		selector: params.selector,
+		width: 470,
+		height: 100,
+		marginTop: 40,
+		marginRight: 10,
+		marginBottom: 40,
+		marginLeft: 5,
+		duration: 800
+	});
+	}
+
+	var opts = calculator.percentileOpts;
+
+	var dataObj = calculator.percentileObj; 
+	var data = dataObj.data;
+
+
+	var x = d3.scale.linear()
+		.domain(d3.extent(data, function(d){return d.bmi;}) )
+		.range([0, opts.width])
+		.clamp(true);
+
+
+
+
+	var bar = opts.svg.selectAll(".bar-group")
+			.data(weightClasses, function(d, i){ return i });
+
+	// Enter
+	bar.enter().append("g")
+		.attr("class", 'bar-group')
+		.attr("transform", function(d) { return "translate(" + (x(d.start) || 0) + ",0)"; })
+		.append("rect")
+		.attr("class", "bar")
+		.attr('opacity', 0)
+		.attr('fill', function(d){ return d.color;})
+		.attr("height",opts.height)
+		.attr("y", 0)
+	
+	//Update	
+	bar
+		.transition()
+		.duration(opts.duration)
+		.attr("transform", function(d) { return "translate(" + (x(d.start) || 0) + ",0)"; })
+		.selectAll(".bar")
+		.attr('opacity', 1)
+		.attr("width", function(d,i,j){ d= weightClasses[j]; var end = d.maxWeight || d.end; return x(end) - x(d.start)})
+		
+	//Exit
+	bar.exit()
+		.transition()
+		.duration(opts.duration)
+		.attr('opacity', 0)
+		.remove();
+
+
+
+	// Add the BMI ticks and labels
+	opts.bmiAxis = d3.svg.axis()
+		.scale(x)
+		.orient("top")
+		.tickValues(_.map(data, 'bmi'))
+		.tickFormat(function(d, i) { return data[i].showLabel ? d : ''; })
+		.tickSize(5)
+		.tickPadding(6);
+
+
+	var indicator = opts.svg.selectAll(".indicator")
+			.data([calculator.rawBmi]);
+
+	indicator.enter().append("rect")
+		.attr("class", "indicator")
+		.attr("height",opts.height)
+		.attr("width",4)
+		.attr("fill", 'black')
+		.attr("y", 0)
+
+	indicator
+		.transition()
+		.duration(opts.duration)
+		.attr("transform", function(d) { return "translate(" + ((x(d)||0) - 2) + ",0)"; })
+
+
+
+	if(!opts.bmiAxisGroup){
+
+
+		opts.svg.append("text")
+			.attr('class', 'axis-label x-axis')
+			.attr("text-anchor", "start")
+			.text('BMI')
+			.attr("transform", "translate(" + -2 + "," + -25 +")");
+
+
+		opts.svg.append("text")
+			.attr('class', 'axis-label x-axis')
+			.attr("text-anchor", "start")
+			.text('Percentile')
+			.attr("transform", "translate(" + -2 + "," + 55 +")");
+
+
+		
+
+
+
+		opts.bmiAxisGroup = opts.svg.append("g")
+			.attr("class", "x axis bmiAxis")
+			.attr("transform", "translate(0,0)")
+	}
+
+	opts.bmiAxisGroup.transition().duration(opts.duration).call(opts.bmiAxis);
+
+
+	// Add the Percentile ticks and labels
+	opts.percentileAxis = d3.svg.axis()
+		.scale(x)
+		.orient("bottom")
+		.tickValues(_.map(data, 'bmi'))
+		.tickFormat(function(d, i) { return data[i].percentile; })
+		.tickSize(5)
+		.tickPadding(6);
+
+
+	if(!opts.percentileAxisGroup){
+	opts.percentileAxisGroup = opts.svg.append("g")
+		.attr("class", "x axis percentileAxis")
+		.attr("transform", "translate(0," + opts.height + ")")
+	}
+
+	opts.percentileAxisGroup.transition().duration(opts.duration).call(opts.percentileAxis);
+}
+
+
+
+
 
 function convertToFeetAndInches(inches){
 	var values = [Math.floor(inches / 12), Math.floor(inches % 12)];
@@ -472,7 +625,10 @@ function getBMI(weight, height){
 }
 
 function getWeightFromBmiAndHeight(bmi, height){
-	return (bmi * (height*height)) / 703;
+	
+	var result = (bmi * (height*height)) / 703;
+	//console.log('GEt weight', result);
+	return result;
 }
 
 //https://en.wikipedia.org/wiki/Classification_of_obesity
@@ -529,7 +685,7 @@ function getBodyPath(bmi){
 	var selected = null;
 
 	_.each(pathObjects, function(level){
-		if(bmi < level.endBMI){
+		if(bmi < level.getBMIRange().end){
 			selected = level;
 			return false;
 		}
@@ -540,6 +696,69 @@ function getBodyPath(bmi){
 	return selected.getPathForBmi(bmi);
 }
 
+function getPecentileData(age, gender){
+	var selected = null;
+
+	gender = gender == 1 ? 'male' : 'female';
+
+	_.each(percentileData, function(row){
+		if(age < row.end && gender == row.gender ){
+			selected = row;
+			return false;
+		}
+	});
+
+	return selected;
+}
+
+function isChild(){
+	return calculator.age < 20;
+}
+
+function getMatchingPecentile(percentiles, bmi){
+	var selected = null;
+
+	_.each(percentiles, function(row, i){
+		if(i == 0) return;
+		if(bmi < row.bmi){
+			selected = row;
+			return false;
+		}
+	});
+
+	return selected || _.last(percentiles);
+}
+
+function updateChildWeightClasses(){
+	 // 0 to 5 = Under
+	childrenWeightClasses[0].start = 0;
+	childrenWeightClasses[0].end = calculator.percentileObj.data[1].bmi;
+
+	// 5-85 Normal
+	childrenWeightClasses[1].start = calculator.percentileObj.data[1].bmi;
+	childrenWeightClasses[1].end = calculator.percentileObj.data[7].bmi;
+
+	// 85-95 Over
+	childrenWeightClasses[2].start = calculator.percentileObj.data[7].bmi;
+	childrenWeightClasses[2].end = calculator.percentileObj.data[8].bmi;
+
+	// 95 + Obese
+	childrenWeightClasses[3].start = calculator.percentileObj.data[8].bmi;
+	childrenWeightClasses[3].end = 200;
+
+	childrenWeightClasses[4].start = calculator.percentileObj.data[8].bmi;
+	childrenWeightClasses[4].end = 200;
+
+	childrenWeightClasses[5].start = calculator.percentileObj.data[8].bmi;
+	childrenWeightClasses[5].end = 200;
+
+	_.each(childrenWeightClasses, function(o){
+		o.mid = ( o.end + o.start) / 2;
+	});
+
+	childrenWeightClasses[0].mid = childrenWeightClasses[0].end - 2;
+	childrenWeightClasses[5].mid = childrenWeightClasses[0].start + 2;
+}
 
 function getDailyCalories(gender, weight, height, age, activityLevel){
 	var kg = weight / 2.2046226218;;
@@ -551,7 +770,6 @@ function getDailyCalories(gender, weight, height, age, activityLevel){
 		bmr = (10 * kg) + (6.25 * cm) - (5 * age) + 5;
 	}
 
-	//console.log(bmr);
 
 	return Math.round(bmr * activityLevel.multiplier);
 }
@@ -578,18 +796,10 @@ function Calculator(){
 	this.waist = 32;
 
 	this.init = function(){
-		this.bodyPath = d3.select(".bmi-body path");
-		updateWeightSlider({selector:'#weightSlider'});
-		updateHeightSlider({selector:'#heightSlider'});
-		updateBmiBody({selector:'#bmiBody'});
-		this.weightOpts.updateBrush(160);
-		this.heightOpts.updateBrush(70);
-
 		
+		$('.calculator.loading').removeClass('loading');
 
-
-
-		var dataSourceSelect = utils.setupSelect({
+		this.genderSelect = utils.setupSelect({
 			el: '#genderSelect',
 			onChange: function(o){ self.set('gender', +o); },
 			options: [
@@ -599,10 +809,10 @@ function Calculator(){
 			defaultValue: self.gender
 		});
 
-		var dataSourceSelect = utils.setupSelect({
+		this.ageSelect = utils.setupSelect({
 			el: '#ageSelect',
 			onChange: function(o){ self.set('age', +o); },
-			options:_.map(_.range(1, 99), function(i){
+			options:_.map(_.range(2, 99), function(i){
 				return {value: i+'', label:i+''};
 			}),
 			defaultValue: self.age
@@ -624,13 +834,26 @@ function Calculator(){
 			defaultValue: '1'
 		});
 
+		this.percentileObj = getPecentileData(this.age, this.gender);
 
+		this.bodyPath = d3.select(".bmi-body path");
+		updateWeightSlider({selector:'#weightSlider'});
+		updateHeightSlider({selector:'#heightSlider'});
+		updatePercentile({selector:'#bmi-by-age'});
+		updateBmiBody({selector:'#bmiBody'});
+		this.weightOpts.updateBrush(160);
+		this.heightOpts.updateBrush(70);
 
 
 	};
 
 	this.set = function(prop, val){
 		this[prop] = val;
+
+		if(prop === 'age'){
+			this.weightOpts.updateBrush(calculator.weight);
+		}
+
 		this.refresh();
 
 		if(prop === 'weight' && snackViz){
@@ -643,6 +866,32 @@ function Calculator(){
 		this.rawBmi = bmi;
 		this.bmi = Math.round(bmi);
 
+		if(isChild()){
+			updateChildWeightClasses();
+			weightClasses = childrenWeightClasses;
+		}else{
+			weightClasses = adultWeightClasses;
+		}
+
+
+		this.percentileObj = getPecentileData(this.age, this.gender);
+		this.matchingPercentile = getMatchingPecentile(this.percentileObj.data, this.rawBmi); 
+
+		
+
+
+
+
+
+
+		$('#bmi-by-age-label').html("Your BMI is greater than " 
+		+ this.matchingPercentile.percentileStart 
+		+ "% to " + this.matchingPercentile.percentile 
+		+ "% of "
+		+ this.percentileObj.start +  " to " + this.percentileObj.end + "-year-old " + (this.gender ? 'males.' : 'females.'));
+
+
+
 		var weightClass = getWeightClass(this.rawBmi);
 		this.weightClass = weightClass;
 
@@ -652,6 +901,8 @@ function Calculator(){
 		var direction = 'stay';
 
 		var healthyDailyCalories;
+
+		var normalWeightObj = weightClasses[1];
 
 		if(this.bmi < normalWeightObj.start){
 			var healthyWeight = getWeightFromBmi(normalWeightObj.start);
@@ -665,6 +916,9 @@ function Calculator(){
 		}else{
 			healthyDailyCalories = getDailyCalories(this.gender, this.weight, this.height, this.age, this.activityLevel);
 		}
+
+
+
 
 
 		$('.weight-label').html(Math.floor(this.weight));
@@ -700,7 +954,22 @@ function Calculator(){
 
 
 		updateWeightSlider();
+		
 		updateBmiBody();
+
+		updatePercentile();
+
+
+		this.genderSelect.val(this.gender + '');
+		this.ageSelect.val(this.age + '');
+
+		var chairHeight = 41*491/this.height;
+
+
+		d3.select('#chair').transition()
+		.duration(800)
+		.style('height', chairHeight);
+
 	};
 };
 
@@ -761,17 +1030,8 @@ function getTweenerForPaths(path0, path1, precision) {
 
 
 var calculator = new Calculator();
-calculator.init();
-
-window.calculator = calculator;
 
 
-};
-
-_.delay(init, 1000);
-//init();
-
-/*
 queue()
   .defer(d3.csv, "data/processed_data/bmi_percentiles-by_age.csv")
   .await(function(error, data){
@@ -783,76 +1043,39 @@ queue()
   			}
   		});
   		row.data = [
-  			{percentile:5,  bmi: row['5th'] },
-  			{percentile:10, bmi: row['10th'] },
-  			{percentile:15, bmi: row['15th'] },
-  			{percentile:25, bmi: row['25th'] },
-  			{percentile:50, bmi: row['50th'] },
-  			{percentile:75, bmi: row['75th'] },
-  			{percentile:85, bmi: row['85th'] },
-  			{percentile:90, bmi: row['90th'] },
-  			{percentile:95, bmi: row['95th'] }
+  			{percentile:0,   percentileStart:0, showLabel:false,  start:0,   bmi: row['5th'] - 1},
+  			{percentile:5,   percentileStart:0, showLabel:true,   start:row['5th'] - 1,   bmi: row['5th'] },
+  			{percentile:10,  percentileStart:5, showLabel:true,   start:row['5th'] ,  bmi: row['10th'] },
+  			{percentile:15,  percentileStart:10, showLabel:false,   start:row['10th'],  bmi: row['15th'] },
+  			{percentile:25,  percentileStart:15, showLabel:true,   start:row['15th'],  bmi: row['25th'] },
+  			{percentile:50,  percentileStart:25, showLabel:true,   start:row['25th'],  bmi: row['50th'] },
+  			{percentile:75,  percentileStart:50, showLabel:true,   start:row['50th'],  bmi: row['75th'] },
+  			{percentile:85,  percentileStart:75, showLabel:true,   start:row['75th'],  bmi: row['85th'] },
+  			{percentile:90,  percentileStart:85, showLabel:true,   start:row['85th'],  bmi: row['90th'] },
+  			{percentile:95,  percentileStart:90, showLabel:true,   start:row['90th'],  bmi: row['95th'] },
+  			{percentile:100, percentileStart:95, showLabel:false,  start:row['95th'],  bmi: row['95th'] + 1},
   		];
+
+  		
   	});
 
-
-  	var opts = utils.setupSVG({
-		selector: "#bmi-by-age",
-		width: 400,
-		height: 200,
-		marginTop: 40,
-		marginRight: 40,
-		marginBottom: 40,
-		marginLeft: 40,
-		duration: 800
-	});
-
-
-  	var data = data[25].data;
-
-  	// Create the scales.
-	var xScale = utils.setupScale({type: 'linear', axis:'x', data:data, prop:'percentile', opts:opts,  min:0, max: 100 });
-	var yScale = utils.setupScale({type: 'linear', axis:'y', data:data, prop:'bmi', opts:opts,  min:0, max: 45});
-
-	// Add the stacked area.
-	var paths = utils.addLine({parent: opts.svg, opts:opts, data:data,  x: xScale.getValue, y: yScale.getValue, y0:yScale.getValue});
-	var paths = utils.addScatter({parent: opts.svg, opts:opts, data:data,  x: xScale.getValue, y: yScale.getValue, z:5, y0:yScale.getValue});
-	//paths.style("fill", function(d){  return colorScale(d[0].source);})
-
-return;
-	// Create and add the x axis.
-	var xAxis = d3.svg.axis()
-		.scale(xScale)
-		.orient("bottom")
-		.ticks(d3.time.years, 1)
-		.tickFormat(d3.time.format('%Y'))
-		.tickSize(5);
-
-	var xAxisGroup = utils.addXAxis({parent: opts.svg, opts:opts, axis:xAxis});
-
-	// Create and add the y axis.
-	var yAxis = d3.svg.axis()
-		.scale(yScale)
-		.orient("left")
-		.ticks(7)
-		.tickFormat(function(d){ return d3.format("$.2s")(d).replace('G', 'B') });
-
-	utils.addYAxis({parent: opts.svg, opts:opts, axis:yAxis});
-	utils.addChartTitle({parent: opts.svg, label: "Funding for Malaria Control and Elimination", opts:opts });
-
-	var timeFormatter = d3.time.format('%Y')
-
-
-
-
-
-
-
-  	debugger;
-
+  	percentileData = data;
+  	calculator.init();
   });
 
-*/
+
+window.calculator = calculator;
+
+
+};
+
+//_.delay(init, 1000);
+init();
+
+
+
+
+
 
 
 
@@ -923,6 +1146,7 @@ function demo(id, el){
 
 			_.delay(function(){
 				calculator.weight = 205;
+				calculator.age = 44;
 				calculator.weightOpts.updateBrush(calculator.weight);
 				calculator.heightOpts.updateBrush(calculator.height);
 				calculator.refresh();
