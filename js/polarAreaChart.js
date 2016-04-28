@@ -90,6 +90,18 @@
 
         vis.svg.select(".legendQuant")
             .call(legend);
+
+        vis.compareGrp = vis.svg.append('g')
+            .attr('class', 'key-compare')
+            .attr('opacity', 0)
+            .attr('transform', 'translate(' + (vis.width / 2 - 40) + ',' + (vis.height / 2 - 0)  + ')');
+       vis.compareGrp.append('circle')
+            .attr('r', 5);
+
+        vis.compareLabel = vis.compareGrp
+            .append('text')
+            .attr('dx', 10)
+            .attr('dy', 4);
     };
 
     // Setter for `activeProperty`
@@ -204,6 +216,9 @@
 
                 cir.transition()
                     .attr('r', function(d) { return vis.outerRadius(d); });
+
+                vis.compareGrp.transition().attr('opacity', 1);
+                vis.compareLabel.text(d.value + '%');
 
                 vis.dispatch.activeState(d.data);
             }, 50));

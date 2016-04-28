@@ -409,6 +409,17 @@
   opacity: 0.15;
   fill: none; }
 
+.polar-area .key-compare circle {
+  fill: none;
+  stroke: #09c;
+  stroke-width: 2px;
+}
+
+.polar-area .key-compare text {
+  fill: #09c;
+  font-size: 12px;
+}
+
 .active-state .state-name {
   margin-top: 0; }
 

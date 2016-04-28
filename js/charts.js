@@ -5,6 +5,8 @@
         return  Number(currencyStr.replace(/[^0-9\.]+/g,''));
     }
 
+    var percentFormat = d3.format('.2f');
+
     // Render the obesity icon array.
     function nationalObesityIconArray() {
         var data = [
@@ -53,14 +55,26 @@
 
             var $stateVals = $('#polarAreaStateDetail .state-all-values');
             $stateVals.empty();
+            $stateVals.append('<tr><th>Year</th><th>Obesity Rate</th><th>Rate Change <small>(from previous measurement)</small></th></tr>');
 
+            var previous = null;
             _.forEach(state.source, function(v, k) {
                 var matches = k.match(/^yr(\d{4})$/);
+                var val = v ? v + '%' : '&mdash;';
 
                 if (matches) {
                     var valRow = $('<tr>');
                     valRow.append($('<td>').text(matches[1]));
-                    valRow.append($('<td>').text(v + '%'));
+                    valRow.append($('<td>').html(val));
+
+                    if (previous && v) {
+                        var change = Math.round((v - previous) * 100) / 100;
+                        valRow.append($('<td>').text(change + '%'));
+                    }
+                    else {
+                        valRow.append($('<td>').html('&mdash;'));
+                    }
+
                     $stateVals.append(valRow);
 
                     if (v !== null) {
@@ -69,6 +83,8 @@
                             val: v
                         });
                     }
+
+                    previous = v;
                 }
             });
             
@@ -161,8 +177,53 @@
                 .remove();
         }
 
-        var startingProperty = 'yr2014';
-        var choropleth = new window.charts.Choropleth('#choropleth', window.chartData.stateTrends, window.topoJson.usa, startingProperty);
+        function setBestWorstChangeTable(range) {
+            var data = window.chartData.stateTrends;
+            var _data = _(data).map(function (d) {
+                return {
+                    value: d[range[1]] - d[range[0]],
+                    datum: d
+                };
+            }).sortBy('value').filter(function (d) {
+                return d.value !== null;
+            });
+
+            var best = _data.take(5).value();
+            var worst = _data.takeRight(5).value().reverse();
+            var combo = _.zip(best, worst);
+
+            $('#map-extremes').css('display', '');
+            var rows = d3.select('#map-extremes table tbody').selectAll('tr')
+                .data(combo);
+
+            var newRows = rows.enter().append('tr');
+            newRows.append('td')
+                .html(function (pair, i) {
+                    return i + 1 + '.';
+                });
+
+            newRows.append('td').attr('class', 'best');
+            newRows.append('td').attr('class', 'worst')
+
+            rows.select('.best')
+                .html(function (pair) {
+                    var d = pair[0];
+                    return d.datum.ab + ': ' + percentFormat(d.value) + '%';
+                });
+
+            rows.select('.worst')
+                .html(function (pair) {
+                    var d = pair[1];
+                    return d.datum.ab + ': ' + percentFormat(d.value) + '%';
+                });
+
+            rows.exit()
+                .remove();
+        }
+
+        var activeRange = ['yr1990', 'yr2014']
+        var activeProperty = 'yr2014';
+        var choropleth = new window.charts.Choropleth('#choropleth', window.chartData.stateTrends, window.topoJson.usa, activeProperty);
         var years = {};
         var dataPointKeys = _.keys(window.chartData.stateTrends[0]).filter(function(k) {
                 return /^yr\d{4}$/.exec(k);
@@ -200,23 +261,33 @@
             };
         });
 
-        var timeline = new window.charts.Timeline('#timeline', years, startingProperty);
+        var timeline = new window.charts.Timeline('#timeline', years, activeProperty);
 
         // Update choropleth when 'By Year' mode
-        timeline.on('activeProperty', function(activeProperty) {
+        timeline.on('activeProperty', function(newActiveProperty) {
+            activeProperty = newActiveProperty;
             choropleth.setActiveProperty(activeProperty);
             setBestWorstTable(activeProperty);
         });
 
         // Update choropleth when 'Over Time' mode
         timeline.on('rangeChange', function(range) {
-            choropleth.setRange(range);
+            activeRange = range;
+            choropleth.setRange(activeRange);
+            setBestWorstChangeTable(activeRange);
         });
 
         // Update charts when radios change
         $('input[type=radio][name=choroplethMode]').change(function() {
             choropleth.setMode(this.value);
             timeline.setMode(this.value);
+
+            if (this.value === 'over-time') {
+                setBestWorstChangeTable(activeRange);
+            }
+            else {
+                setBestWorstTable(activeProperty);
+            }
         });
 
         // Handle "Show Me" links.
@@ -263,7 +334,7 @@
         });
 
         // Set up initial table
-        setBestWorstTable(startingProperty);
+        setBestWorstTable(activeProperty);
     }
 
     // Load all data and initiate each chart as it's dependencies are loaded.
