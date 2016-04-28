@@ -807,7 +807,7 @@
 
 		<div class="row">
 			<div class="col-xs-12">
-				<div class="calculator" style="height:670px;">
+				<div class="calculator loading" style="height:670px;">
 
 					<div class='top-selects'>
 						<div id="genderSelect"></div><br />
@@ -816,10 +816,22 @@
 						<div id="activityLevelSelect"></div>
 					</div>
 
+					
+
+					<svg version="1.2" baseProfile="tiny" id="chair" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+						 x="0px" y="0px" viewBox="0 0 193.6 468.9" xml:space="preserve">
+					<path fill="#E6E7E8" stroke="#FFFFFF" stroke-miterlimit="10" d="M166.5,271.2H30.6c-8.7,0-15.8-7.1-15.8-15.8l10-234.5
+						C24.8,12.1,31.9,5,40.6,5h115.9c8.7,0,15.8,7.1,15.8,15.8l10,234.5C182.3,264.1,175.3,271.2,166.5,271.2z"/>
+					<polygon fill="#D1D3D4" points="163.8,295.9 163.8,335.5 33.3,335.5 33.3,295.9 14.8,295.9 14.8,468.9 33.3,468.9 33.3,354 
+						163.8,354 163.8,468.9 182.3,468.9 182.3,295.9 "/>
+					<path fill="#E6E7E8" stroke="#FFFFFF" stroke-miterlimit="10" d="M2,261.6v21.9c0,6.8,5.5,12.4,12.4,12.4h165.8
+						c6.8,0,12.4-5.5,12.4-12.4v-21.9c0-3.4,0-29.5-95.3-29.5C2,232.1,2,258.2,2,261.6z"/>
+					</svg>
+
+
 					<div id="bmiBody" style="position:absolute; left:88px; top:60px">
 						
 					</div>
-
 
 
 					<div id="heightSlider" style='position:absolute; top:80px; left:20px;'></div>
@@ -839,12 +851,15 @@
 							Report for <span class="height-label"></span> <span class="gender-label"></span> age <span class="age-label"></span> weighing <span class="weight-label"></span>lbs
 						</div>
 						
-						<div class="obesityClass bmi-color">
-						</div>
+						
 
 						<div class="row">
-							<div class="col-xs-4">
-								<div class="summary cell1" style="margin-left:63px;">
+							<div class="col-xs-6">
+								<div class="obesityClass bmi-color"></div>
+							</div>
+
+							<div class="col-xs-6">
+								<div class="summary cell1" style="margin-left:18px;">
 									<div class="number ">
 										<i class="fa fa-male" style="color:transparent;"></i>
 										<span class="bmi-label"></span>
@@ -920,6 +935,13 @@
 						</div>
 
 						<div style='margin-top:40px;'>
+							<div class="report-subheader">Age Group Percentile</div>
+							<div id="bmi-by-age-label"></div>
+							<div id="bmi-by-age"></div>
+						</div>
+
+
+						<div style='margin-top:30px;'>
 							<div class="report-subheader">Cautions</div>
 							<div class="risks-label"></div>
 						</div>
@@ -929,14 +951,12 @@
 							<span class="recommended-activity-label"></span>
 						</div>
 
-						<div id="bmi-by-age">
-						</div>
-
 					</div>
 				</div>
 				<div class="source">
 					Sources:<br />
 					<a target="_blank" href="http://www.cdc.gov/nchs/data/series/sr_11/sr11_252.pdf">BMI For Age Groups: Anthropometric Reference Data 2007-2010, CDC</a><br />
+					<a target="_blank" href="http://www.cdc.gov/healthyweight/assessing/bmi/childrens_bmi/about_childrens_bmi.html">About Child & Teen BMI, CDC</a><br />
 					<a target="_blank" href="https://www.researchgate.net/publication/6138361">BMI-based body size guides for women and men, ResearchGate</a><br />
 					<a target="_blank" href="http://www.ncbi.nlm.nih.gov/pubmed/2043597">Body Fat Percentage Calculation, PubMed</a><br/>
 					<a target="_blank" href="https://www.ncbi.nlm.nih.gov/pubmed/2305711">A new predictive equation for resting energy expenditure in healthy individuals, PubMed</a>
@@ -968,6 +988,7 @@
 			</div>
 			<div class="col-xs-7" style="text-align:center; padding-top:70px;">
 				<h4>Maintaining Weight</h4>
+
 				<img src="img/snacks/scale.png" />
 			</div>
 		</div>
@@ -1076,7 +1097,7 @@
 
 				</div>
                 <div>
-                    <b>Data Sources</b>
+                    <b>Data Sources</b><br />
 					<a href="http://www.cdc.gov/nchs/data/series/sr_11/sr11_252.pdf">BMI For Age Groups: Anthropometric Reference Data 2007-2010, CDC</a><br />
 					<a href="https://ndb.nal.usda.gov/ndb/search">Calorie Counts: National Nutrient Database, USDA</a><br />
 					<a href="https://www.researchgate.net/publication/6138361">Body Sizes By BMI, ResearchGate</a><br />

@@ -256,7 +256,12 @@ h3{
 .calculator.obese3 .bmi-color{ color:#F30; fill:#F30; }
 
 
-
+#chair{
+	position: absolute;
+	bottom: 226px;
+	right: 630px;
+	max-height:550px;
+}
 
 
 
@@ -264,9 +269,9 @@ h3{
 .report-header{
 	margin-top:0px;
 	text-align:center;
-	font-weight:bold;
-	font-size:18px;
-	margin-bottom:20px;
+ 	font-size: 12px;
+    margin-bottom: 20px;
+    color: #808080;
 }
 
 .report-subheader{
@@ -276,10 +281,11 @@ h3{
 }
 
 .obesityClass{
-	font-size:28px;
-	font-weight:bold;
-	text-align:center;
-	margin-bottom: 30px;
+	font-size: 26px;
+    font-family: Open sans, sans-serif;
+    text-align: center;
+    font-weight: 100;
+    padding-left: 13px;
 }
 
 .calculator-report{

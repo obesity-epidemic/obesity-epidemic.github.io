@@ -30,6 +30,7 @@ function SnackViz(){
 	}
 
 	this.refresh = function(){
+		if(!this.selectedFood) return;
 		this.weight = _.get(window, 'calculator.weight', 130);
 
 		var weightInKg = this.weight / 2.2046226218;
