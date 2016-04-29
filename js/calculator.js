@@ -45,48 +45,64 @@ Cancer
 
 
 
+function init(argument) {
+	var body0 = d3.select('#body0').node();
+	var body1 = d3.select('#body1').node();
+	var body2 = d3.select('#body2').node();
+	var body3 = d3.select('#body3').node();
+	var body4 = d3.select('#body4').node();
+	var body5 = d3.select('#body5').node();
+
+	var mbody0 = d3.select('#mbody0').node();
+	var mbody1 = d3.select('#mbody1').node();
+	var mbody2 = d3.select('#mbody2').node();
+	var mbody3 = d3.select('#mbody3').node();
+	var mbody4 = d3.select('#mbody4').node();
+	var mbody5 = d3.select('#mbody5').node();
+
+	// These are so that at any point in time we can go to a specific body shape.
+	var tweeners = [];
+
+	var mtweeners = [];
+
+	var actions = [
+		function(){ tweeners.push(getTweenerForPaths(body0, body0)) },
+		function(){ tweeners.push(getTweenerForPaths(body0, body1)) },
+		function(){ tweeners.push(getTweenerForPaths(body1, body2)) },
+		function(){ tweeners.push(getTweenerForPaths(body2, body3)) },
+		function(){ tweeners.push(getTweenerForPaths(body3, body4)) },
+		function(){ tweeners.push(getTweenerForPaths(body4, body5)) },
+
+		function(){ mtweeners.push(getTweenerForPaths(mbody0, mbody0)) },
+		function(){ mtweeners.push(getTweenerForPaths(mbody0, mbody1)) },
+		function(){ mtweeners.push(getTweenerForPaths(mbody1, mbody2)) },
+		function(){ mtweeners.push(getTweenerForPaths(mbody2, mbody3)) },
+		function(){ mtweeners.push(getTweenerForPaths(mbody3, mbody4)) },
+		function(){ mtweeners.push(getTweenerForPaths(mbody4, mbody5)) },
+	]
+
+	init3(actions, tweeners, mtweeners);
+}
+
+function init3(actions, tweeners, mtweeners){
+	if(actions.length){
+		actions.shift()();
+		_.delay(function(){ init3(actions, tweeners, mtweeners) }, 20);
+	}else{
+		init4(tweeners, mtweeners);
+	}
+}
 
 
 
 
 
 
-function init(){
+function init4(tweeners, mtweeners){
 
 var percentileData;
 
-var body0 = d3.select('#body0').node();
-var body1 = d3.select('#body1').node();
-var body2 = d3.select('#body2').node();
-var body3 = d3.select('#body3').node();
-var body4 = d3.select('#body4').node();
-var body5 = d3.select('#body5').node();
 
-var mbody0 = d3.select('#mbody0').node();
-var mbody1 = d3.select('#mbody1').node();
-var mbody2 = d3.select('#mbody2').node();
-var mbody3 = d3.select('#mbody3').node();
-var mbody4 = d3.select('#mbody4').node();
-var mbody5 = d3.select('#mbody5').node();
-
-// These are so that at any point in time we can go to a specific body shape.
-var tweeners = [
-	getTweenerForPaths(body0, body0),
-	getTweenerForPaths(body0, body1), 
-	getTweenerForPaths(body1, body2), 
-	getTweenerForPaths(body2, body3), 
-	getTweenerForPaths(body3, body4), 
-	getTweenerForPaths(body4, body5), 
-];
-
-var mtweeners = [
-	getTweenerForPaths(mbody0, mbody0),
-	getTweenerForPaths(mbody0, mbody1), 
-	getTweenerForPaths(mbody1, mbody2), 
-	getTweenerForPaths(mbody2, mbody3), 
-	getTweenerForPaths(mbody3, mbody4), 
-	getTweenerForPaths(mbody4, mbody5), 
-];
 
 
 var maxWeight = 400;
@@ -786,8 +802,8 @@ function getDailyCalories(gender, weight, height, age, activityLevel){
 
 function Calculator(){
 	var self = this;
-	this.weight = 150;
-	this.height = 70;
+	this.weight = 160;
+	this.height = 64;
 	this.gender = 0; // 1 = male
 	this.age = 34;
 	this.bmi = null;
@@ -841,8 +857,8 @@ function Calculator(){
 		updateHeightSlider({selector:'#heightSlider'});
 		updatePercentile({selector:'#bmi-by-age'});
 		updateBmiBody({selector:'#bmiBody'});
-		this.weightOpts.updateBrush(160);
-		this.heightOpts.updateBrush(70);
+		this.weightOpts.updateBrush(this.weight);
+		this.heightOpts.updateBrush(this.height);
 
 
 	};
@@ -975,57 +991,7 @@ function Calculator(){
 
 
 
-function getTweenerForPaths(path0, path1, precision) {
-	precision = precision || 4;
 
-	var n0 = path0.getTotalLength(),
-		n1 = path1.getTotalLength(); // Get the actual length of the path.
-
-	// Uniform sampling of distance based on specified precision.
-	var distances = [0], i = 0, dt = precision / Math.max(n0, n1); // Add points along the path.
-	while ((i += dt) < 1) distances.push(i);
-	distances.push(1);
-
-	// Compute point-interpolators at each distance.
-	var points = distances.map(function(t) {
-		var p0 = path0.getPointAtLength(t * n0), // t * n0 is like saying .5 * 400px  = get point at spot 200.
-			p1 = path1.getPointAtLength(t * n1);
-		return d3.interpolate([p0.x, p0.y], [p1.x, p1.y]); // For each point, create an interpolater function.
-	});
-
-	return function(t) {
-		//if(path0 == path1) { return path0.getAttribute('d'); }
-		return t < 1 ? "M" + points.map(function(p) { return p(t); }).join("L") : path1.getAttribute('d');
-	};
-}
-
-
- function pathTween(d1, precision) {
-	precision = precision || 4;
-	return function() {
-		var path0 = this,
-				path1 = path0.cloneNode(),
-				n0 = path0.getTotalLength(),
-				n1 = (path1.setAttribute("d", d1), path1).getTotalLength();
-
-		// Uniform sampling of distance based on specified precision.
-		var distances = [0], i = 0, dt = precision / Math.max(n0, n1);
-		while ((i += dt) < 1) distances.push(i);
-		distances.push(1);
-
-		// Compute point-interpolators at each distance.
-		var points = distances.map(function(t) {
-			var p0 = path0.getPointAtLength(t * n0),
-				p1 = path1.getPointAtLength(t * n1);
-			return d3.interpolate([p0.x, p0.y], [p1.x, p1.y]);
-		});
-
-		return function(t) {
-			//if(path0.getAttribute('d') == path1.getAttribute('d')) return d1;
-			return t < 1 ? "M" + points.map(function(p) { return p(t); }).join("L") : d1;
-		};
-	};
-}
 
 
 
@@ -1114,7 +1080,7 @@ function demo(id, el){
 
 		case 'calculator2':
 
-			calculator.weight = 200;
+			calculator.weight = 195;
 			calculator.height = 67;
 			calculator.gender = 0; // 1 = male
 			calculator.age = 34;
@@ -1124,7 +1090,7 @@ function demo(id, el){
 			calculator.refresh();
 
 			_.delay(function(){
-				calculator.weight = 190;
+				calculator.weight = 185;
 				calculator.weightOpts.updateBrush(calculator.weight);
 				calculator.heightOpts.updateBrush(calculator.height);
 				calculator.refresh();
@@ -1179,4 +1145,57 @@ function demo(id, el){
 	}
 
 
+}
+
+
+function getTweenerForPaths(path0, path1, precision) {
+	precision = precision || 4;
+
+	var n0 = path0.getTotalLength(),
+		n1 = path1.getTotalLength(); // Get the actual length of the path.
+
+	// Uniform sampling of distance based on specified precision.
+	var distances = [0], i = 0, dt = precision / Math.max(n0, n1); // Add points along the path.
+	while ((i += dt) < 1) distances.push(i);
+	distances.push(1);
+
+	// Compute point-interpolators at each distance.
+	var points = distances.map(function(t) {
+		var p0 = path0.getPointAtLength(t * n0), // t * n0 is like saying .5 * 400px  = get point at spot 200.
+			p1 = path1.getPointAtLength(t * n1);
+		return d3.interpolate([p0.x, p0.y], [p1.x, p1.y]); // For each point, create an interpolater function.
+	});
+
+	return function(t) {
+		//if(path0 == path1) { return path0.getAttribute('d'); }
+		return t < 1 ? "M" + points.map(function(p) { return p(t); }).join("L") : path1.getAttribute('d');
+	};
+}
+
+
+ function pathTween(d1, precision) {
+	precision = precision || 4;
+	return function() {
+		var path0 = this,
+				path1 = path0.cloneNode(),
+				n0 = path0.getTotalLength(),
+				n1 = (path1.setAttribute("d", d1), path1).getTotalLength();
+
+		// Uniform sampling of distance based on specified precision.
+		var distances = [0], i = 0, dt = precision / Math.max(n0, n1);
+		while ((i += dt) < 1) distances.push(i);
+		distances.push(1);
+
+		// Compute point-interpolators at each distance.
+		var points = distances.map(function(t) {
+			var p0 = path0.getPointAtLength(t * n0),
+				p1 = path1.getPointAtLength(t * n1);
+			return d3.interpolate([p0.x, p0.y], [p1.x, p1.y]);
+		});
+
+		return function(t) {
+			//if(path0.getAttribute('d') == path1.getAttribute('d')) return d1;
+			return t < 1 ? "M" + points.map(function(p) { return p(t); }).join("L") : d1;
+		};
+	};
 }

@@ -985,10 +985,75 @@
 				<br /><br />
 				Choose a snack to see how long it will take to burn it off doing various activities.
 			</div>
-			<div class="col-xs-7" style="text-align:center; padding-top:70px;">
-				<h4>Maintaining Weight</h4>
+			<div class="col-xs-7 scale-section" style="text-align:center; padding-top:20px;">
+				<h4 class="maintaining-weight">Maintaining Weight</h4>
+				<h4 class="losing-weight" style="color:#297D29;">Losing Weight</h4>
+				<h4 class="gaining-weight" style="color:#FF3300;">Gaining Weight</h4>
 
-				<img src="img/snacks/scale.png" />
+				
+				<svg id="scale-svg" version="1.2" baseProfile="tiny" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 659 244" xml:space="preserve" style="">
+					<g id="scale">
+						<path id="Rectangle_2_copy" fill="#878787" d="M370.4,244H270.1l50.1-79.9L370.4,244z"/>
+						<g>
+							<text transform="matrix(1 0 0 1 0 9.003)" fill="#297D29" class="losing-weight"  font-size="12">Less Calories</text>
+							<text transform="matrix(1 0 0 1 0 225.998)" fill="#FF3300" class="gaining-weight"  font-size="12">More Calories</text>
+							<path id="Polygon_1" d="M39.5,17l3.5,6h-7L39.5,17z"/>
+							<path id="Polygon_1_copy" d="M39.5,214l3.5-6h-7L39.5,214z"/>
+							<path d="M39,18h1v194h-1V18z"/>
+						</g>
+						<g id="Group_4_copy">
+							<text transform="matrix(1 0 0 1 575 225.998)" fill="#297D29" class="losing-weight" font-size="12">More Exercise</text>
+							<text transform="matrix(1 0 0 1 577 9.003)" fill="#FF3300"  class="gaining-weight" font-size="12">Less Exercise</text>
+							<path id="Polygon_1-2" d="M616.5,17l3.5,6h-7L616.5,17z"/>
+							<path id="Polygon_1_copy-2" d="M616.5,214l3.5-6h-7L616.5,214z"/>
+							<path d="M616,18h1v194h-1V18z"/>
+						</g>
+						<g id='lever' transform="rotate(0, 315, 165)">
+							<path id="_" fill="#C2C4C4" d="M540.6,131.4c-21.1,7-40.2,9.6-72.8,9.6h-90.4c-24.6,0-51.8,4.8-56.8,11.6
+								c-6-6.9-32.7-11.6-57.3-11.6h-90.4c-33.2,0-51.8-2.5-72.9-9.6l-3,6c22.6,8.1,39.6,11.9,75.8,11.9h90.4c33.2,0,52.8,9.5,52.8,17.3
+								h8.5c0-7.7,19.6-17.3,52.8-17.3h90.4c36.2,0,53.2-3.8,75.8-11.9L540.6,131.4z"/>
+							<g  transform="translate(510,140)"  > 
+							
+					          <g id="circle2" style="cursor:pointer;">
+					            
+								  <g  transform="translate(-450,-40)"  >
+					              <ellipse id="Ellipse_1_copy" fill="#297D29" cx="501.1" cy="94" rx="45.9" ry="46"/>  
+					              <path id="Rectangle_2_copy_3" fill="#297D29" transform="" d="M538,107V83l19,12L538,107z"/>
+									
+									<text id="Calories_Out" transform="matrix(0.998 0 0 1 467.86 75.985)" fill="#FFFFFF"  font-size="12">Calories Out</text>
+									<path fill="#FFFFFF" d="M505,89.2c2.5,0,4.5-2,4.5-4.5s-2-4.5-4.5-4.5s-4.5,2-4.5,4.5S502.5,89.2,505,89.2z M496.8,120.8l2.3-10
+										l4.8,4.5V129h4.5v-17l-4.8-4.5l1.4-6.8c3,3.4,7.5,5.7,12.5,5.7v-4.5c-4.3,0-7.9-2.3-9.8-5.5l-2.3-3.6c-0.9-1.4-2.3-2.3-3.9-2.3
+										c-0.7,0-1.1,0.2-1.8,0.2l-11.8,5v10.7h4.5v-7.7l4.1-1.6l-3.6,18.4l-11.1-2.3l-0.9,4.5L496.8,120.8z"/>
+					              </g>
+								</g>
+					   
+							</g>
+						  <g  transform="translate(130,140)"  > 
+					      <g id="circle1" style="cursor:pointer;">
+					        <g transform="translate(-95,-40)">
+								<path id="Rectangle_2_copy_2" fill="#FF3300" d="M111,83v24L92,95L111,83z"/>
+								<path fill="#FF3300" d="M148,48.9c25.4-0.1,46,20.4,46.1,45.8s-20.4,46-45.8,46.1c-25.4,0.1-46-20.4-46.1-45.8c0,0,0-0.1,0-0.1
+									C102.1,69.5,122.6,48.9,148,48.9C148,48.9,148,48.9,148,48.9z"/>
+																
+									<text id="Calories_Out_1_" transform="matrix(0.998 0 0 1 119.5186 75.985)" fill="#FFFFFF"  font-size="12">Calories In</text>
+								<g>
+									<path fill="#FFFFFF" d="M129.1,109.3v1c0,3.7,3,6.7,6.7,6.7h22.1c3.7,0,6.7-3,6.7-6.7v-1h-8.7l-0.8,5.5l-10.1-5.5H129.1z"/>
+									<path fill="#FFFFFF" d="M164.5,94.5v-0.4c0-6.3-7.5-11.4-13.8-11.4h-7.7c-6.3,0-13.8,5.1-13.8,11.4v0.1c0,0.7,0.6,1.3,1.3,1.3
+										c11-0.1,21.8,0.4,32.8,0.3C163.9,95.8,164.5,95.2,164.5,94.5z"/>
+									<path fill="#FFFFFF" d="M165.4,99.4h-36.8c-0.5,0-0.8-0.4-0.8-0.8v0c0-0.5,0.4-0.8,0.8-0.8h36.8c0.5,0,0.8,0.4,0.8,0.8v0
+										C166.2,99,165.9,99.4,165.4,99.4z"/>
+									<path fill="#FFFFFF" d="M163.9,106.6h-33.7c-1.3,0-2.4-1.1-2.4-2.4v0c0-1.3,1.1-2.4,2.4-2.4h33.7c1.3,0,2.4,1.1,2.4,2.4v0
+										C166.2,105.5,165.2,106.6,163.9,106.6z"/>
+								</g>
+							</g>
+					      </g>
+					       </g>
+						</g>
+					</g>
+				</svg>
+
+				<div style="color:gray; font-size:12px; margin-top:20px;">Drag the circles up and down to see how eating less or exercising more affects your weight.</div>
+
 			</div>
 		</div>
 
@@ -1373,8 +1438,7 @@
 	<!-- Visualizations -->
 	<script src="js/cartogram.js"></script>
 	<script src="js/main.js"></script>
-	<script src="js/calculator.js"></script>
-	<script src="js/snacks.js"></script>
+	<script src="js/scale.js"></script>
 	
 
 	<!-- Custom -->
@@ -1386,5 +1450,8 @@
 	<script src="js/polarAreaChart.js"></script>
 	<script src="js/trendChart.js"></script>
 	<script src="js/charts.js"></script>
+
+	<script src="js/calculator.js"></script>
+	<script src="js/snacks.js"></script>
 </body>
 </html>

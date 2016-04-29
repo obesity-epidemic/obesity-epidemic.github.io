@@ -120,6 +120,29 @@ section h2 {
 	color:gray;
 }
 
+.scale-section{
+	padding-left: 60px;
+    padding-right: 60px;
+}
+
+.scale-section h4{
+	display:none;
+	font-size: 26px;
+    font-weight: 100;
+    margin-bottom:60px;
+}
+
+.maintaining-weight h4.maintaining-weight,
+.gaining-weight h4.gaining-weight,
+.losing-weight h4.losing-weight{
+	display:block;
+}
+
+.gaining-weight text.gaining-weight,
+.losing-weight text.losing-weight{
+	font-weight:bold;
+}
+
 
 .row{ margin-bottom:20px; }
 
