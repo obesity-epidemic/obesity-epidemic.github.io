@@ -7,6 +7,20 @@
 
     var percentFormat = d3.format('.2f');
 
+    // Sequential scale for 'by-year'
+    var quantizeSeq = d3.scale.quantize()
+        .range(d3.range(8).map(function (i) {
+            return 'q' + i + '-8';
+        }))
+        .domain([0, 40]);
+
+    // Diverge scale for 'over-time'
+    var quantileDiverge = d3.scale.quantile()
+        .range(d3.range(10).map(function (i) {
+            return 'q' + i + '-10';
+        }))
+        .domain([-25, 25]);
+
     // Render the obesity icon array.
     function nationalObesityIconArray() {
         var data = [
@@ -47,29 +61,33 @@
         })
         .on('activeState', function(state) {
             var vals = [];
+            var $polarAreaStateDetail = $('#polarAreaStateDetail');
+            $polarAreaStateDetail.find('.prompt-active-state').css('display', 'none');
+            $polarAreaStateDetail.find('.active-state').css('display', '');
+            $polarAreaStateDetail.find('.state-name').text(state.source.st);
+            $polarAreaStateDetail.find('.state-value').text(state.value);
 
-            $('#polarAreaStateDetail .prompt-active-state').css('display', 'none');
-            $('#polarAreaStateDetail .active-state').css('display', '');
-            $('#polarAreaStateDetail .state-name').text(state.source.st);
-            $('#polarAreaStateDetail .state-value').text(state.value);
-
-            var $stateVals = $('#polarAreaStateDetail .state-all-values');
+            var $stateVals = $polarAreaStateDetail.find('.state-all-values');
             $stateVals.empty();
             $stateVals.append('<tr><th>Year</th><th>Obesity Rate</th><th>Rate Change <small>(from previous measurement)</small></th></tr>');
 
             var previous = null;
             _.forEach(state.source, function(v, k) {
                 var matches = k.match(/^yr(\d{4})$/);
-                var val = v ? v + '%' : '&mdash;';
+                var val = v ? v + '%' : '(No Data)';
 
                 if (matches) {
+                    var valBoxSeq = v ? '<span class="seq valbox ' + quantizeSeq(v) + '"></span> ' : '';
+
                     var valRow = $('<tr>');
                     valRow.append($('<td>').text(matches[1]));
-                    valRow.append($('<td>').html(val));
+                    valRow.append($('<td>').html(valBoxSeq + val));
 
                     if (previous && v) {
                         var change = Math.round((v - previous) * 100) / 100;
-                        valRow.append($('<td>').text(change + '%'));
+                        var valBoxDiverge = '<span class="diverge valbox ' + quantileDiverge(change) + '"></span>&nbsp;';
+                        var append = change < 0 ? ' <i class="fa fa-arrow-down"></i>' : '';
+                        valRow.append($('<td>').html(valBoxDiverge + change + '%' + append));
                     }
                     else {
                         valRow.append($('<td>').html('&mdash;'));
@@ -96,7 +114,8 @@
             chart.setSort(this.value);
         });
 
-        var $states =  $('.states input[type=checkbox]');
+        var $states = $('.states input[type=checkbox]');
+        var $usa = $('.country-title input[type=checkbox]');
         $('.state-filter input[type=checkbox]').change(function() {
             var $el = $(this);
             var v = this.value;
@@ -108,6 +127,14 @@
             }
             else if (v.indexOf('region-') > -1 || v.indexOf('division-') > -1) {
                 $el.closest('ul').find('input[type=checkbox]').prop('checked', checked);
+            }
+            else { // It is a state
+                if (!checked) {
+                    // Clearing a state should uncheck the containing division, region, and country
+                    $el.closest('.division').find('.division-title input[type=checkbox]').prop('checked', false);
+                    $el.closest('.region').find('.region-title input[type=checkbox]').prop('checked', false);
+                    $usa.prop('checked', false);
+                }
             }
 
             var stateFilters = {};
@@ -159,18 +186,20 @@
                 });
 
             newRows.append('td').attr('class', 'best');
-            newRows.append('td').attr('class', 'worst')
+            newRows.append('td').attr('class', 'worst');
 
             rows.select('.best')
                 .html(function (pair) {
                     var d = pair[0];
-                    return d.datum.ab + ': ' + d.value + '%';
+                    var valBox = '<span class="seq valbox ' + quantizeSeq(d.value) + '"></span>&nbsp;';
+                    return valBox + d.datum.ab + ': ' + d.value + '%';
                 });
 
             rows.select('.worst')
                 .html(function (pair) {
                     var d = pair[1];
-                    return d.datum.ab + ': ' + d.value + '%';
+                    var valBox = '<span class="seq valbox ' + quantizeSeq(d.value) + '"></span>&nbsp;';
+                    return valBox + d.datum.ab + ': ' + d.value + '%';
                 });
 
             rows.exit()
@@ -180,8 +209,14 @@
         function setBestWorstChangeTable(range) {
             var data = window.chartData.stateTrends;
             var _data = _(data).map(function (d) {
+                var v = null;
+
+                if (d[range[1]] !== null && d[range[0]] !== null) {
+                    v = d[range[1]] - d[range[0]];
+                }
+
                 return {
-                    value: d[range[1]] - d[range[0]],
+                    value: v,
                     datum: d
                 };
             }).sortBy('value').filter(function (d) {
@@ -203,25 +238,28 @@
                 });
 
             newRows.append('td').attr('class', 'best');
-            newRows.append('td').attr('class', 'worst')
+            newRows.append('td').attr('class', 'worst');
 
             rows.select('.best')
                 .html(function (pair) {
                     var d = pair[0];
-                    return d.datum.ab + ': ' + percentFormat(d.value) + '%';
+                    var valBox = '<span class="diverge valbox ' + quantileDiverge(d.value) + '"></span>&nbsp;';
+                    var append = d.value < 0 ? ' <i class="fa fa-arrow-down"></i>' : '';
+                    return valBox + d.datum.ab + ': ' + percentFormat(d.value) + '%' + append;
                 });
 
             rows.select('.worst')
                 .html(function (pair) {
                     var d = pair[1];
-                    return d.datum.ab + ': ' + percentFormat(d.value) + '%';
+                    var valBox = '<span class="diverge valbox ' + quantileDiverge(d.value) + '"></span>&nbsp;';
+                    return valBox + d.datum.ab + ': ' + percentFormat(d.value) + '%';
                 });
 
             rows.exit()
                 .remove();
         }
 
-        var activeRange = ['yr1990', 'yr2014']
+        var activeRange = ['yr1990', 'yr2014'];
         var activeProperty = 'yr2014';
         var choropleth = new window.charts.Choropleth('#choropleth', window.chartData.stateTrends, window.topoJson.usa, activeProperty);
         var years = {};
@@ -300,8 +338,11 @@
             timeline.setMode('over-time');
 
             // Set range: 'yr2003', 'yr2004'
-            choropleth.setRange(['yr2003', 'yr2004']);
-            timeline.setRange(['yr2003', 'yr2004']);
+            activeRange = ['yr2003', 'yr2004'];
+            choropleth.setRange(activeRange);
+            timeline.setRange(activeRange);
+
+            setBestWorstChangeTable(activeRange);
         });
 
         $('#show-me-map-holdout').click(function(e) {
@@ -313,8 +354,9 @@
             timeline.setMode('by-year');
 
             // Set year: 'yr2011'
-            choropleth.setActiveProperty('yr2011');
-            timeline.setActiveProperty('yr2011');
+            activeProperty = 'yr2011';
+            choropleth.setActiveProperty(activeProperty);
+            timeline.setActiveProperty(activeProperty);
         });
 
         $('#show-me-map-time').click(function(e) {
@@ -325,9 +367,10 @@
             choropleth.setMode('by-year');
             timeline.setMode('by-year');
 
-            // Set year: 'yr2011'
-            choropleth.setActiveProperty('yr1990');
-            timeline.setActiveProperty('yr1990');
+            // Set year: 'yr1990'
+            activeProperty = 'yr1990';
+            choropleth.setActiveProperty(activeProperty);
+            timeline.setActiveProperty(activeProperty);
 
             // Play!
             timeline.play();

@@ -3,7 +3,7 @@
 
     var DEFAULTS = {
         height: 70,
-        width: 960,
+        width: 860,
         margin: {
             top: 0,
             right: 10,
@@ -13,7 +13,7 @@
         classes: [],
         indicatorHeight: 20,
         indicatorGap: 3,
-        stepDwell: 500,
+        stepDwell: 750,
         scaleValueCounts: {
             'seq': 8,
             'diverge': 10

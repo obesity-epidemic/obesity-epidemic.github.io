@@ -36,7 +36,7 @@
                     Throughout the world obesity has become an epidemic. Obesity is a health issue that causes at least
                     2.8 million deaths world wide each year due to overweight and obesity. Obesity was once associated
                     with high income countries, but now many low and middle income countries are now battling the
-                    epidemic.<sup><a href="#foot-note-1">[1]</a></sup>
+                    epidemic according to the <a href="http://www.who.int/features/factfiles/obesity/en/">World Health Organization</a>.
 
                 </p>
 
@@ -88,7 +88,9 @@
                     <i class="fa fa-exclamation-triangle"></i>
                     <div>
                         <div class="fact-lead">2.8 Million Deaths</div>
-                        <div class="fact-caption">World wide deaths <i>each year</i> due to Overweight and Obesity</div>
+                        <div class="fact-caption">
+							World wide deaths <i>each year</i> due to Overweight and Obesity<sup><a href="#foot-note-1">[1]</a></sup>
+						</div>
                     </div>
                 </div>
 
@@ -129,12 +131,12 @@
 		<div class="row">
 			<div class="col-xs-6">
 				<div id="average-american-shape" class="">
-					<h3>Average American Body Shape By Decade</h3>
+					<h3 class="chart-title">Average American Body Shape By Decade</h3>
 					<img src="img/bodyshapes.png" />
 				</div>
 			</div>
 			<div class="col-xs-6">
-				<h3>Weight Distribution of Americans</h3>
+				<h3 class="chart-title">Weight Distribution of Americans</h3>
 				<div class="clearfix">
 					<div class="icon-array-nums pull-left">
 						<div class="extreme-obese">
@@ -168,15 +170,17 @@
 
 		<div class="row">
 			<div class="col-xs-6">
-				<h3>Overweight and Obesity Over Time</h3>
+				<h3 class="chart-title">Overweight and Obesity Over Time</h3>
 				<div id="overweight-percentage-viz"></div>
 			</div>
 			<div class="col-xs-6">
-				<h3>Health Spending Over Time</h3>
+				<h3 class="chart-title">Health Spending Over Time</h3>
 				<div id="health-spending-viz"></div>
 			</div>
 		</div>
         </section>
+
+		<hr class="section-divide" />
 
 		<!-- Obesity By State Section -->
         <section>
@@ -280,9 +284,9 @@
 
 
 		<div class="row">
-			<div class="col-xs-2" style="padding-top: 0px">
+			<div class="col-xs-3" style="padding-top: 0px">
 				<h4>Mode</h4>
-				<label><input name="choroplethMode" value="by-year" type="radio" checked /> Obesity Rates</label>
+				<label><input name="choroplethMode" value="by-year" type="radio" checked /> Obesity Rates</label><br/>
 				<label><input name="choroplethMode" value="over-time" type="radio" /> Change Over Time</label>
 
 				<div id="map-extremes" style="margin-top: 100px; display: none;">
@@ -294,7 +298,7 @@
 					</table>
 				</div>
 			</div>
-			<div class="col-xs-10">
+			<div class="col-xs-9">
 				<div id="timeline"></div>
 				<div id="choropleth"></div>
 			</div>
@@ -362,71 +366,21 @@
 
 						</div>
 
-						<hr>
-						<b>Over Time</b>
+						<br />
 						<div id="stateTrendLineChart"></div>
 						<table class="state-all-values table table-striped table-condensed table-hover"></table>
 					</div>
 				</div>
 				<div class="state-filter-dialog">
+					<h1>Select States</h1>
+
 					<ul class="state-filter">
-						<li><label><input type="checkbox" checked value="all"> USA</label></li>
-
-						<ul class="region">
-							<li class="region-title">&nbsp;<label><input type="checkbox" checked value="region-ne"> Northeast</label></li>
-							<ul class="division">
-								<li>&nbsp;<label><input type="checkbox" checked value="division-new-england"> New England</label></li>
-								<ul class="states">
-									<li><label><input type="checkbox" checked value="CT"> Connecticut</label></li>
-									<li><label><input type="checkbox" checked value="ME"> Maine</label></li>
-									<li><label><input type="checkbox" checked value="MA"> Massachusetts</label></li>
-									<li><label><input type="checkbox" checked value="NH"> New Hampshire</label></li>
-									<li><label><input type="checkbox" checked value="RI"> Rhode Island</label></li>
-									<li><label><input type="checkbox" checked value="VT"> Vermont</label></li>
-								</ul>
-							</ul>
-
-							<ul class="division">
-								<li>&nbsp;<label><input type="checkbox" checked value="division-mid-atlantic">Mid-Atlantic</label></li>
-								<ul class="states">
-									<li><label><input type="checkbox" checked value="NJ"> New Jersey</label></li>
-									<li><label><input type="checkbox" checked value="NY"> New York</label></li>
-									<li><label><input type="checkbox" checked value="PA"> Pennsylvania</label></li>
-								</ul>
-							</ul>
-						</ul>
-
-						<ul class="region">
-							<li class="region-title">&nbsp;<label><input type="checkbox" checked value="region-mw"> Midwest</label></li>
-							<ul class="division">
-								<li>&nbsp;<label><input type="checkbox" checked value="division-east-north-central"> East North Central</label></li>
-								<ul class="states">
-									<li><label><input type="checkbox" checked value="IL"> Illinois</label></li>
-									<li><label><input type="checkbox" checked value="IN"> Indiana</label></li>
-									<li><label><input type="checkbox" checked value="MI"> Michigan</label></li>
-									<li><label><input type="checkbox" checked value="OH"> Ohio</label></li>
-									<li><label><input type="checkbox" checked value="WI"> Wisconsin</label></li>
-								</ul>
-							</ul>
-
-							<ul class="division">
-								<li>&nbsp;<label><input type="checkbox" checked value="division-west-north-central"> West North Central</label></li>
-								<ul class="states">
-									<li><label><input type="checkbox" checked value="IA"> Iowa</label></li>
-									<li><label><input type="checkbox" checked value="KS"> Kansas</label></li>
-									<li><label><input type="checkbox" checked value="MN"> Minnesota</label></li>
-									<li><label><input type="checkbox" checked value="MO"> Missouri</label></li>
-									<li><label><input type="checkbox" checked value="NE"> Nebraska</label></li>
-									<li><label><input type="checkbox" checked value="ND"> North Dakota</label></li>
-									<li><label><input type="checkbox" checked value="SD"> South Dakota</label></li>
-								</ul>
-							</ul>
-						</ul>
+						<li class="country-title" style="font-size: 20px; margin-bottom: 20px;"><label><input type="checkbox" checked value="all"> USA</label></li>
 
 						<ul class="region">
 							<li class="region-title">&nbsp;<label><input type="checkbox" checked value="region-w"> West</label></li>
 							<ul class="division">
-								<li>&nbsp;<label><input type="checkbox" checked value="division-mountain"> Mountain</label></li>
+								<li class="division-title">&nbsp;<label><input type="checkbox" checked value="division-mountain"> Mountain</label></li>
 								<ul class="states">
 									<li><label><input type="checkbox" checked value="AZ"> Arizona</label></li>
 									<li><label><input type="checkbox" checked value="CO"> Colorado</label></li>
@@ -440,7 +394,7 @@
 							</ul>
 
 							<ul class="division">
-								<li>&nbsp;<label><input type="checkbox" checked value="division-pacific"> Pacific</label></li>
+								<li class="division-title">&nbsp;<label><input type="checkbox" checked value="division-pacific"> Pacific</label></li>
 								<ul class="states">
 									<li><label><input type="checkbox" checked value="AK"> Alaska</label></li>
 									<li><label><input type="checkbox" checked value="CA"> California</label></li>
@@ -452,9 +406,81 @@
 						</ul>
 
 						<ul class="region">
-							<li class="region-title">&nbsp;<label><input type="checkbox" checked value="region-s"> South</label></li>
+							<li class="region-title">&nbsp;<label><input type="checkbox" checked value="region-mw"> Midwest</label></li>
 							<ul class="division">
-								<li>&nbsp;<label><input type="checkbox" checked value="division-south-atlantic"> South Atlantic</label></li>
+								<li class="division-title">&nbsp;<label><input type="checkbox" checked value="division-east-north-central"> East North Central</label></li>
+								<ul class="states">
+									<li><label><input type="checkbox" checked value="IL"> Illinois</label></li>
+									<li><label><input type="checkbox" checked value="IN"> Indiana</label></li>
+									<li><label><input type="checkbox" checked value="MI"> Michigan</label></li>
+									<li><label><input type="checkbox" checked value="OH"> Ohio</label></li>
+									<li><label><input type="checkbox" checked value="WI"> Wisconsin</label></li>
+								</ul>
+							</ul>
+
+							<ul class="division">
+								<li class="division-title">&nbsp;<label><input type="checkbox" checked value="division-west-north-central"> West North Central</label></li>
+								<ul class="states">
+									<li><label><input type="checkbox" checked value="IA"> Iowa</label></li>
+									<li><label><input type="checkbox" checked value="KS"> Kansas</label></li>
+									<li><label><input type="checkbox" checked value="MN"> Minnesota</label></li>
+									<li><label><input type="checkbox" checked value="MO"> Missouri</label></li>
+									<li><label><input type="checkbox" checked value="NE"> Nebraska</label></li>
+									<li><label><input type="checkbox" checked value="ND"> North Dakota</label></li>
+									<li><label><input type="checkbox" checked value="SD"> South Dakota</label></li>
+								</ul>
+							</ul>
+						</ul>
+
+						<ul class="region">
+							<li class="region-title">&nbsp;<label><input type="checkbox" checked value="region-ne"> Northeast</label></li>
+							<ul class="division">
+								<li class="division-title">&nbsp;<label><input type="checkbox" checked value="division-new-england"> New England</label></li>
+								<ul class="states">
+									<li><label><input type="checkbox" checked value="CT"> Connecticut</label></li>
+									<li><label><input type="checkbox" checked value="ME"> Maine</label></li>
+									<li><label><input type="checkbox" checked value="MA"> Massachusetts</label></li>
+									<li><label><input type="checkbox" checked value="NH"> New Hampshire</label></li>
+									<li><label><input type="checkbox" checked value="RI"> Rhode Island</label></li>
+									<li><label><input type="checkbox" checked value="VT"> Vermont</label></li>
+								</ul>
+							</ul>
+
+							<ul class="division">
+								<li class="division-title">&nbsp;<label><input type="checkbox" checked value="division-mid-atlantic"> Mid-Atlantic</label></li>
+								<ul class="states">
+									<li><label><input type="checkbox" checked value="NJ"> New Jersey</label></li>
+									<li><label><input type="checkbox" checked value="NY"> New York</label></li>
+									<li><label><input type="checkbox" checked value="PA"> Pennsylvania</label></li>
+								</ul>
+							</ul>
+						</ul>
+
+						<ul class="region">
+							<li class="region-title">&nbsp;<label><input type="checkbox" checked value="region-s"> South</label></li>
+
+							<ul class="division">
+								<li class="division-title"><label>&nbsp;<input type="checkbox" checked value="division-west-south-central"> West South Central</label></li>
+								<ul class="states">
+									<li><label><input type="checkbox" checked value="AR"> Arkansas</label></li>
+									<li><label><input type="checkbox" checked value="LA"> Louisiana</label></li>
+									<li><label><input type="checkbox" checked value="OK"> Oklahoma</label></li>
+									<li><label><input type="checkbox" checked value="TX"> Texas</label></li>
+								</ul>
+							</ul>
+
+							<ul class="division">
+								<li class="division-title"><label>&nbsp;<input type="checkbox" checked value="division-east-south-central"> East South Central</label></li>
+								<ul class="states">
+									<li><label><input type="checkbox" checked value="AL"> Alabama</label></li>
+									<li><label><input type="checkbox" checked value="KY"> Kentucky</label></li>
+									<li><label><input type="checkbox" checked value="MS"> Mississippi</label></li>
+									<li><label><input type="checkbox" checked value="TN"> Tennessee</label></li>
+								</ul>
+							</ul>
+
+							<ul class="division">
+								<li class="division-title">&nbsp;<label><input type="checkbox" checked value="division-south-atlantic"> South Atlantic</label></li>
 								<ul class="states">
 									<li><label><input type="checkbox" checked value="DE"> Delaware</label></li>
 									<li><label><input type="checkbox" checked value="FL"> Florida</label></li>
@@ -467,26 +493,6 @@
 									<li><label><input type="checkbox" checked value="WV"> West Virginia</label></li>
 								</ul>
 							</ul>
-
-							<ul class="division">
-								<li><label>&nbsp;<input type="checkbox" checked value="division-east-south-central"> East South Central</label></li>
-								<ul class="states">
-									<li><label><input type="checkbox" checked value="AL"> Alabama</label></li>
-									<li><label><input type="checkbox" checked value="KY"> Kentucky</label></li>
-									<li><label><input type="checkbox" checked value="MS"> Mississippi</label></li>
-									<li><label><input type="checkbox" checked value="TN"> Tennessee</label></li>
-								</ul>
-							</ul>
-
-							<ul class="division">
-								<li><label>&nbsp;<input type="checkbox" checked value="division-west-south-central"> West South Central</label></li>
-								<ul class="states">
-									<li><label><input type="checkbox" checked value="AR"> Arkansas</label></li>
-									<li><label><input type="checkbox" checked value="LA"> Louisiana</label></li>
-									<li><label><input type="checkbox" checked value="OK"> Oklahoma</label></li>
-									<li><label><input type="checkbox" checked value="TX"> Texas</label></li>
-								</ul>
-							</ul>
 						</ul>
 					</ul>
 
@@ -496,6 +502,7 @@
 		</div>
         </section>
 
+		<hr class="section-divide" />
 
 		<!-- Obesity Factors -->
         <section>
@@ -506,21 +513,26 @@
 				The section above drives home the main point: the obesity rates in America vary significantly by regional grouping. What other regional circumstances contribute to obesity? Aside from genetics and medical problems which are difficult to measure at the state level, obesity is associated with the following risk factors: <b>inactivity</b>, <b>unhealthy diet</b>, and <b>socioeconomic status.</b>
 				</p>
 				<p>
-				Using data from the Behavioral Risk Factor Surveillance System <a>(http://www.cdc.gov/brfss/data_tools.htm)</a> we are able to explore the relationships between obesity risk factors and obesity rates. Understanding which risk factors are strongly associated with obesity rates can help policy makers implement more effective programs such as the Sugary Drinks Portion Cap Rule: <a>(https://en.wikipedia.org/wiki/Sugary_Drinks_Portion_Cap_Rule)</a>.</p>
-				The factors from the survey that we found most strongly associated with obesity were:
-				<ul>
-					<li><i>Daily soda consumption</i></li>
-					<li><i>People consuming at least one piece of fruit daily (fruit consumption)</i></li>
-					<li><i>Adults who spent no time exercising (leisure activity)</i></li>
-					<li><i>Percentage of people watching 3 or more hours of TV daily</i></li>
-					<li><i>Low income (bottom quintile of income)</i></li>
-				</ul>
+				Using data from the <a href="http://www.cdc.gov/brfss/data_tools.htm">Behavioral Risk Factor Surveillance System</a> we are able to explore the relationships between obesity risk factors and obesity rates. Understanding which risk factors are strongly associated with obesity rates can help policy makers implement more effective programs such as the <a href="https://en.wikipedia.org/wiki/Sugary_Drinks_Portion_Cap_Rule">Sugary Drinks Portion Cap Rule</a>:</p>
+				</p>
+
+				<div style="margin: 10px 0;">
+					<p>The factors from the survey that we found <i>most strongly</i> associated with obesity were:</p>
+
+					<ul>
+						<li>Daily soda consumption</li>
+						<li>People consuming at least one piece of fruit daily (fruit consumption)</li>
+						<li>Adults who spent no time exercising (leisure activity)</li>
+						<li>Percentage of people watching 3 or more hours of TV daily</li>
+						<li>Low income (bottom quintile of income)</li>
+					</ul>
+				</div>
+
+				<p>
+					The fruit consumption association was a little unexpected but not surprising since many fruits contain high levels of sugar.
 				</p>
 				<p>
-				The fruit consumption association was a little unexpected but not surprising since many fruits contain high levels of sugar.
-				</p>
-				<p>
-					The percentage of adults meeting the recommended Aerobic and Muscles Strengthening guideline <a>(http://www.cdc.gov/physicalactivity/basics/adults/)</a> <i>(weight activity)</i></i> was most negatively associated with obesity <i>(the more people exercising in each state the lower the obesity rates)</i>. Explore the factors for yourself and see which factors have the strongest association with obesity.
+					The percentage of adults meeting the recommended <a href="http://www.cdc.gov/physicalactivity/basics/adults/">Aerobic and Muscles Strengthening guideline</a> <i>(weight activity)</i> was most negatively associated with obesity <i>(the more people exercising in each state the lower the obesity rates)</i>. Explore the factors for yourself and see which factors have the strongest association with obesity.
 				</p>
 			</div>
 		</div>
@@ -727,6 +739,8 @@
         </div>
         </section>
 
+		<hr class="section-divide" />
+
 		<!-- Individual Health -->
         <section>
 		<div class="row">
@@ -739,13 +753,20 @@
 
 
 			<div class="col-xs-8">
+				<p>
 				We each have a personal role in the fight against obesity. Regardless of the programs or laws that may be placed to help guide people to be healthier, we each are ultimately responsible for maintaining a healthy weight.
-				<br /><br />
+				</p>
+
+
 				<div class='big-quote' style="float:left; margin-right:30px;">
 					"Obesity affects every aspect of a people's lives, from health to relationships."
 					<div class='source'>- Jane Velez-Mitchell, Television Journalist</div>
 				</div>
+
+				<p>
 				Obesity has more consequences than those that are related to the physical body. Studies indicate that obesity may lead to the following issues: <sup><a href="#foot-note-3">[3]</a></sup><sup><a href="#foot-note-4">[4]</a></sup>
+				</p>
+
 				<div style="float:left;">
 					<ul style="margin-top:10px;">
 						<li>Depression</li>
@@ -761,10 +782,15 @@
 					</ul>
 				</div>
 				<div style="clear:both;"></div>
+
 				<div style="margin-top:10px;">
+					<p>
 					The good news is that whether you are healthy or overweight, there are steps you can take to maintain or reduce your weight to establish a long-lasting healthy lifestyle. Studies have shown that even losing a little weight can have great impact on your health.
-					<br /><br />
-					Enter your height and weight below to see your personal health report. 
+					</p>
+
+					<p>
+					Enter your height and weight below to see your personal health report.
+					</p>
 				</div>
 			</div>
 
@@ -782,6 +808,7 @@
 				<div class="help-box">
 					<div class="title">The larger American</div>
 					<div class="description">From about 1960 to 2000, females ages 20 - 74 increased in BMI from 24.9 to 28.2. This has also raised numerous health risks.</div>
+					<br />
 					<a href='#' onclick='demo("calculator1", this); return false;'>Show me &raquo;</a>
 				</div>
 			</div>
@@ -790,6 +817,7 @@
 				<div class="help-box">
 					<div class="title">Every pound counts</div>
 					<div class="description">Losing 5 to 10 percent of your weight can produce health benefits in blood pressure, blood cholesterol, and blood sugars.<sup><a href="#foot-note-5">[5]</a></sup>  </div>
+					<br />
 					<a href='#' onclick='demo("calculator2", this); return false;'>Show me &raquo;</a>
 				</div>
 			</div>
@@ -970,22 +998,26 @@
 			<div class="col-xs-12">
 				<h2>What can you do?</h2>
 			</div>
-			<div class="col-xs-5">
-				
-				
-				There are a lot of different opinions/programs about how to lose and maintain a healthy weight. At the core of them all, there is one core principle. As the CDC instructs on their website:
+			<div class="col-xs-6">
+				<p>
+					There are a lot of different opinions/programs about how to lose and maintain a healthy weight. At the core of them all, there is one core principle. As the CDC instructs on their website:
+				</p>
 
 				<div class='big-quote' style="float:none; width:auto; font-size:20px; margin:20px 0;">
 					When it comes to maintaining a healthy weight for a lifetime, the bottom line is – calories count! Weight management is all about balance—balancing the number of calories you consume with the number of calories your body uses or "burns off."
 
 				</div>
 
-				The best way to effectively lose weight and keep it off is by reducing the number of calories you eat, and increase the number you burn through physical activity. In addition, physical activity provides many health-promoting benefits other than just consuming calories, such as improved mental-health, stronger bones and muscles, improved vitality, and a longer life.<sup><a href="#foot-note-7">[7]</a></sup>
+				<p>
+					The best way to effectively lose weight and keep it off is by reducing the number of calories you eat, and increase the number you burn through physical activity. In addition, physical activity provides many health-promoting benefits other than just consuming calories, such as improved mental-health, stronger bones and muscles, improved vitality, and a longer life.<sup><a href="#foot-note-7">[7]</a></sup>
+				</p>
 
-				<br /><br />
-				Choose a snack to see how long it will take to burn it off doing various activities.
+				<p>
+					Choose a snack to see how long it will take to burn it off doing various activities.
+				</p>
 			</div>
-			<div class="col-xs-7 scale-section" style="text-align:center; padding-top:20px;">
+
+			<div class="col-xs-6 scale-section" style="text-align:center; ">
 				<h4 class="maintaining-weight">Maintaining Weight</h4>
 				<h4 class="losing-weight" style="color:#297D29;">Losing Weight</h4>
 				<h4 class="gaining-weight" style="color:#FF3300;">Gaining Weight</h4>
@@ -1062,6 +1094,7 @@
 				<div class="help-box">
 					<div class="title">To eat or not to eat?</div>
 					<div class="description">One of the best ways to lose weight is to eat less. For example, you could eat a Snickers, but would you eat it if you knew you had to run between 1 and 2 miles to burn it off?</div>
+					<br />
 					<a href='#' onclick='demo("food1", this); return false;'>Show me &raquo;</a>
 				</div>
 			</div>
@@ -1070,6 +1103,7 @@
 				<div class="help-box">
 					<div class="title">Thirsty?</div>
 					<div class="description">Changing your daily soda to a glass water can make a big difference. A soda a day is about 55,000 calories in a year. It would take around 20 marathons to burn that off.</div>
+					<br />
 					<a href='#' onclick='demo("food2", this); return false;'>Show me &raquo;</a>
 				</div>
 			</div>
@@ -1104,6 +1138,8 @@
 		</div>
         </section>
 
+		<hr class="section-divide" />
+
 		<!-- Conclusion -->
         <section>
 		<div class="row">
@@ -1116,65 +1152,98 @@
                     made person by person and family by family. Using tools such as the ones given above (BMI and snack
                     calculators) individuals can make better, healthier choices.
                 </p>
+
+				<h3 class="stand-off">Further Reading</h3>
+				<div>
+					This site serves as a brief introduction to the concerns related to obesity in America with primary
+					focus on the average adult. Some topics may be of interest:
+					<div class="inline-list">
+						(1) There are differences in obesity rates for between men and women that
+						are interesting and worth investigation <span class="subtle-example">(i.e. Women have lower
+						rates of obesity overall, but make up a higher percent of the extreme obesity population)</span>.
+					</div>
+					<div class="inline-list">
+						(2) Measuring obesity and addressing obesity in children is different than in adults. Childhood
+						obesity is problem bigger than ever before.
+					</div>
+					<div class="inline-list">
+						(3) Countries around the world have obesity issues and America's problem is not the worst.
+					</div>
+				</div>
+				<ul style="margin-top: 10px">
+					<li>World Wide Obesity</li>
+					<li>CDC Childhood Obesity</li>
+				</ul>
 			</div>
 		</div>
         </section>
+	</div><!-- End of Main Container -->
 
-
-		<!-- Footer -->
-		<div class="row footer">
-			<div class="col-xs-3">
+	<!-- Footer -->
+	<div class="container footer">
+		<div class="row">
+			<div class="col-xs-4">
+				<h4>Course</h4>
 				<b>Harvard University</b><br/>
 				<b>CSE 171, Spring 2016</b><br />
 				<b>Final Project</b><br />
-				&nbsp;<br />
-				<div>
-					<b>Team Members</b>
-					<ul class="team-members">
-						<li>Kevin Buhrer</li>
-						<li>Jonny Moon</li>
-						<li>Thomas Musser</li>
-					</ul>
-				</div>
-				<div>
-					<b>Repository</b><br />
-					<a href="https://github.com/obesity-epidemic/obesity-epidemic.github.io">https://github.com/obesity-epidemic/obesity-epidemic.github.io</a>
-				</div>
 			</div>
 
-			<div class="col-xs-9">
-				<div>
-					<b>Footnotes</b><br/>
-					<a id="foot-note-1" href="http://www.who.int/features/factfiles/obesity/en/">10 facts on obesity, World Health Organization</a><br/>
-					<a id="foot-note-2" href="http://www.cdc.gov/obesity/adult/causes.html">Adult Obesity Causes & Consequences, CDC</a><br/>
-					<a id="foot-note-3" href="https://www.more-life.co.uk/Default.aspx?PageName=Consequences+of+Obesity">Consequences of Obesity, MORElife</a><br/>
-					<a id="foot-note-4" href="http://www.jlgh.org/Past-Issues/Volume-4---Issue-4/Behavioral-and-Psychological-Factors-in-Obesity.aspx">Behavioral and Psychological Factors in Obesity, JLGH</a><br/>
-					<a id="foot-note-5" href="http://www.cdc.gov/healthyweight/losing_weight/">Losing Weight, CDC</a><br/>
-					<a id="foot-note-6" href="http://www.ncbi.nlm.nih.gov/pubmed/23638485">Strategies to Prevent Weight Gain Among Adults, PubMed</a><br/>
-					<a id="foot-note-7" href="http://www.cdc.gov/physicalactivity/basics/pa-health/">Physical Activity and Health, CDC</a><br/>
-					<a id="foot-note-8" href="http://www.care2.com/greenliving/11-super-health-benefits-in-just-1-celery-stalk.html">11 Super Health Benefits in Just One Celery Stalk, care2</a><br/>
-					
-					<a href="http://www.ncbi.nlm.nih.gov/pubmed/2043597">Body Fat Percentage Calculation, PubMed</a><br/>
-					<a href="https://www.ncbi.nlm.nih.gov/pubmed/2305711">A new predictive equation for resting energy expenditure in healthy individuals, PubMed</a><br/>
+			<div class="col-xs-4">
+				<h4>Team Members</h4>
+				<ul class="team-members">
+					<li>Kevin Buhrer</li>
+					<li>Jonny Moon</li>
+					<li>Thomas Musser</li>
+				</ul>
+			</div>
 
-				</div>
-                <div>
-
-                    <b>Data Sources</b><br />
-					<a href="http://www.cdc.gov/nchs/data/series/sr_11/sr11_252.pdf">BMI For Age Groups: Anthropometric Reference Data 2007-2010, CDC</a><br />
-					<a href="https://ndb.nal.usda.gov/ndb/search">Calorie Counts: National Nutrient Database, USDA</a><br />
-					<a href="https://www.researchgate.net/publication/6138361">Body Sizes By BMI, ResearchGate</a><br />
-					<a href="http://journals.lww.com/acsm-msse/Fulltext/2011/08000/2011_Compendium_of_Physical_Activities__A_Second.25.aspx">Mets of Activities, Compendium of Physical Activities, journals.lwww.com</a>
-                </div>
-				<div>
-					<b>Images</b><br />
-					<a href="http://www.freeimages.com/photo/pizza-1326985">Header Background Pizza Image</a><br />
-					Snack images (other than trademarked products) were provided by <a href="http://www.morguefile.com/">Morgue File</a>, <a href="http://www.freeimages.com/">FreeImages</a>, <a href="https://pixabay.com">pixabay</a>
+			<div class="col-xs-4">
+				<h4>Website Repository</h4>
+				<a href="https://github.com/obesity-epidemic/obesity-epidemic.github.io">Github</a>
+				<div class="note">
+					Contains code for visualizations and data.
 				</div>
 			</div>
 		</div>
 
-	</div><!-- End of Main Container -->
+		<div class="row">
+			<div class="col-xs-4">
+				<h4>Footnotes</h4>
+				<ol>
+					<li><a id="foot-note-1" href="http://www.who.int/features/factfiles/obesity/en/">10 facts on obesity, World Health Organization</a></li>
+					<li><a id="foot-note-2" href="http://www.cdc.gov/obesity/adult/causes.html">Adult Obesity Causes & Consequences, CDC</a></li>
+					<li><a id="foot-note-3" href="https://www.more-life.co.uk/Default.aspx?PageName=Consequences+of+Obesity">Consequences of Obesity, MORElife</a></li>
+					<li><a id="foot-note-4" href="http://www.jlgh.org/Past-Issues/Volume-4---Issue-4/Behavioral-and-Psychological-Factors-in-Obesity.aspx">Behavioral and Psychological Factors in Obesity, JLGH</a></li>
+					<li><a id="foot-note-5" href="http://www.cdc.gov/healthyweight/losing_weight/">Losing Weight, CDC</a></li>
+					<li><a id="foot-note-6" href="http://www.ncbi.nlm.nih.gov/pubmed/23638485">Strategies to Prevent Weight Gain Among Adults, PubMed</a></li>
+					<li><a id="foot-note-7" href="http://www.cdc.gov/physicalactivity/basics/pa-health/">Physical Activity and Health, CDC</a></li>
+					<li><a id="foot-note-8" href="http://www.care2.com/greenliving/11-super-health-benefits-in-just-1-celery-stalk.html">11 Super Health Benefits in Just One Celery Stalk, care2</a></li>
+				</ol>
+					<a href="http://www.ncbi.nlm.nih.gov/pubmed/2043597">Body Fat Percentage Calculation, PubMed</a><br/>
+					<a href="https://www.ncbi.nlm.nih.gov/pubmed/2305711">A new predictive equation for resting energy expenditure in healthy individuals, PubMed</a><br/>
+			</div>
+
+			<div class="col-xs-4">
+				<h4>Data Sources</h4>
+				<a href="http://www.cdc.gov/nchs/data/series/sr_11/sr11_252.pdf">BMI For Age Groups: Anthropometric Reference Data 2007-2010, CDC</a><br />
+				<a href="https://ndb.nal.usda.gov/ndb/search">Calorie Counts: National Nutrient Database, USDA</a><br />
+				<a href="https://www.researchgate.net/publication/6138361">Body Sizes By BMI, ResearchGate</a><br />
+				<a href="http://journals.lww.com/acsm-msse/Fulltext/2011/08000/2011_Compendium_of_Physical_Activities__A_Second.25.aspx">Mets of Activities, Compendium of Physical Activities, journals.lwww.com</a>
+			</div>
+
+			<div class="col-xs-4">
+				<h4>Images</h4>
+				<a href="http://www.freeimages.com/photo/pizza-1326985">Header Background Pizza Image</a><br />
+				<span class="note">Snack images (other than trademarked products) were provided by</span>
+				<a href="http://www.morguefile.com/">Morgue File</a>,
+				<a href="http://www.freeimages.com/">FreeImages</a>,
+				<a href="https://pixabay.com">pixabay</a>
+			</div>
+		</div>
+	</div>
+
+
 	 <svg style='display:none;' version="1.2" baseProfile="tiny" id="Layer_2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
 	 x="0px" y="0px" viewBox="0 0 239 482.4" xml:space="preserve">
 <g id="Man">
@@ -1441,7 +1510,6 @@
 	<script src="js/scale.js"></script>
 	
 
-	<!-- Custom -->
 	<script src="js/stackedAreaChart.js"></script>
 	<script src="js/lineChart.js"></script>
 	<script src="js/timelineChart.js"></script>

@@ -1,3 +1,13 @@
+.subtle-example {
+  opacity: 0.85;
+  font-style: italic;
+}
+
+.inline-list {
+  display: inline;
+  margin-left: 10px;
+}
+
 .fa.extreme-obese {
   color: #f30; }
 
@@ -75,16 +85,18 @@
   position: fixed;
   z-index: 9999;
   top: 50px;
-  left: 50px;
-  right: 50px;
   bottom: 50px;
+  width: 890px;
+  left: 50%;
+  margin-left: -445px;
 
   padding: 20px;
   border: 1px solid #ccc;
-  border-radius: 3px;
+  border-radius: 1px;
   background-color: #ffffff;
+  text-align: center;
 
-  box-shadow: 0 0 5px rgba(0,0,0,0.5);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.5);
   overflow: scroll;
 }
 
@@ -114,25 +126,40 @@
 .state-filter {
   list-style: none;
   padding: 10px; }
-  .state-filter .region,
-  .state-filter .division,
+  .state-filter .region {
+    list-style: none;
+    vertical-align: top;
+    display: inline-block; }
+.state-filter .division,
   .state-filter .states {
     list-style: none;
-    display: inline-block;
     vertical-align: top; }
   .state-filter .region {
     padding-left: 0;
-    border: 1px solid #ddd;
-    margin-bottom: 10px; }
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    margin-right: 20px;
+    background-color: #f8f8f8; }
   .state-filter .division {
     margin: 10px;
-    padding-left: 10px; }
+    border: 1px solid #095;
+    padding-left: 0;
+    background-color: #fff; }
   .state-filter .states {
-    border-left: 2px solid #ccc;
-    padding-left: 3px !important;
+    /*border-left: 2px solid #ccc;*/
+    padding-left: 0 !important;
     margin-left: 8px; }
+    .state-filter .states li {
+      padding: 5px 10px;
+      /*display: inline-block;*/
+      vertical-align: top; }
   .state-filter .region-title {
-    background-color: #999; }
+    padding: 3px 10px;
+    background-color: #ddd; }
+  .state-filter .division-title {
+    padding: 3px 10px;
+    color: #ffffff;
+    background-color: #00aa66; }
 
 .stacked-area-chart.timeline .area.extreme-obese {
   fill: #595959; }
@@ -173,7 +200,7 @@
 .choropleth-chart .state {
   stroke: #fff; }
   .choropleth-chart .state.no-data {
-    fill: black; }
+    fill: #999; }
 
 .timeline-chart .play,
 .timeline-chart .pause {
@@ -220,7 +247,7 @@
   fill: #000;
   fill-opacity: 0.5;
   shape-rendering: crispEdges; }
-
+/*
 .seq .q0-5 {
   fill: #f1eef6; }
 
@@ -255,7 +282,13 @@
   fill: #d7301f; }
 
 .seq .q6-7 {
-  fill: #990000; }
+  fill: #990000; }*/
+
+.choropleth-chart .seq path,
+.choropleth-chart .diverge path {transition: fill 1s; }
+
+.polar-area.seq path,
+.polar-area.diverge path {transition: fill 250ms; }
 
 .seq .q0-8{fill:rgb(255,247,236)}
 .seq .q1-8{fill:rgb(254,232,200)}
@@ -266,38 +299,44 @@
 .seq .q6-8{fill:rgb(215,48,31)}
 .seq .q7-8{fill:rgb(153,0,0)}
 
-.diverge .q0-10 {
-  fill: #543005; }
+.diverge .q0-10 {fill: #543005; }
+.diverge .q1-10 {fill: #8c510a; }
+.diverge .q2-10 {fill: #bf812d; }
+.diverge .q3-10 {fill: #dfc27d; }
+.diverge .q4-10 {fill: #f6e8c3; }
+.diverge .zero-10 {fill: whitesmoke; }
+.diverge .q5-10 {fill: #c7eae5; }
+.diverge .q6-10 {fill: #80cdc1; }
+.diverge .q7-10 {fill: #35978f; }
+.diverge .q8-10 {fill: #01665e; }
+.diverge .q9-10 {fill: #003c30; }
 
-.diverge .q1-10 {
-  fill: #8c510a; }
+.valbox {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border: 1px solid black; }
+.seq.valbox.q0-8{background-color:rgb(255,247,236)}
+.seq.valbox.q1-8{background-color:rgb(254,232,200)}
+.seq.valbox.q2-8{background-color:rgb(253,212,158)}
+.seq.valbox.q3-8{background-color:rgb(253,187,132)}
+.seq.valbox.q4-8{background-color:rgb(252,141,89)}
+.seq.valbox.q5-8{background-color:rgb(239,101,72)}
+.seq.valbox.q6-8{background-color:rgb(215,48,31)}
+.seq.valbox.q7-8{background-color:rgb(153,0,0)}
 
-.diverge .q2-10 {
-  fill: #bf812d; }
+.diverge.valbox.q0-10 {background-color: #543005; }
+.diverge.valbox.q1-10 {background-color: #8c510a; }
+.diverge.valbox.q2-10 {background-color: #bf812d; }
+.diverge.valbox.q3-10 {background-color: #dfc27d; }
+.diverge.valbox.q4-10 {background-color: #f6e8c3; }
+.diverge.valbox.zero-10 {background-color: whitesmoke; }
+.diverge.valbox.q5-10 {background-color: #c7eae5; }
+.diverge.valbox.q6-10 {background-color: #80cdc1; }
+.diverge.valbox.q7-10 {background-color: #35978f; }
+.diverge.valbox.q8-10 {background-color: #01665e; }
+.diverge.valbox.q9-10 {background-color: #003c30; }
 
-.diverge .q3-10 {
-  fill: #dfc27d; }
-
-.diverge .q4-10 {
-  fill: #f6e8c3; }
-
-.diverge .zero-10 {
-  fill: whitesmoke; }
-
-.diverge .q5-10 {
-  fill: #c7eae5; }
-
-.diverge .q6-10 {
-  fill: #80cdc1; }
-
-.diverge .q7-10 {
-  fill: #35978f; }
-
-.diverge .q8-10 {
-  fill: #01665e; }
-
-.diverge .q9-10 {
-  fill: #003c30; }
 /*
 .diverge .q0-11 {
   fill: #543005; }
@@ -382,6 +421,8 @@
   cursor: pointer; }
   .polar-area .arc path {
     stroke: #fff; }
+    .polar-area .arc path.no-data {
+      fill: #999; }
   .polar-area .arc text {
     fill: #666;
     font-size: 10px; }
@@ -453,3 +494,8 @@
   background-color: #fb0; }
 
 #map-extremes table { font-size: 13px; }
+
+.state-all-values .fa,
+#map-extremes .fa {
+  color: #aaa;
+}

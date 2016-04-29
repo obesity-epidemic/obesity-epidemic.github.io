@@ -6,9 +6,9 @@
         width: 555,
         margin: {
             top: 5,
-            right: 10,
+            right: 0,
             bottom: 20,
-            left: 40
+            left: 20
         }
     }
 
