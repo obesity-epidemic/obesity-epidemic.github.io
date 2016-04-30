@@ -858,19 +858,19 @@ Thermo guage
 }
 
 .lineargauge .ok {
-	fill: #297C29;
+	fill: #D4D4D4;
 }
 
 .lineargauge .warning {
-	fill: #FFBB00;
+	fill: #9F9F9F;
 }
 
 .lineargauge .weakfault {
-	fill: #FF9900;
+	fill: #6A6A6A;
 }
 
 .lineargauge .fault {
-	fill: #FF3300;
+	fill: #353535;
 }
 
 #cartoMain .indicator {

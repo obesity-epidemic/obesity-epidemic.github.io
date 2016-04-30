@@ -39,14 +39,7 @@ $("#cartoMenu").find(".region ").click(function (event) {
 $("#cartoMenu").find(".cartoReset").click(function (event) {
 
 
-    $("#cartoMenu").find(".nav").hover(function (){
-        $(this).css({'cursor' : 'wait'})
-    });
-
-    $("#cartoMain").hover(function (){
-        $(this).css({'cursor' : 'wait'})
-    });
-
+    $("#cartoMenu").find(".cartoReset").toggleClass("active");
     // change the display to Census
     setTimeout(function () {
         updateVisColor("region");
@@ -67,12 +60,7 @@ $("#cartoMenu").find(".cartoReset").click(function (event) {
     }, 5000);
     // Use the
     setTimeout(function () {
-        $("#cartoMenu").find(".nav").mousemove(function (){
-            $(this).css({'cursor' : 'pointer'})
-        });
-        $("#cartoMain").mousemove(function (){
-            $(this).css({'cursor' : 'default'})
-        });
+        $("#cartoMenu").find(".cartoReset").toggleClass("active");
     }, 5000);
 
 });
@@ -80,7 +68,9 @@ $("#cartoMenu").find(".cartoReset").click(function (event) {
 $('#show-me-carto-lesiure').click(function(e) {
     e.preventDefault();
     e.stopPropagation();
-    // change the display to Census
+    // change the display
+    colorCat = 'Obesity Rate';
+    sizeCat = 'Leisure Activity';
     setTimeout(function () {
         updateVisColor("obesity %");
     }, 1000);
@@ -92,23 +82,29 @@ $('#show-me-carto-lesiure').click(function(e) {
 $('#show-me-carto-soda').click(function(e) {
     e.preventDefault();
     e.stopPropagation();
-    // change the display to Census
+    // change the display
+    colorCat = 'Obesity Rate';
+    sizeCat = 'Soda Consumption';
+    verticalCat = 'Soda Consumption';
     setTimeout(function () {
         updateVisColor("obesity %");
     }, 1000);
     setTimeout(function () {
+
         updateVisArea("soda_consumption", sizeInput);
     }, 2000);
     setTimeout(function () {
         updateVisPlacement("soda_consumption")
     }, 3000);
-    verticalCat = 'Soda Consumption';
 });
 
 $('#show-me-carto-income').click(function(e) {
     e.preventDefault();
     e.stopPropagation();
-    // change the display to Census
+    // change the display
+    colorCat = 'Obesity Rate';
+    sizeCat = 'Bottom 20% of Income';
+    verticalCat = 'Bottom 20% of Income';
     setTimeout(function () {
         updateVisColor("obesity %");
     }, 1000);
@@ -118,7 +114,6 @@ $('#show-me-carto-income').click(function(e) {
     setTimeout(function () {
         updateVisPlacement("bottom_quintile_hhi")
     }, 3000);
-    verticalCat = 'Bottom Quintile of Income';
 });
 
 
@@ -145,7 +140,7 @@ $('#cartoMenu .state-filter input[type=checkbox]').change(function () {
 
 function getAttributeName(input) {
     switch (input) {
-        case 'Bottom Quintile of Income' :
+        case 'Bottom 20% of Income' :
             return "bottom_quintile_hhi";
         case 'Census Region'  :
             return "region";
@@ -167,7 +162,7 @@ function getAttributeName(input) {
             return "population";
         case 'Soda Consumption' :
             return "soda_consumption";
-        case 'Top Quintile of Income' :
+        case 'Top 20% of Income' :
             return "top_quintile_hhi";
         case 'TV Activity' :
             return "teen_w_3_plus_tv_hrs";
@@ -250,6 +245,8 @@ CartogramChart = function (_parentElement, _data) {
     this.data.forEach(function (d) {
         d.shift = 0;
         d.previousColor = 0;
+        // this should be a ratio
+        d["income_inequality"]=d["top_quintile_hhi"]/d["bottom_quintile_hhi"]
     });
     cartoData = this.data;
 
@@ -311,7 +308,7 @@ CartogramChart.prototype.initVis = function () {
 
     var slideScale = d3.scale.linear()
         .domain([-1,1])
-        .range([0, 160]);
+        .range([0, 110]);
 
     slider.axis().orient("top")
         .ticks(6)
@@ -346,8 +343,8 @@ CartogramChart.prototype.initVis = function () {
     vis.chart
         .append("text")
         .attr("class", "lineargaugeR")
-        .attr("x", 900)
-        .attr("y", 508)
+        .attr("x", 850)
+        .attr("y", 504)
         .text("R")
         .attr("opacity", 0);
 
@@ -444,7 +441,7 @@ CartogramChart.prototype.initStates = function () {
     vis.formatPercent = d3.format(".0%");
     vis.formatNumber = d3.format('.2s');
 
-    function formatToolTip(input) {
+    function formatToolTip(input, d) {
         switch (input) {
             case 'US Map' :
                 return '"Population: " + vis.formatNumber(d["population"])';
@@ -457,23 +454,32 @@ CartogramChart.prototype.initStates = function () {
             case 'Land Area' :
                 return '"Land Size: " + vis.formatNumber(d["area"])+ " square miles"';
             case 'Fruit Consumption' :
-                return '"% Consuming 1+ fruits: " + vis.formatNumber(d["adult_at_least_one_fruit"])+"%"';
+                return '"% Consuming 1+ fruits daily: " + vis.formatNumber(d["adult_at_least_one_fruit"])+"%"';
             case 'Vegetable Consumption' :
-                return '"% Consuming 1+ vegetables: " + vis.formatNumber(d["adult_at_least_one_veg"])+"%"';
+                return '"% Consuming 1+ vegetables daily: " + vis.formatNumber(d["adult_at_least_one_veg"])+"%"';
             case 'Weight Activity' :
-                return '"% Meeting physical strength requirements: " + vis.formatNumber(d["adults_aerobic_strength"])+"%"';
+                return '"% Meeting physical strength requirements (weekly): " + vis.formatNumber(d["adults_aerobic_strength"])+"%"';
             case 'Leisure Activity' :
-                return '"% of adults with no activity: " + vis.formatNumber(d["adults_w_no_activity"])+"%"';
+                return '"% of adults with no activity (weekly): " + vis.formatNumber(d["adults_w_no_activity"])+"%"';
             case 'TV Activity' :
-                return '"% watching 3+ hours of tv: " + vis.formatNumber(d["teen_w_3_plus_tv_hrs"])+"%"';
-            case 'Bottom Quintile of Income' :
-                return '"Bottom quintile of HHI: $" + vis.formatNumber(d["bottom_quintile_hhi"])';
-            case 'Top Quintile of Income' :
-                return '"Top quintile of HHI: $" + vis.formatNumber(d["top_quintile_hhi"])';
+                if (d["teen_w_3_plus_tv_hrs"] > 0) {
+                    return '"% watching 3+ hours of tv daily: " + vis.formatNumber(d["teen_w_3_plus_tv_hrs"])+"%"';
+                }
+                else {
+                    return '"% watching 3+ hours of tv daily: (not available)"';
+                }
+            case 'Bottom 20% of Income' :
+                return '"Bottom 20% average household incomes: $" + vis.formatNumber(d["bottom_quintile_hhi"])';
+            case 'Top 20% of Income' :
+                return '"Top 20% average household incomes: $" + vis.formatNumber(d["top_quintile_hhi"])';
             case 'Income Inequality' :
-                return '"Income gap between bottom and top quintiles: $" + vis.formatNumber(d["income_inequality"])';
+                return '"Ratio between top and bottom 20% household income averages: " + vis.formatNumber(d["income_inequality"])';
             case 'Soda Consumption' :
-                return '"% Consuming soda daily: " + vis.formatNumber(d["soda_consumption"])+"%"';
+                if (d["soda_consumption"]> 0) {
+                    return '"% Consuming soda daily: " + vis.formatNumber(d["soda_consumption"])+"%"';
+                } else {
+                    return '"% Consuming soda daily: (not available)"';
+                }
             case 'Census Region'  :
                 return '"Main Region: " + capitalizeFirstLetter(d["region"])';
             case 'Equal Size' :
@@ -486,11 +492,11 @@ CartogramChart.prototype.initStates = function () {
         .offset([-10, 0])
         .html(function (d) {
             if (!d.filtered) {
-                $(this).awesomeCursor('filter', {
-                    color:'gray',
+                $(this).awesomeCursor('eraser', {
+                    color:'pink',
                     outline:'black',
                     size: 28,
-                    hotspot: [5,5]
+                    hotspot: 'bottom left'
                 });
                 d3.selectAll('.d3-tip').style("display", "block");
                 this.parentNode.appendChild(this);
@@ -498,9 +504,9 @@ CartogramChart.prototype.initStates = function () {
                     '<div>' +
                     '<span class="tip-large-text">' +  d['obesity %'] + '%</span>' +
                     '&nbsp;<span class="tip-small-text">in ' + 2014 +  '<br>' +
-                    eval(formatToolTip(sizeCat))  + '<br>' +
-                    eval(formatToolTip(colorCat)) + '<br>' +
-                    eval(formatToolTip(verticalCat))
+                    eval(formatToolTip(sizeCat, d))  + '<br>' +
+                    eval(formatToolTip(colorCat, d)) + '<br>' +
+                    eval(formatToolTip(verticalCat, d))
                     + '</span>' +
                     '</div>';
 
@@ -596,6 +602,7 @@ CartogramChart.prototype.initStates = function () {
         .attr('y', function (d) {
             return d.y + 25;
         })
+        .attr('dy', ".35em")
         .text(function (d) {
             return d.state;
         })
@@ -944,7 +951,7 @@ function getFormatRight (inputParam, d) {
         case "bottom_quintile_hhi" :
             return "$" + numFormat(d);
         case "income_inequality" :
-            return "$" + numFormat(d);
+            return numFormat(d);
         case "top_quintile_hhi" :
             return "$" + numFormat(d);
         default:
@@ -1148,7 +1155,7 @@ function getCorrelation(inputParam) {
 
     var slideScale = d3.scale.linear()
         .domain([-1,1])
-        .range([19, 177]);
+        .range([18, 128]);
 
     d3.select(".lineargauge.hide")
         .attr("class","lineargauge");
@@ -1165,17 +1172,6 @@ function getCorrelation(inputParam) {
         .transition()
         .ease("sin-in-out")
         .attr('opacity', 1)
-        .style('fill', function(){
-            if (Math.abs(value) > .74) {
-                return '#297C29';
-            } else if (Math.abs(value) > .50) {
-                return '#FFBB00';
-            }  else if (Math.abs(value) > .25) {
-                return '#FF9900';
-            } else {
-                return '#FF3300';
-            }
-        })
         .text("R = "+Math.round(value*1000)/1000)
         .duration(500);
 
@@ -1183,19 +1179,13 @@ function getCorrelation(inputParam) {
         .transition()
         .ease("sin-in-out")
         .attr('opacity', 1)
-        .attr('fill', function(){
-            return '#297C29';
-        })
         .text(function(){
             var strength = "no";
             if (Math.abs(value) > .74) {
-                d3.select(this).style("fill", '#297C29');
                 strength = "strong";
             } else if (Math.abs(value) > .50) {
-                d3.select(this).style("fill", '#FFBB00');
                 strength = "moderate";
             }  else if (Math.abs(value) > .25) {
-                d3.select(this).style("fill", '#FF9900');
                 strength = "weak";
             }
             if (strength != "no" && value > 0) {
@@ -1203,7 +1193,6 @@ function getCorrelation(inputParam) {
             } else if (strength != "no") {
                 return strength + " negative association";
             }
-            d3.select(this).style("fill", '#FF3300');
             return "no association";
         })
         .duration(500);
