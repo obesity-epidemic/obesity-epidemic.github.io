@@ -125,33 +125,10 @@
                 return vis.y(d[vis.filter]);
             });
 
-
-        // TO-DO: Tooltip placeholder
-        // vis.placeholder = vis.svg.append("text")
-        //     .attr("class", "placeholder")
-        //     .attr("x", 5)
-        //     .attr("y", 5);
-
         // Tool tip
         vis.tip = d3.tip()
             .attr('class', 'd3-tip')
             .offset([-10, 0])
-            // .offset(function (pointData) {
-            //     if (pointData) {
-            //         // var yShift = vis.y(pointData.datum['Total Extremely Obese (BMI>=40)']) - this.getBBox().height -
-            //         //     vis.y(pointData.datum[pointData.name]);
-            //
-            //         //var yShift = vis.height - vis.y(pointData.datum[pointData.name]); // - this.getBBox().height;
-            //         var yShift = vis.height - this.getBBox().y;
-            //
-            //         return [-1 * yShift, 0];
-            //     }
-            // })
-            // .attr('y',function (pointData) {
-            //     if (pointData) {
-            //         return vis.y(pointData.datum['Total Extremely Obese (BMI>=40)']);
-            //     }
-            // })
             .html(function(pointData) {
                 var d = pointData.datum;
 

@@ -251,6 +251,7 @@ h3.chart-title {
 	background:#F1F1F1;
 	padding:10px;
 	margin-top: 15px;
+	border-radius: 1px;
 }
 .help-box .title{
 	font-family:BenchNine, sans-serif;
@@ -882,4 +883,24 @@ Thermo guage
 
 #cartoMain .lineargaugeLabel{
 	font-size: smaller;
+}
+
+.further-reading-list {
+	padding: 0;
+	list-style: none;
+}
+
+.further-reading-list li {
+	display: inline-block;
+	background-color: #F1F1F1;
+	margin-top: 20px;
+	margin-left: 13%;
+	padding: 20px;
+	border-radius: 1px;
+	width: 30%;
+}
+
+.further-reading-list .link {
+	font-size: 22px;
+	margin-bottom: 30px;
 }

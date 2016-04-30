@@ -172,10 +172,20 @@
 			<div class="col-xs-6">
 				<h3 class="chart-title">Overweight and Obesity Over Time</h3>
 				<div id="overweight-percentage-viz"></div>
+
+				<div class="source" style="margin-top: 20px;">
+					Source:<br />
+					<a target="_blank" href="http://www.cdc.gov/nchs/data/hestat/obesity_adult_11_12/obesity_adult_11_12.htm">Prevalence of Overweight, Obesity, and Extreme Obesity Among Adults, CDC</a>
+				</div>
 			</div>
 			<div class="col-xs-6">
 				<h3 class="chart-title">Health Spending Over Time</h3>
 				<div id="health-spending-viz"></div>
+
+				<div class="source" style="margin-top: 20px;">
+					Source:<br />
+					<a target="_blank" href="http://www.ncbi.nlm.nih.gov/pubmed/20059703">Direct medical cost of overweight and obesity in the USA, NIH</a>
+				</div>
 			</div>
 		</div>
         </section>
@@ -301,6 +311,11 @@
 			<div class="col-xs-9">
 				<div id="timeline"></div>
 				<div id="choropleth"></div>
+			</div>
+
+			<div class="col-xs-12 source">
+				Source:<br />
+				<a target="_blank" href="http://stateofobesity.org/rates/">Obesity Rates & Trends, The State of Obesity</a>
 			</div>
 		</div>
 
@@ -498,6 +513,11 @@
 
 					<button id="btn-polar-states-close" class="btn btn-primary pull-right">Close</button>
 				</div>
+			</div>
+
+			<div class="source col-xs-12" style="margin-top: 20px;">
+				Source:<br />
+				<a target="_blank" href="http://stateofobesity.org/rates/">Obesity Rates & Trends, The State of Obesity</a>
 			</div>
 		</div>
         </section>
@@ -734,6 +754,11 @@
 					</ul>
 				</div>
 				<div class="col-xs-10" id = "cartoGram">
+				</div>
+
+				<div class="source">
+					Source:<br />
+					<a target="_blank" href="http://www.cdc.gov/brfss/data_tools.htm">Behavioral Risk Factor Surveillance System, CDC</a>
 				</div>
 			</div>
         </div>
@@ -994,7 +1019,7 @@
 
 
 		<!-- What can you do? -->
-		<div class="row">
+		<div class="row" style="margin-top: 50px">
 			<div class="col-xs-12">
 				<h2>What can you do?</h2>
 			</div>
@@ -1017,7 +1042,7 @@
 				</p>
 			</div>
 
-			<div class="col-xs-6 scale-section" style="text-align:center; ">
+			<div class="col-xs-6 scale-section" style="text-align:center; padding-left: 50px;">
 				<h4 class="maintaining-weight">Maintaining Weight</h4>
 				<h4 class="losing-weight" style="color:#297D29;">Losing Weight</h4>
 				<h4 class="gaining-weight" style="color:#FF3300;">Gaining Weight</h4>
@@ -1170,9 +1195,37 @@
 						(3) Countries around the world have obesity issues and America's problem is not the worst.
 					</div>
 				</div>
-				<ul style="margin-top: 10px">
-					<li>World Wide Obesity</li>
-					<li>CDC Childhood Obesity</li>
+
+				<ul class="row further-reading-list" style="margin-top: 10px; margin-bottom: 100px">
+					<li>
+						<div class="link"><a target="_blank" href="http://www.worldobesity.org/resources/world-map-obesity/">
+							World Wide Obesity,<br />World Obesity Federation</a>
+						</div>
+						<div>
+							View world wide data by Men, Women, Girl, or Boy grouping over many time periods with a
+							variety of factors:
+							socioeconomic, age, education, policies / interventions, and more.
+						</div>
+					</li>
+
+					<li>
+						<div class="link"><a target="_blank" href="http://stateofobesity.org/rates/">
+							Obesity Rates & Trends,<br/>The State of Obesity</a></div>
+						<div>A variety of factors and trends for the USA. Covering diabetes, hypertension, food insecurity,
+							socioeconomic, racial and ethnic disparities, health care costs, and more.</div>
+					</li>
+
+					<div class="clearfix"></div>
+
+					<li>
+						<div class="link"><a target="_blank" href="http://vizhub.healthdata.org/obesity/">World Wide Obesity,<br />HealthData.org</a></div>
+						<div>Explore world wide data and filter based on age groups, gender, and geography.</div>
+					</li>
+
+					<li>
+						<div class="link"><a target="_blank" href="http://www.who.int/dietphysicalactivity/childhood/en/">Childhood Overweight and Obesity, WHO</a></div>
+						<div>Background information on rates, fact sheets, and strategies for addressing.</div>
+					</li>
 				</ul>
 			</div>
 		</div>
@@ -1226,10 +1279,12 @@
 
 			<div class="col-xs-4">
 				<h4>Data Sources</h4>
-				<a href="http://www.cdc.gov/nchs/data/series/sr_11/sr11_252.pdf">BMI For Age Groups: Anthropometric Reference Data 2007-2010, CDC</a><br />
-				<a href="https://ndb.nal.usda.gov/ndb/search">Calorie Counts: National Nutrient Database, USDA</a><br />
-				<a href="https://www.researchgate.net/publication/6138361">Body Sizes By BMI, ResearchGate</a><br />
-				<a href="http://journals.lww.com/acsm-msse/Fulltext/2011/08000/2011_Compendium_of_Physical_Activities__A_Second.25.aspx">Mets of Activities, Compendium of Physical Activities, journals.lwww.com</a>
+				<ul>
+					<li><a href="http://www.cdc.gov/nchs/data/series/sr_11/sr11_252.pdf">BMI For Age Groups: Anthropometric Reference Data 2007-2010, CDC</a><br /></li>
+					<li><a href="https://ndb.nal.usda.gov/ndb/search">Calorie Counts: National Nutrient Database, USDA</a><br /></li>
+					<li><a href="https://www.researchgate.net/publication/6138361">Body Sizes By BMI, ResearchGate</a><br /></li>
+					<li><a href="http://journals.lww.com/acsm-msse/Fulltext/2011/08000/2011_Compendium_of_Physical_Activities__A_Second.25.aspx">Mets of Activities, Compendium of Physical Activities, journals.lwww.com</a></li>
+				</ul>
 			</div>
 
 			<div class="col-xs-4">

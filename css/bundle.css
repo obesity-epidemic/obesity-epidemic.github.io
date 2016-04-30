@@ -26,9 +26,10 @@
 }
 
 .fact-box {
-  background-color: #f0f0f0;
+  background-color: #F1F1F1;
   margin-bottom: 50px;
   padding: 20px;
+  border-radius: 1px;
 }
 
 .fact-box > div {
