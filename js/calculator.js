@@ -1,50 +1,4 @@
-//Add the line chart
-//Add the plant
-//Finish the report section
-//Update the body shapes
-
-
-
-// change the scale to be an svg.
-
-
-//Percentiles by age
-//http://www.cdc.gov/growthcharts/clinical_charts.htm
-
-
-
-// Always have same x values for bmi so they are animated.
-// have a bar charts showing the calorie intake of the different obesity levels.
-
-
-//https://www.researchgate.net/publication/6138361_BMI-based_body_size_guides_for_women_and_men_Development_and_validation_of_a_novel_pictorial_method_to_assess_weight-related_concepts_International_Journal_of_Obesity_London_322_336-342
-
-
-//OVerweight Raised Risk of
-////http://www.bbc.co.uk/health/tools/bmi_calculator/bmi.shtml
-/*
-Heart disease
-High blood pressure
-Diabetes
-Arthritis
-Infertility
-Asthma
-Cancer
-
-Obese
-Heart disease
-Diabetes
-Arthritis
-Infertility
-
-Asthma
-
-Cancer
-*/
-
-
-
-
+// We have a staggered init process to avoid blocking the page.
 function init(argument) {
 	var body0 = d3.select('#body0').node();
 	var body1 = d3.select('#body1').node();
@@ -62,7 +16,6 @@ function init(argument) {
 
 	// These are so that at any point in time we can go to a specific body shape.
 	var tweeners = [];
-
 	var mtweeners = [];
 
 	var actions = [
@@ -93,18 +46,10 @@ function init3(actions, tweeners, mtweeners){
 	}
 }
 
-
-
-
-
-
+// This is the main init.
 function init4(tweeners, mtweeners){
 
 var percentileData;
-
-
-
-
 var maxWeight = 400;
 
 var childrenWeightClasses = [
@@ -490,7 +435,7 @@ function updateHeightSlider(params) {
 	opts.updateBrush = brushed;
 }
 
-
+// This is the bmi age percentile bar.
 function updatePercentile(params) {
 	// Setup the svg.
 	if(!calculator.percentileOpts){
@@ -516,8 +461,6 @@ function updatePercentile(params) {
 		.domain(d3.extent(data, function(d){return d.bmi;}) )
 		.range([0, opts.width])
 		.clamp(true);
-
-
 
 
 	var bar = opts.svg.selectAll(".bar-group")
@@ -550,8 +493,6 @@ function updatePercentile(params) {
 		.attr('opacity', 0)
 		.remove();
 
-
-
 	// Add the BMI ticks and labels
 	opts.bmiAxis = d3.svg.axis()
 		.scale(x)
@@ -577,10 +518,7 @@ function updatePercentile(params) {
 		.duration(opts.duration)
 		.attr("transform", function(d) { return "translate(" + ((x(d)||0) - 2) + ",0)"; })
 
-
-
 	if(!opts.bmiAxisGroup){
-
 
 		opts.svg.append("text")
 			.attr('class', 'axis-label x-axis')
@@ -588,17 +526,11 @@ function updatePercentile(params) {
 			.text('BMI')
 			.attr("transform", "translate(" + -2 + "," + -25 +")");
 
-
 		opts.svg.append("text")
 			.attr('class', 'axis-label x-axis')
 			.attr("text-anchor", "start")
 			.text('Percentile')
 			.attr("transform", "translate(" + -2 + "," + 55 +")");
-
-
-		
-
-
 
 		opts.bmiAxisGroup = opts.svg.append("g")
 			.attr("class", "x axis bmiAxis")
@@ -606,7 +538,6 @@ function updatePercentile(params) {
 	}
 
 	opts.bmiAxisGroup.transition().duration(opts.duration).call(opts.bmiAxis);
-
 
 	// Add the Percentile ticks and labels
 	opts.percentileAxis = d3.svg.axis()
@@ -626,9 +557,6 @@ function updatePercentile(params) {
 
 	opts.percentileAxisGroup.transition().duration(opts.duration).call(opts.percentileAxis);
 }
-
-
-
 
 
 function convertToFeetAndInches(inches){
@@ -678,7 +606,6 @@ function getWeightClass(bmi){
 
 //https://www.nhlbi.nih.gov/health/educational/lose_wt/BMI/bmi_dis.htm
 //https://www.nhlbi.nih.gov/health/educational/lose_wt/risk.htm
-//
 //http://www.hsph.harvard.edu/obesity-prevention-source/obesity-consequences/
 function getRisk(bmi, waist, gender){
 	var selected = null;
@@ -791,12 +718,10 @@ function getDailyCalories(gender, weight, height, age, activityLevel){
 }
 
 //https://en.wikipedia.org/wiki/Harris%E2%80%93Benedict_equation
-
 //https://en.wikipedia.org/wiki/Waist-to-height_ratio
 
 // How many calories to reduce by.
 //http://www.bmi-calculator.net/bmr-calculator/harris-benedict-equation/calorie-intake-to-lose-weight.php
-
 //http://www.freedieting.com/calorie_needs.html  (This explains how much to lose.)
 
 
@@ -851,7 +776,6 @@ function Calculator(){
 		});
 
 		this.percentileObj = getPecentileData(this.age, this.gender);
-
 		this.bodyPath = d3.select(".bmi-body path");
 		updateWeightSlider({selector:'#weightSlider'});
 		updateHeightSlider({selector:'#heightSlider'});
@@ -859,8 +783,6 @@ function Calculator(){
 		updateBmiBody({selector:'#bmiBody'});
 		this.weightOpts.updateBrush(this.weight);
 		this.heightOpts.updateBrush(this.height);
-
-
 	};
 
 	this.set = function(prop, val){
@@ -893,20 +815,11 @@ function Calculator(){
 		this.percentileObj = getPecentileData(this.age, this.gender);
 		this.matchingPercentile = getMatchingPecentile(this.percentileObj.data, this.rawBmi); 
 
-		
-
-
-
-
-
-
 		$('#bmi-by-age-label').html("Your BMI is greater than " 
 		+ this.matchingPercentile.percentileStart 
 		+ "% to " + this.matchingPercentile.percentile 
 		+ "% of "
 		+ this.percentileObj.start +  " to " + this.percentileObj.end + "-year-old " + (this.gender ? 'males.' : 'females.'));
-
-
 
 		var weightClass = getWeightClass(this.rawBmi);
 		this.weightClass = weightClass;
@@ -933,10 +846,6 @@ function Calculator(){
 			healthyDailyCalories = getDailyCalories(this.gender, this.weight, this.height, this.age, this.activityLevel);
 		}
 
-
-
-
-
 		$('.weight-label').html(Math.floor(this.weight));
 		//$('#weight-label').html(this.weight));
 		$('.height-label').html(convertToFeetAndInches(this.height));
@@ -945,36 +854,21 @@ function Calculator(){
 		$('.gender-label').html(this.gender == 0 ? 'female' : 'male');
 		$('.age-label').html(this.age);
 
-
-
 		$('.desired-weight-change-label').html(desiredWeightChange);
 		$('.desired-weight-change-group').hide();
 		$('.desired-weight-change-group.'+ direction).show();
-
 		$('.risks-label').html(getRisk(this.bmi, this.waist, this.gender));
-
-
 		$('.recommended-activity-label').html(getActivityRecommendationForAge(this.age).label);
-
 		$('.daily-calories-label').html(getDailyCalories(this.gender, this.weight, this.height, this.age, this.activityLevel));
-
 		$('.recommended-calories-label').html(healthyDailyCalories);
-
 		$('.gender-icon').hide();
 		$('.gender-icon.gender-'+ this.gender).show();
-
 		$('.obesityClass').html(weightClass.label);
-
-
 		$('.calculator ').removeClass('under normal over obese1 obese2 obese3').addClass(weightClass.id);
 
-
 		updateWeightSlider();
-		
 		updateBmiBody();
-
 		updatePercentile();
-
 
 		this.genderSelect.val(this.gender + '');
 		this.ageSelect.val(this.age + '');
@@ -988,11 +882,6 @@ function Calculator(){
 
 	};
 };
-
-
-
-
-
 
 
 var calculator = new Calculator();
@@ -1021,8 +910,6 @@ queue()
   			{percentile:95,  percentileStart:90, showLabel:true,   start:row['90th'],  bmi: row['95th'] },
   			{percentile:100, percentileStart:95, showLabel:false,  start:row['95th'],  bmi: row['95th'] + 1},
   		];
-
-  		
   	});
 
   	percentileData = data;
@@ -1035,18 +922,11 @@ window.calculator = calculator;
 
 };
 
-//_.delay(init, 1000);
+
 init();
 
 
-
-
-
-
-
-
-
-
+// This is used by the show me more buttons.
 function demo(id, el){
 
 	switch(id){
@@ -1057,11 +937,8 @@ function demo(id, el){
 			calculator.gender = 0; // 1 = male
 			calculator.age = 34;
 			calculator.waist = 32;
-
 			calculator.weightOpts.updateBrush(calculator.weight);
 			calculator.heightOpts.updateBrush(calculator.height);
-
-
 			calculator.refresh();
 
 			_.delay(function(){
@@ -1120,27 +997,17 @@ function demo(id, el){
 
 		break;
 
-
 		case 'food1':
-
 			snackViz.set('selectedFood', 'Snickers');
-
 		break;
 
 		case 'food2':
-
 			snackViz.set('selectedFood', 'Pepsi');
-
 		break;
 
 		case 'food3':
-
 			snackViz.set('selectedFood', 'Celery');
-
 		break;
-
-
-
 
 	}
 
