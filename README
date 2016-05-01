@@ -1,1 +1,34 @@
-http://obesity-epidemic.github.io/
+CS171 - Visualization
+
+Team Members:
+	Kevin Buhrer
+	Jonny Moon
+	Thomas Musser
+
+URLS:
+	Public Website: http://obesity-epidemic.github.io/
+	Screencast:     https://youtu.be/gbLCR_tksKg
+	GitHub Repo:    https://github.com/orgs/obesity-epidemic
+	Process Book:   https://sway.com/MuG5yRgnxRmMMLLV
+
+Code:
+	Located in the "js" directory.
+
+Data:
+	Located in the "data/processed_data" directory
+	Original data is located in the "data/source_data"
+
+Libraries, Frameworks, Etc:
+	- Fontawesome
+	- Google fonts
+	- Google Material Icons
+	- Bootstrap
+	- Lodash
+	- jQuery
+	- D3
+	- Polymer
+	- Color brewer
+	- Pearson correlation
+	- Awesome cursor
+	- Range Slider
+	- D3 Legend
