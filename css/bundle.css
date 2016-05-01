@@ -59,16 +59,17 @@
   opacity: 0.8;
 }
 
-.lead-wrap {
-  background: url('../img/pizza_bw.jpg');
-  background-size: cover;
-}
+/*.lead-wrap {*/
+  /*background: url('../img/pizza_bw.jpg');*/
+  /*background-size: cover;*/
+/*}*/
 
 .page-lead {
-  background: linear-gradient(-30deg, rgba(200, 0, 0, 0.9) 10%, rgba(255, 150, 0, 0.85) 90%);
+  /*background: linear-gradient(-30deg, rgba(200, 0, 0, 0.9) 10%, rgba(255, 150, 0, 0.85) 90%);*/
   /*text-align: center;*/
   text-shadow: 0 1px 4px #000000;
   padding: 50px;
+  background-color: #112233;
   /*margin-bottom: 50px;*/
 }
 

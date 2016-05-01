@@ -163,7 +163,7 @@ section h2 {
 
 .container.footer {
 	min-height: 200px;
-	background-color: #000000;
+	background-color: #112233;
 	color: #eeeeee;
 	margin-bottom: 0;
 	padding-top: 20px;
@@ -220,15 +220,18 @@ h3.chart-title {
 
 .header .team-members{
 	margin-top:30px;
+	opacity: 0.8;
 }
 
 .big-quote{
 	float:right;
 	width:375px;
-	border:solid 4px #4a90e2;
+	/*border:solid 4px #4a90e2;*/
+	border: 4px solid #5566cc;
 	border-left: none;
 	border-right: none;
-	color:#4a90e2;
+	/*color:#4a90e2;*/
+	color: #5566cc;
 	padding:20px 15px;
 	font-size: 34px;
 	font-weight:100;
