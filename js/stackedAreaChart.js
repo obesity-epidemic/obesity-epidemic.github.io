@@ -136,7 +136,7 @@
                 var obeseRate = d['Total Obese (BMI >= 30)'];
                 var overweightRate = d['Total Overweight (25 <= BMI < 30)'];
 
-                return '<div class="tip-title">' + pointData.year.getFullYear() + '</div>'
+                return '<div class="tip-title">' + d['Year Period'] + '</div>'
                     + '<table class="table table-dark">'
                     + '<tr class="extreme-obese"><td><span class="legend"></span>&nbsp;Extreme Obesity&nbsp;</td><td class="text-right">' + extremeObeseRate + '%</td></tr>'
                     + '<tr class="obese"><td><span class="legend"></span>&nbsp;Obesity</td><td class="text-right">' + obeseRate + '%</td></tr>'
@@ -241,7 +241,9 @@
             points.enter().append('circle')
                 .style("opacity", 0)
                 .attr('class', 'point')
-                .attr('cx', function(d) { return vis.x(d.year); })
+                .attr('cx', function(d) {
+                    return vis.x(d.year);
+                })
                 .attr('cy', function (d) {
                     return vis.y(d.y + d.y0);
                 })

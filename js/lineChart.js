@@ -92,7 +92,7 @@
             return {
                 name: name,
                 values: vis.data.map(function(d) {
-                    return { year: d.year, y: d[name] };
+                    return { year: d.year, y: d[name], data: d };
                 })
             };
         });
@@ -113,7 +113,7 @@
                     return r;
                 }).value();
 
-                return '<div class="tip-title">' + point.year.getFullYear() + '</div>'
+                return '<div class="tip-title">' + point.data['Year Period'] + '</div>'
                     + '<table class="table table-dark">'
                     + rows.join('')
                     + '</table>';

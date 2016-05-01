@@ -322,6 +322,8 @@
 
             if (this.value === 'over-time') {
                 setBestWorstChangeTable(activeRange);
+                choropleth.setRange(activeRange);
+                timeline.setRange(activeRange);
             }
             else {
                 setBestWorstTable(activeProperty);
