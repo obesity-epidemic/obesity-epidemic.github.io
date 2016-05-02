@@ -878,7 +878,7 @@ function Calculator(){
 
 		d3.select('#chair').transition()
 		.duration(800)
-		.style('height', chairHeight);
+		.attr('height', chairHeight);
 
 	};
 };
