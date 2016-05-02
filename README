@@ -10,6 +10,12 @@ URLS:
 	Screencast:     https://youtu.be/gbLCR_tksKg
 	GitHub Repo:    https://github.com/orgs/obesity-epidemic
 	Process Book:   https://sway.com/MuG5yRgnxRmMMLLV
+	Project Poster: http://obesity-epidemic.github.io/files/Americas-Obesity-Epidemic-Poster.pdf
+
+Files:
+	The Project Poster and Process Book are located in the "files" directory.
+	Please reference the website for the Process Book (https://sway.com/MuG5yRgnxRmMMLLV) instead
+	of the PDF in the files directory, since the PDF is just an export of the website.
 
 Code:
 	Located in the "js" directory.
